@@ -144,7 +144,7 @@ Install ./splunk start
 
 Open port for Splunk connection from public IP (ufw allow 8000)
 
-Opn port for forwarder ufw allow 9997
+Open port for forwarder (ufw allow 9997)
 
 
 
