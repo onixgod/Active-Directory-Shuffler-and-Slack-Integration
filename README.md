@@ -47,18 +47,14 @@ I will be using Draw.io (a free diagramming platform) to sketch the project arch
     - **MyLab-Test01** - Test/Target machine for attack simulation (Windows Server 2022)
     - **MyLab-Splunk** - SIEM platform for log collection and analysis (Ubuntu Linux)
 
-Cloud Services Integration:
+- ### Cloud Services Integration:
+    - **Shuffler - SOAR platform for automation and orchestration
+    - **Slack - Communication platform for real-time notifications
 
-Shuffler - SOAR platform for automation and orchestration
-Slack - Communication platform for real-time notifications
-
-
-Network Infrastructure:
-
-Vultr Cloud - Hosting platform for all three VMs
-Vultr Network Firewall - Access control and security rules
-Attacker Machine - External laptop representing threat actor
-
+- ### Network Infrastructure:
+    - **Vultr Cloud - Hosting platform for all three VMs
+    - **Vultr Network Firewall - Access control and security rules
+    - **Attacker Machine - External laptop representing threat actor
 
 
 [Screenshot of Draw.io diagram showing all components and their connections]
