@@ -1,4 +1,4 @@
-# Active Directory Shuffler and Slack Integration
+/# Active Directory Shuffler and Slack Integration
 
 ## Objective
 The Active Directory, Shuffler and Slack Integration project aimed to create an automated incident response workflow that bridges security monitoring with real-time team communication. The primary focus was to establish seamless integration between Active Directory security events, SOAR (Security Orchestration, Automation and Response) capabilities through Shuffler, and instant notification systems via Slack. This hands-on experience was designed to simulate enterprise-level security operations workflows, automate threat detection responses, and demonstrate proficiency in orchestrating multi-platform security tools essential for SOC Tier 1 analyst responsibilities.
@@ -26,7 +26,7 @@ This shows proper attribution to the content creator who helped guide your learn
 - Splunk - SIEM platform for log ingestion, analysis, and alert management
 - Linux Ubuntu - Operating system platform for Splunk deployment
 - Active Directory - Directory service for user authentication and security event generation
-- Windows Server 2022 - Two separate servers: one dedicated for AD deployment and one as test machine
+- Windows Server 2022 - Two separate servers: one dedicated to AD deployment and one as a test machine
 - Shuffler - SOAR platform for security orchestration and automated response workflows
 - Slack - Team communication platform for real-time incident notifications
 - Vultr - Cloud infrastructure provider for hosting the lab environment (3 VMs total)
@@ -61,7 +61,7 @@ I will be using Draw.io (a free diagramming platform) to sketch the project arch
 
 ### 1.2 Cloud Platform Setup
 We will be using Vultr cloud services for our virtual machine deployment. Vultr offers a $300 voucher for new users, which is perfect for this lab environment. As mentioned by @MyDFIR, you can access the promotional link through his YouTube channel or visit (hxxps://www.vultr.com/?ref=9632889-9J).
-Note: If you don't have a Shuffler or Slack account, please create one before proceeding, as it will be essential for automation and  receiving automated notifications from our SOAR platform.
+**Note:** If you don't have a Shuffler or Slack account, please create one before you start, because it will be essential for automation and  receiving automated notifications from our SOAR platform.
 ### 1.3 Playbook Development
 The final part of this planning phase involves creating a detailed playbook that defines how Shuffler will automatically respond to security events detected by Splunk. This playbook will establish:
 
@@ -70,7 +70,61 @@ The final part of this planning phase involves creating a detailed playbook that
 - **Notification procedures** - How and when alerts will be sent to Slack
 - **Escalation paths** - When and how incidents should be elevated
 
+|Successful Unauthorised Login Playbook|
+| ------ |
+|Send an alert notification and email to the SOC Analyst asking if they want to disable the user|
+|If YES - Disable Domain Account and send notification of account disabled|
+|If NO - Do nothing|
+
+![image](https://github.com/user-attachments/assets/aa511060-d23d-49db-b1cf-c557b173fefb)
+*This playbook shows the decision tree for automated incident response, from initial event detection through final notification and documentation.*
+This foundational step ensures we have a clear roadmap before deploying any infrastructure, making the implementation process much smoother and more organised.
+
+
+![image](https://github.com/user-attachments/assets/d476d42a-8335-4ba8-8f1b-fd8d2aa5a6ee) (Deploy area)
+
+
+![image](https://github.com/user-attachments/assets/56a11c40-ce58-45ce-948d-740bacd2f418) (Win AD Deploy)
+
+
+![image](https://github.com/user-attachments/assets/1e966c38-d9b0-42bf-af2d-71f14699d6d3) (Select win 2022 server)
+
+![image](https://github.com/user-attachments/assets/63bcb0c4-396f-4802-948c-579f00c22774)  (Disable backup and deploy)
+
+
+![image](https://github.com/user-attachments/assets/fc5ddaa4-b2d5-4c48-846e-bd6ba7437bda) (AD server login details, public IP)
+
+
+![image](https://github.com/user-attachments/assets/b7506cf1-c6b0-4bc8-8db7-9ef1ac04d969) (Win Test deploy)
+
+
+![image](https://github.com/user-attachments/assets/9e72b9dc-2411-40ac-976f-8eeb642ba153) (Select win 2022 server) (Disable backup and deploy)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 *Ref 1: Network Diagram*
+
+
+
+
+
 
 
 
