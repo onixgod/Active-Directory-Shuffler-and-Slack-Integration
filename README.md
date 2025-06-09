@@ -1,4 +1,4 @@
-/# Active Directory Shuffler and Slack Integration
+# Active Directory Shuffler and Slack Integration
 
 ## Objective
 The Active Directory, Shuffler and Slack Integration project aimed to create an automated incident response workflow that bridges security monitoring with real-time team communication. The primary focus was to establish seamless integration between Active Directory security events, SOAR (Security Orchestration, Automation and Response) capabilities through Shuffler, and instant notification systems via Slack. This hands-on experience was designed to simulate enterprise-level security operations workflows, automate threat detection responses, and demonstrate proficiency in orchestrating multi-platform security tools essential for SOC Tier 1 analyst responsibilities.
@@ -85,53 +85,145 @@ This foundational step ensures we have a clear roadmap before deploying any infr
 The first step is to open an account on Vultr. As mentioned previously, a new account comes with $300 in credits, which is more than enough to complete this project and provides excellent value for learning cybersecurity lab deployments.
 ### 2.2 Deploying the Active Directory Domain Controller (MyLab-ADDC01)
 **Creating the First VM - Windows Server 2022 for AD:**
+
 ![image](https://github.com/user-attachments/assets/d476d42a-8335-4ba8-8f1b-fd8d2aa5a6ee)
 *This shows the main Vultr dashboard where we'll begin our VM deployment process.*
+
 To create a VM, click on the **Compute** link on the left panel, then click on the **Deploy** button in the top right corner.
+
 ![image](https://github.com/user-attachments/assets/56a11c40-ce58-45ce-948d-740bacd2f418)
 *The Compute section shows the deploy button that initiates the VM creation process.*
+
 On the deployment page, select **Shared CPU**. Then, choose a location and city close to your region to improve the speed at which the VM is accessed remotely. For the server type, select **VC2-2c-4GB**, which provides sufficient resources for our Active Directory server.
+
 ![image](https://github.com/user-attachments/assets/1e966c38-d9b0-42bf-af2d-71f14699d6d3) 
 *Server configuration showing the recommended specifications for our AD server deployment.*
+
 Click on the **Configure Software** button located in the bottom left corner. Select **Windows Server 2022 Standard x64** as our operating system.
+
 ![image](https://github.com/user-attachments/assets/63bcb0c4-396f-4802-948c-579f00c22774)  
 _Operating system selection interface displaying Windows Server 2022 options._
+
 Label the machine with your preferred hostname for the AD Server (e.g., **"MyLab-ADDC01"**). **Deselect Automatic Backups** (this feature isn't needed for this project and will save credits), then click the **Deploy** button in the bottom right corner to initiate the deployment.
+
 ![image](https://github.com/user-attachments/assets/0ac51e83-ed7f-44b4-ab03-2fa005046725) 
 _Final configuration screen before deployment, showing hostname setup and backup options._
+
 When deployment is finished, you can access the server overview and **take note of your public IP, username, and password** for future remote access.
+
 ![image](https://github.com/user-attachments/assets/b7506cf1-c6b0-4bc8-8db7-9ef1ac04d969) 
 _VM overview displaying essential connection information, including public IP and credentials._
+
 ### 2.3 Deploying the Test Machine (MyLab-Test01)
 Now we'll deploy the test machine following similar steps. Choose an appropriate hostname for this machine, but select **VC2-1c-2GB** for the server specifications (lower resources are sufficient for the test machine role).
+
 ![image](https://github.com/user-attachments/assets/9e72b9dc-2411-40ac-976f-8eeb642ba153) 
 _Test machine configuration showing the smaller resource allocation appropriate for its role._
+
 Access the deployed machine and **record the Public IP address, username, and password** for later use.
+
 ![image](https://github.com/user-attachments/assets/13563669-ac3a-4b19-9109-6a33f9d3e808) 
 _Test machine deployment summary showing connection information._
+
 ### 2.4 Deploying the Splunk Server (MyLab-Splunk)
 For our SIEM platform, select **Shared CPU**, choose your preferred location, then select **VC2-4c-8GB** (higher specifications needed for log processing and analysis).
+
 ![image](https://github.com/user-attachments/assets/14348738-8545-47cd-9bac-412513d59961) 
 _Splunk server configuration displaying the higher resource allocation needed for SIEM operations._
+
 Select **Ubuntu 22.04 x64** as the operating system. Remember to deselect automatic backups and click deploy.
+
 ![image](https://github.com/user-attachments/assets/856b5c56-5c44-4c97-b0cb-1550a82be2bb) 
 _Ubuntu operating system selection for our Splunk platform deployment._
+
 Access the newly deployed Linux machine and **take note of the public IP address, username, and password**.
+
 ![image](https://github.com/user-attachments/assets/a6c8c075-0a68-4924-a82b-b6655f873bab) 
 _Ubuntu server deployment summary showing SSH connection details._
+
 ### 2.5 Configuring Firewall Rules
 Now we'll set up the firewall group to grant secure remote access to our VMs. We need to allow access to:
 -   **SSH port 22** (for Linux administration)
 -   **RDP port 3389** (for Windows remote access)
 -   **Port 8000** (for Splunk web interface)
 For security during testing, set the Source for all connections to **"My IP"** to restrict access to your current location.
+
 ![image](https://github.com/user-attachments/assets/7085be3a-3ea8-4c0d-aa50-1526ac7d947c)
 _Firewall rules configuration displaying the essential ports needed for remote administration and Splunk access._
+
 ### 2.6 Setting Up VPC Network
 To establish secure internal communication between VMs, we'll attach a VPC (Virtual Private Cloud) to each machine. This provides private network connectivity within the cloud environment.
 For each VM, select the machine, click on **Settings**, then **VPC Networks**, and click the **Attach VPC** button. The process takes a few seconds to complete.
 **Important:** Record the **Private IP address and Network Mask** for each machine - these will be needed to configure network adapters on the Windows machines.
+
 ![image](https://github.com/user-attachments/assets/3e6af083-bdab-4e8c-a8ca-64430d570d05)
+_VPC network configuration showing private IP assignments for internal communication between VMs._
+
+### 2.7 Active Directory Configuration
+Deploy Active Directory Services on the AD Server using the private IP address on network adapter 2.
+**Note:** I won't detail the AD installation steps here, as this should be fundamental knowledge for cybersecurity professionals. If needed, numerous online tutorials are available to cover Windows Server Active Directory deployment.
+
+![image](https://github.com/user-attachments/assets/a4e7c89a-68d4-4a3f-91a7-5c6a8a85b66f) 
+_Active Directory configuration completed with domain controller promotion successful._
+
+After AD configuration and promotion, create a domain user for testing purposes. In this example, I created a user named **Jenny Smith (JSmith)** with a secure password, deselecting the options "Change password at first login" and "Password never expires" for lab convenience.
+
+![image](https://github.com/user-attachments/assets/442981ff-56af-4021-bc86-672477439938) 
+_Domain user creation interface showing the test user account setup for our lab environment._
+
+### 2.8 Joining the Test Machine to the Domain
+Configure the test machine to join our domain by setting up network adapter 2 with its VPC private IP address and using the AD server's private IP as the DNS server.
+
+Navigate to Windows Settings → **Rename this PC (advanced)** → **Change** → select **Domain** → enter your domain name. The system will prompt for administrator credentials. Upon successful authentication, the machine will restart and join the domain.
+
+![image](https://github.com/user-attachments/assets/8800341c-7d42-40b5-aa78-3c394da975af) 
+_Domain join interface displaying successful integration of the test machine with our Active Directory domain._
+
+### 2.9 Ubuntu Splunk Server Setup
+SSH to the Ubuntu VM using PowerShell with the root user credentials. If the connection fails, verify that your firewall rules are properly configured.
+
+![image](https://github.com/user-attachments/assets/a568d4bd-f485-44bb-a85d-a922b427ec21) 
+_SSH connection establishment to the Ubuntu server for Splunk installation._
+
+Verify network configuration using the `ip a` command. Ensure the second network interface displays the VPC private IP address.
+
+![image](https://github.com/user-attachments/assets/1baa2429-e809-4460-9b6f-3b02dc73e5ef) 
+_Network interface configuration showing both public and private IP assignments._
+
+Before any installation, update and upgrade the Linux system using: `apt-get update && apt-get upgrade`
+
+![image](https://github.com/user-attachments/assets/4314ecf3-72be-4464-a4ac-ba886fd32fe1) 
+_System update and upgrade process, ensuring the latest security patches and software versions._
+
+```bash
+wget -O splunk-9.4.3-237ebbd22314-linux-amd64.deb "https://download.splunk.com/products/splunk/releases/9.4.3/linux/splunk-9.4.3-237ebbd22314-linux-amd64.deb"
+```
+
+![image](https://github.com/user-attachments/assets/a8282480-e72b-408d-b201-a87fb44827a9) 
+_Splunk Enterprise download showing the installation package being retrieved from the official repository._
+
+```bash
+dpkg -i splunk-9.4.3-237ebbd22314-linux-amd64.deb
+cd /opt/splunk/bin/
+./splunk start
+```
+
+During installation, you'll be prompted to create administrator credentials for Splunk web access. Splunk runs on port 8000 by default.
+
+**Access Methods:**
+
+-   **Internal access:** Ubuntu\_Private\_IP:8000
+-   **Remote access:** Ubuntu\_Public\_IP:8000
+
+Enable port 8000 on the Ubuntu firewall: `ufw allow 8000`
+
+![image](https://github.com/user-attachments/assets/0b9a589f-01dc-42cc-87be-ca07884ea6fb) 
+_Splunk installation completed successfully with web interface accessible on port 8000._
+
+![image](https://github.com/user-attachments/assets/1290fe34-397c-4922-9db1-432aee1d2484)
+_Splunk Login Web Interface_
+
+Just a quick note: when I tried to access the Splunk web interface remotely, my Bitdefender EDR interfered with the connection. If you run into the same problem, check your EDR settings first. 
 
 
 
@@ -139,68 +231,30 @@ For each VM, select the machine, click on **Settings**, then **VPC Networks**, a
 
 
 
- (Deploy area)
+![image](https://github.com/user-attachments/assets/348e0a7c-ade6-4c89-945f-21d404116afe) (setting indexes)
 
 
- (Win AD Deploy)
+![image](https://github.com/user-attachments/assets/bc14f4af-6525-4cc7-a42f-b723b2d589ed) (Indexes page)
 
 
-(Select win 2022 server)
+![image](https://github.com/user-attachments/assets/c08628fa-a7d3-4564-aabb-554488f656ae) (index enabled)
 
- (Disable backup and deploy)
-
- (AD server login details, public IP)
+![image](https://github.com/user-attachments/assets/a5fe7c10-c841-48a5-bb17-e047de6fc62e) (time zone settings)
 
 
- (Win Test deploy)
 
 
- (Select win 2022 server) (Disable backup and deploy)
 
 
-  (Test server login details, public IP)
+This completes the virtual machine deployment phase. All three VMs are now configured with proper networking and are ready for the next phase of the project.
 
 
- (Linux Deploy)
-
- (Disable backup and deploy)
 
 
- (Ubuntu login details, public IP)
 
 
- (Vultr Firewall Group)
 
 
- (attached VPC for each machine, locap IP)
-
-
-![image](https://github.com/user-attachments/assets/a4e7c89a-68d4-4a3f-91a7-5c6a8a85b66f) (Domin controler deployment, MyLab.local, Net1 public IP and Net2 private IP, setup prive IP also for MyLab-Test01)
-
-
-![image](https://github.com/user-attachments/assets/442981ff-56af-4021-bc86-672477439938) (Create an AD user for testing)
-
-
-![image](https://github.com/user-attachments/assets/8800341c-7d42-40b5-aa78-3c394da975af) (Join test machine to AD server)
-
-
-![image](https://github.com/user-attachments/assets/a568d4bd-f485-44bb-a85d-a922b427ec21) (SSH to Ubunto machine)
-
-![image](https://github.com/user-attachments/assets/1baa2429-e809-4460-9b6f-3b02dc73e5ef) (check network adaptor, check private IP)
-
-![image](https://github.com/user-attachments/assets/4314ecf3-72be-4464-a4ac-ba886fd32fe1) (Update Ubuntu) (apt-get update && apt-get upgrade)
-
-
-![image](https://github.com/user-attachments/assets/a8282480-e72b-408d-b201-a87fb44827a9) (get Splunk command) (wget -0 splunk-9.4.3-237ebbd22314-linux-amd64. deb "https://download. splunk.com/products/splunk/releases/9.4.3/linux/splunk-9.
-4.3-237ebbd22314-linux-amd64.deb")
-
-![image](https://github.com/user-attachments/assets/0b9a589f-01dc-42cc-87be-ca07884ea6fb) (Unpack Splunk) (dpkg -i splunk-9.4.3-237ebbd22314-linux-amd64. deb)
-
-Navigate to cd /opt/splunk/bin/
-
-Install ./splunk start
-
-Open port for Splunk connection from public IP (ufw allow 8000)
 
 Open port for forwarder (ufw allow 9997)
 
@@ -211,23 +265,6 @@ Open port for forwarder (ufw allow 9997)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-*Ref 1: Network Diagram*
 
 
 
