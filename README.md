@@ -8,20 +8,32 @@ A big thanks to Steven from the @MyDFIR for the walkthrough and guidance on YouT
 This shows proper attribution to the content creator who helped guide your learning, which is excellent practice in the cybersecurity community!
 
 ### Skills Learned
-[Bullet Points - Remove this afterwards]
-
-- Advanced understanding of SIEM concepts and practical application.
-- Proficiency in analyzing and interpreting network logs.
-- Ability to generate and recognize attack signatures and patterns.
-- Enhanced knowledge of network protocols and security vulnerabilities.
-- Development of critical thinking and problem-solving skills in cybersecurity.
+- Advanced understanding of SOAR (Security Orchestration, Automation and Response) concepts and practical implementation.
+- Proficiency in configuring and managing Active Directory security monitoring and event correlation.
+- Splunk installation and configuration in educational environments.
+- Splunk data ingestion from multiple sources and log formats.
+- Creation and management of Splunk alert rules for automated threat detection.
+- Vultr cloud environment setup and configuration for security lab deployments.
+- Implementation and management of firewall rules for network segmentation and security.
+- Ability to design and implement automated incident response workflows using Shuffler.
+- Enhanced knowledge of API integrations between security tools and communication platforms.
+- Development of skills in creating custom playbooks for threat detection and automated alerting.
+- Experience with real-time notification systems and escalation procedures in SOC environments.
+- Understanding of security tool integration and workflow orchestration.
+- Improved ability to streamline security operations through automation and reduce manual response times.
 
 ### Tools Used
-[Bullet Points - Remove this afterwards]
-
-- Security Information and Event Management (SIEM) system for log ingestion and analysis.
-- Network analysis tools (such as Wireshark) for capturing and examining network traffic.
-- Telemetry generation tools to create realistic network traffic and attack scenarios.
+- Splunk - SIEM platform for log ingestion, analysis, and alert management
+- Linux Ubuntu - Operating system platform for Splunk deployment
+- Active Directory - Directory service for user authentication and security event generation
+- Windows Server 2022 - Two separate servers: one dedicated for AD deployment and one as test machine
+- Shuffler - SOAR platform for security orchestration and automated response workflows
+- Slack - Team communication platform for real-time incident notifications
+- Vultr - Cloud infrastructure provider for hosting the lab environment (3 VMs total)
+- Vultr Network Firewall - Cloud-based firewall rules for secure access control
+- PowerShell - For scripting and automation tasks
+- APIs - For integrating different security tools and platforms
+- Virtual Machines - Three VMs creating isolated testing environments
 
 ## Steps
 drag & drop screenshots here or use imgur and reference them using imgsrc
