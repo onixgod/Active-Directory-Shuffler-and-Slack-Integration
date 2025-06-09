@@ -91,14 +91,64 @@ This foundational step ensures we have a clear roadmap before deploying any infr
 
 ![image](https://github.com/user-attachments/assets/63bcb0c4-396f-4802-948c-579f00c22774)  (Disable backup and deploy)
 
-
-![image](https://github.com/user-attachments/assets/fc5ddaa4-b2d5-4c48-846e-bd6ba7437bda) (AD server login details, public IP)
+![image](https://github.com/user-attachments/assets/0ac51e83-ed7f-44b4-ab03-2fa005046725) (AD server login details, public IP)
 
 
 ![image](https://github.com/user-attachments/assets/b7506cf1-c6b0-4bc8-8db7-9ef1ac04d969) (Win Test deploy)
 
 
 ![image](https://github.com/user-attachments/assets/9e72b9dc-2411-40ac-976f-8eeb642ba153) (Select win 2022 server) (Disable backup and deploy)
+
+
+![image](https://github.com/user-attachments/assets/13563669-ac3a-4b19-9109-6a33f9d3e808)  (Test server login details, public IP)
+
+
+![image](https://github.com/user-attachments/assets/14348738-8545-47cd-9bac-412513d59961) (Linux Deploy)
+
+![image](https://github.com/user-attachments/assets/856b5c56-5c44-4c97-b0cb-1550a82be2bb) (Disable backup and deploy)
+
+
+![image](https://github.com/user-attachments/assets/a6c8c075-0a68-4924-a82b-b6655f873bab) (Ubuntu login details, public IP)
+
+
+![image](https://github.com/user-attachments/assets/7085be3a-3ea8-4c0d-aa50-1526ac7d947c) (Vultr Firewall Group)
+
+
+![image](https://github.com/user-attachments/assets/3e6af083-bdab-4e8c-a8ca-64430d570d05) (attached VPC for each machine, locap IP)
+
+
+![image](https://github.com/user-attachments/assets/a4e7c89a-68d4-4a3f-91a7-5c6a8a85b66f) (Domin controler deployment, MyLab.local, Net1 public IP and Net2 private IP, setup prive IP also for MyLab-Test01)
+
+
+![image](https://github.com/user-attachments/assets/442981ff-56af-4021-bc86-672477439938) (Create an AD user for testing)
+
+
+![image](https://github.com/user-attachments/assets/8800341c-7d42-40b5-aa78-3c394da975af) (Join test machine to AD server)
+
+
+![image](https://github.com/user-attachments/assets/a568d4bd-f485-44bb-a85d-a922b427ec21) (SSH to Ubunto machine)
+
+![image](https://github.com/user-attachments/assets/1baa2429-e809-4460-9b6f-3b02dc73e5ef) (check network adaptor, check private IP)
+
+![image](https://github.com/user-attachments/assets/4314ecf3-72be-4464-a4ac-ba886fd32fe1) (Update Ubuntu) (apt-get update && apt-get upgrade)
+
+
+![image](https://github.com/user-attachments/assets/a8282480-e72b-408d-b201-a87fb44827a9) (get Splunk command) (wget -0 splunk-9.4.3-237ebbd22314-linux-amd64. deb "https://download. splunk.com/products/splunk/releases/9.4.3/linux/splunk-9.
+4.3-237ebbd22314-linux-amd64.deb")
+
+![image](https://github.com/user-attachments/assets/0b9a589f-01dc-42cc-87be-ca07884ea6fb) (Unpack Splunk) (dpkg -i splunk-9.4.3-237ebbd22314-linux-amd64. deb)
+
+Navigate to cd /opt/splunk/bin/
+
+Install ./splunk start
+
+Open port for Splunk connection from public IP (ufw allow 8000)
+
+Opn port for forwarder ufw allow 9997
+
+
+
+
 
 
 
