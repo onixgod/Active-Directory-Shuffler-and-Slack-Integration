@@ -225,21 +225,71 @@ _Splunk Login Web Interface_
 
 Just a quick note: when I tried to access the Splunk web interface remotely, my Bitdefender EDR interfered with the connection. If you run into the same problem, check your EDR settings first. 
 
+This completes the virtual machine deployment phase. All three VMs are now configured with proper networking and are ready for the next phase of the project.
+
+## Step 3: Splunk Web Interface Configuration
+### 3.1 Accessing Splunk Web Interface
+Now we'll make essential adjustments to Splunk through the web interface. You can access Splunk remotely through a web browser using the **Ubuntu public IP address** or from any Windows VM using the **Ubuntu private IP address**.
+**Access URLs:**
+-   **Remote access:** `http://[Ubuntu_Public_IP]:8000`
+-   **Internal access:** `http://[Ubuntu_Private_IP]:8000`
+
+![image](https://github.com/user-attachments/assets/348e0a7c-ade6-4c89-945f-21d404116afe) 
+_Splunk web interface login page showing successful remote access to our SIEM platform._
+
+### 3.2 Creating a Custom Index
+We need to create a dedicated index where we'll collect telemetry from our Windows machines. Navigate to **Settings** → **Indexes**.
+
+![image](https://github.com/user-attachments/assets/bc14f4af-6525-4cc7-a42f-b723b2d589ed) 
+_Splunk Settings interface showing the path to index management for creating our custom data collection point._
+
+Click **New Index** and create an index for our Windows event data (e.g., "WinEventLog://Security" or "WinEventLog://System"). This dedicated index will help organise and efficiently search through our Active Directory and test machine telemetry.
+
+![image](https://github.com/user-attachments/assets/c08628fa-a7d3-4564-aabb-554488f656ae) 
+_Index creation interface and confirmation showing our new Windows telemetry index is properly configured and active._
+
+### 3.3 Configuring Time Zone Settings
+For accurate log correlation and incident timeline analysis, we need to set our Time Zone to **(GMT) Greenwich Mean Time**.
+Navigate to your **account menu** (top right) → **Preferences** → **Time Zone** → select **GMT** → click **Apply**.
+
+![image](https://github.com/user-attachments/assets/a5fe7c10-c841-48a5-bb17-e047de6fc62e) 
+_Time zone configuration ensuring all timestamps are standardised to GMT for consistent log analysis across our distributed environment._
+
+### 3.4 Installing Windows Add-on
+To correctly parse and analyse Windows event logs, we need to install the Microsoft Windows Add-on. Click on **Apps** → **Find More Apps**.
+
+![image](https://github.com/user-attachments/assets/9309bebb-7f41-485b-b73f-4dd09b947702) 
+_Splunk Apps management interface showing the path to browse and install additional applications._
+
+In the search field, type **"windows"** and locate the **"Splunk Add-on for Microsoft Windows"**. Click **Install** to add this essential component for Windows log parsing and field extraction.
+
+![image](https://github.com/user-attachments/assets/62d21621-be92-4b20-a928-0955a45a6e5b) 
+_Splunk app store showing the Microsoft Windows Add-on that will enable proper parsing of Windows Event Logs and Active Directory security events._
+
+**Why This Add-on is Important:**
+-   Provides pre-built field extractions for Windows Event Logs
+-   Includes knowledge objects for Active Directory security events
+-   Enables proper parsing of authentication, logon, and security policy events
+-   Essential for SOC analyst workflows involving Windows infrastructure
+
+After installation, the add-on will automatically begin parsing Windows event data with proper field mapping, making our security event analysis much more efficient and accurate.
 
 
 
 
+ (setting indexes)
 
 
-![image](https://github.com/user-attachments/assets/348e0a7c-ade6-4c89-945f-21d404116afe) (setting indexes)
+ (Indexes page)
 
 
-![image](https://github.com/user-attachments/assets/bc14f4af-6525-4cc7-a42f-b723b2d589ed) (Indexes page)
+ (index enabled)
 
+ (time zone settings)
 
-![image](https://github.com/user-attachments/assets/c08628fa-a7d3-4564-aabb-554488f656ae) (index enabled)
+ (Apps)
 
-![image](https://github.com/user-attachments/assets/a5fe7c10-c841-48a5-bb17-e047de6fc62e) (time zone settings)
+ (windows app)
 
 
 
