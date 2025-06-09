@@ -59,7 +59,16 @@ I will be using Draw.io (a free diagramming platform) to sketch the project arch
 ![image](https://github.com/user-attachments/assets/2bb4cc57-cfe6-48ee-a406-5f01b2443825)
 *This diagram illustrates the complete lab architecture, with data flow arrows showing how telemetry travels from the Windows machines to Splunk, and then triggers automated responses through Shuffler to send Slack notifications.*
 
+### 1.2 Cloud Platform Setup
+We will be using Vultr cloud services for our virtual machine deployment. Vultr offers a $300 voucher for new users, which is perfect for this lab environment. As mentioned by @MyDFIR, you can access the promotional link through his YouTube channel or visit (hxxps://www.vultr.com/?ref=9632889-9J).
+Note: If you don't have a Shuffler or Slack account, please create one before proceeding, as it will be essential for automation and  receiving automated notifications from our SOAR platform.
+### 1.3 Playbook Development
+The final part of this planning phase involves creating a detailed playbook that defines how Shuffler will automatically respond to security events detected by Splunk. This playbook will establish:
 
+- **Trigger conditions** - What events will initiate automated responses
+- **Response actions** - What steps Shuffler will take when events are detected
+- **Notification procedures** - How and when alerts will be sent to Slack
+- **Escalation paths** - When and how incidents should be elevated
 
 *Ref 1: Network Diagram*
 
