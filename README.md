@@ -1,4 +1,4 @@
-# Active Directory, Shuffler and Slack Integration
+# Active Directory Shuffler and Slack Integration
 
 ## Objective
 The Active Directory, Shuffler and Slack Integration project aimed to create an automated incident response workflow that bridges security monitoring with real-time team communication. The primary focus was to establish seamless integration between Active Directory security events, SOAR (Security Orchestration, Automation and Response) capabilities through Shuffler, and instant notification systems via Slack. This hands-on experience was designed to simulate enterprise-level security operations workflows, automate threat detection responses, and demonstrate proficiency in orchestrating multi-platform security tools essential for SOC Tier 1 analyst responsibilities.
@@ -36,11 +36,35 @@ This shows proper attribution to the content creator who helped guide your learn
 - Virtual Machines - Three VMs creating isolated testing environments
 
 ## Steps
-drag & drop screenshots here or use imgur and reference them using imgsrc
+### Step 1: Project Planning and Architecture Design
+The first step in this project is to create a comprehensive diagram and playbook that will guide our deployment process. This planning phase is crucial for understanding the data flow, system interactions, and automation workflows before we begin the actual implementation.
+### 1.1 Creating the Network Diagram
+I will be using Draw.io (a free diagramming platform) to sketch the project architecture. This visual representation will provide clear guidance on how to approach each component of the project.
+### Diagram Components:
 
-Every screenshot should have some text explaining what the screenshot is about.
+- ### Three Virtual Machines:
+    - **MyLab-ADDC01** - Active Directory Domain Controller (Windows Server 2022)
+    - **MyLab-Test01** - Test/Target machine for attack simulation (Windows Server 2022)
+    - **MyLab-Splunk** - SIEM platform for log collection and analysis (Ubuntu Linux)
 
-Example below.
+Cloud Services Integration:
+
+Shuffler - SOAR platform for automation and orchestration
+Slack - Communication platform for real-time notifications
+
+
+Network Infrastructure:
+
+Vultr Cloud - Hosting platform for all three VMs
+Vultr Network Firewall - Access control and security rules
+Attacker Machine - External laptop representing threat actor
+
+
+
+[Screenshot of Draw.io diagram showing all components and their connections]
+This diagram illustrates the complete lab architecture with data flow arrows showing how telemetry travels from the Windows machines to Splunk, then triggers automated responses through Shuffler to Slack notifications.
 
 *Ref 1: Network Diagram*
-![image](https://github.com/user-attachments/assets/a6ccf132-da1e-4076-906d-e9f28e5d6b96)
+![image](https://github.com/user-attachments/assets/2bb4cc57-cfe6-48ee-a406-5f01b2443825)
+
+
