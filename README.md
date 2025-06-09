@@ -48,19 +48,20 @@ I will be using Draw.io (a free diagramming platform) to sketch the project arch
     - **MyLab-Splunk** - SIEM platform for log collection and analysis (Ubuntu Linux)
 
 - ### Cloud Services Integration:
-    - **Shuffler - SOAR platform for automation and orchestration
-    - **Slack - Communication platform for real-time notifications
+    - **Shuffler** - SOAR platform for automation and orchestration
+    - **Slack** - Communication platform for real-time notifications
 
 - ### Network Infrastructure:
-    - **Vultr Cloud - Hosting platform for all three VMs
-    - **Vultr Network Firewall - Access control and security rules
-    - **Attacker Machine - External laptop representing threat actor
+    - **Vultr Cloud** - Hosting platform for all three VMs
+    - **Vultr Network Firewall** - Access control and security rules
+    - **Attacker Machine** - External laptop representing the threat actor
+
+![image](https://github.com/user-attachments/assets/2bb4cc57-cfe6-48ee-a406-5f01b2443825)
+*This diagram illustrates the complete lab architecture, with data flow arrows showing how telemetry travels from the Windows machines to Splunk, and then triggers automated responses through Shuffler to send Slack notifications.*
 
 
-[Screenshot of Draw.io diagram showing all components and their connections]
-This diagram illustrates the complete lab architecture with data flow arrows showing how telemetry travels from the Windows machines to Splunk, then triggers automated responses through Shuffler to Slack notifications.
 
 *Ref 1: Network Diagram*
-![image](https://github.com/user-attachments/assets/2bb4cc57-cfe6-48ee-a406-5f01b2443825)
+
 
 
