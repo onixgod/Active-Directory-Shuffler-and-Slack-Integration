@@ -56,7 +56,7 @@ I will be using Draw.io (a free diagramming platform) to sketch the project arch
     - **Vultr Network Firewall** - Access control and security rules
     - **Attacker Machine** - External laptop representing the threat actor
 
-![image](https://github.com/user-attachments/assets/2bb4cc57-cfe6-48ee-a406-5f01b2443825)
+![image](https://github.com/user-attachments/assets/2bb4cc57-cfe6-48ee-a406-5f01b2443825)<br>
 *This diagram illustrates the complete lab architecture, with data flow arrows showing how telemetry travels from the Windows machines to Splunk, and then triggers automated responses through Shuffler to send Slack notifications.*
 
 ### 1.2 Cloud Platform Setup
@@ -76,7 +76,7 @@ The final part of this planning phase involves creating a detailed playbook that
 |If YES - Disable Domain Account and send notification of account disabled|
 |If NO - Do nothing|
 
-![image](https://github.com/user-attachments/assets/aa511060-d23d-49db-b1cf-c557b173fefb)
+![image](https://github.com/user-attachments/assets/aa511060-d23d-49db-b1cf-c557b173fefb)<br>
 *This playbook shows the decision tree for automated incident response, from initial event detection through final notification and documentation.*
 This foundational step ensures we have a clear roadmap before deploying any infrastructure, making the implementation process much smoother and more organised.
 
@@ -86,59 +86,59 @@ The first step is to open an account on Vultr. As mentioned previously, a new ac
 ### 2.2 Deploying the Active Directory Domain Controller (MyLab-ADDC01)
 **Creating the First VM - Windows Server 2022 for AD:**
 
-![image](https://github.com/user-attachments/assets/d476d42a-8335-4ba8-8f1b-fd8d2aa5a6ee)
+![image](https://github.com/user-attachments/assets/d476d42a-8335-4ba8-8f1b-fd8d2aa5a6ee)<br>
 *This shows the main Vultr dashboard where we'll begin our VM deployment process.*
 
 To create a VM, click on the **Compute** link on the left panel, then click on the **Deploy** button in the top right corner.
 
-![image](https://github.com/user-attachments/assets/56a11c40-ce58-45ce-948d-740bacd2f418)
+![image](https://github.com/user-attachments/assets/56a11c40-ce58-45ce-948d-740bacd2f418)<br>
 *The Compute section shows the deploy button that initiates the VM creation process.*
 
 On the deployment page, select **Shared CPU**. Then, choose a location and city close to your region to improve the speed at which the VM is accessed remotely. For the server type, select **VC2-2c-4GB**, which provides sufficient resources for our Active Directory server.
 
-![image](https://github.com/user-attachments/assets/1e966c38-d9b0-42bf-af2d-71f14699d6d3) 
+![image](https://github.com/user-attachments/assets/1e966c38-d9b0-42bf-af2d-71f14699d6d3)<br>
 *Server configuration showing the recommended specifications for our AD server deployment.*
 
 Click on the **Configure Software** button located in the bottom left corner. Select **Windows Server 2022 Standard x64** as our operating system.
 
-![image](https://github.com/user-attachments/assets/63bcb0c4-396f-4802-948c-579f00c22774)  
+![image](https://github.com/user-attachments/assets/63bcb0c4-396f-4802-948c-579f00c22774)<br>
 _Operating system selection interface displaying Windows Server 2022 options._
 
 Label the machine with your preferred hostname for the AD Server (e.g., **"MyLab-ADDC01"**). **Deselect Automatic Backups** (this feature isn't needed for this project and will save credits), then click the **Deploy** button in the bottom right corner to initiate the deployment.
 
-![image](https://github.com/user-attachments/assets/0ac51e83-ed7f-44b4-ab03-2fa005046725) 
+![image](https://github.com/user-attachments/assets/0ac51e83-ed7f-44b4-ab03-2fa005046725)<br>
 _Final configuration screen before deployment, showing hostname setup and backup options._
 
 When deployment is finished, you can access the server overview and **take note of your public IP, username, and password** for future remote access.
 
-![image](https://github.com/user-attachments/assets/b7506cf1-c6b0-4bc8-8db7-9ef1ac04d969) 
+![image](https://github.com/user-attachments/assets/b7506cf1-c6b0-4bc8-8db7-9ef1ac04d969)<br>
 _VM overview displaying essential connection information, including public IP and credentials._
 
 ### 2.3 Deploying the Test Machine (MyLab-Test01)
-Now we'll deploy the test machine following similar steps. Choose an appropriate hostname for this machine, but select **VC2-1c-2GB** for the server specifications (lower resources are sufficient for the test machine role).
+Now we'll deploy the test machine following similar steps. You can choose an appropriate hostname for this machine, but select **VC2-1c-2GB** for the server specifications (lower resources are sufficient for the test machine role).
 
-![image](https://github.com/user-attachments/assets/9e72b9dc-2411-40ac-976f-8eeb642ba153) 
+![image](https://github.com/user-attachments/assets/9e72b9dc-2411-40ac-976f-8eeb642ba153)<br>
 _Test machine configuration showing the smaller resource allocation appropriate for its role._
 
 Access the deployed machine and **record the Public IP address, username, and password** for later use.
 
-![image](https://github.com/user-attachments/assets/13563669-ac3a-4b19-9109-6a33f9d3e808) 
+![image](https://github.com/user-attachments/assets/13563669-ac3a-4b19-9109-6a33f9d3e808)<br>
 _Test machine deployment summary showing connection information._
 
 ### 2.4 Deploying the Splunk Server (MyLab-Splunk)
-For our SIEM platform, select **Shared CPU**, choose your preferred location, then select **VC2-4c-8GB** (higher specifications needed for log processing and analysis).
+For our SIEM platform, select **Shared CPU**, choose your preferred location, and then select **VC2-4c-8GB** (higher specifications are required for log processing and analysis).
 
-![image](https://github.com/user-attachments/assets/14348738-8545-47cd-9bac-412513d59961) 
+![image](https://github.com/user-attachments/assets/14348738-8545-47cd-9bac-412513d59961)<br>
 _Splunk server configuration displaying the higher resource allocation needed for SIEM operations._
 
 Select **Ubuntu 22.04 x64** as the operating system. Remember to deselect automatic backups and click deploy.
 
-![image](https://github.com/user-attachments/assets/856b5c56-5c44-4c97-b0cb-1550a82be2bb) 
+![image](https://github.com/user-attachments/assets/856b5c56-5c44-4c97-b0cb-1550a82be2bb)<br>
 _Ubuntu operating system selection for our Splunk platform deployment._
 
 Access the newly deployed Linux machine and **take note of the public IP address, username, and password**.
 
-![image](https://github.com/user-attachments/assets/a6c8c075-0a68-4924-a82b-b6655f873bab) 
+![image](https://github.com/user-attachments/assets/a6c8c075-0a68-4924-a82b-b6655f873bab)<br>
 _Ubuntu server deployment summary showing SSH connection details._
 
 ### 2.5 Configuring Firewall Rules
@@ -148,7 +148,7 @@ Now we'll set up the firewall group to grant secure remote access to our VMs. We
 -   **Port 8000** (for Splunk web interface)
 For security during testing, set the Source for all connections to **"My IP"** to restrict access to your current location.
 
-![image](https://github.com/user-attachments/assets/7085be3a-3ea8-4c0d-aa50-1526ac7d947c)
+![image](https://github.com/user-attachments/assets/7085be3a-3ea8-4c0d-aa50-1526ac7d947c)<br>
 _Firewall rules configuration displaying the essential ports needed for remote administration and Splunk access._
 
 ### 2.6 Setting Up VPC Network
@@ -156,19 +156,19 @@ To establish secure internal communication between VMs, we'll attach a VPC (Virt
 For each VM, select the machine, click on **Settings**, then **VPC Networks**, and click the **Attach VPC** button. The process takes a few seconds to complete.
 **Important:** Record the **Private IP address and Network Mask** for each machine - these will be needed to configure network adapters on the Windows machines.
 
-![image](https://github.com/user-attachments/assets/3e6af083-bdab-4e8c-a8ca-64430d570d05)
+![image](https://github.com/user-attachments/assets/3e6af083-bdab-4e8c-a8ca-64430d570d05)<br>
 _VPC network configuration showing private IP assignments for internal communication between VMs._
 
 ### 2.7 Active Directory Configuration
 Deploy Active Directory Services on the AD Server using the private IP address on network adapter 2.
-**Note:** I won't detail the AD installation steps here, as this should be fundamental knowledge for cybersecurity professionals. If needed, numerous online tutorials are available to cover Windows Server Active Directory deployment.
+**Note:** I won't detail the AD installation steps here, as this should be fundamental knowledge for cybersecurity professionals. If needed, numerous online tutorials are available to cover the deployment of Windows Server Active Directory.
 
-![image](https://github.com/user-attachments/assets/a4e7c89a-68d4-4a3f-91a7-5c6a8a85b66f) 
+![image](https://github.com/user-attachments/assets/a4e7c89a-68d4-4a3f-91a7-5c6a8a85b66f)<br>
 _Active Directory configuration completed with domain controller promotion successful._
 
 After AD configuration and promotion, create a domain user for testing purposes. In this example, I created a user named **Jenny Smith (JSmith)** with a secure password, deselecting the options "Change password at first login" and "Password never expires" for lab convenience.
 
-![image](https://github.com/user-attachments/assets/442981ff-56af-4021-bc86-672477439938) 
+![image](https://github.com/user-attachments/assets/442981ff-56af-4021-bc86-672477439938)<br>
 _Domain user creation interface showing the test user account setup for our lab environment._
 
 ### 2.8 Joining the Test Machine to the Domain
@@ -176,30 +176,30 @@ Configure the test machine to join our domain by setting up network adapter 2 wi
 
 Navigate to Windows Settings → **Rename this PC (advanced)** → **Change** → select **Domain** → enter your domain name. The system will prompt for administrator credentials. Upon successful authentication, the machine will restart and join the domain.
 
-![image](https://github.com/user-attachments/assets/8800341c-7d42-40b5-aa78-3c394da975af) 
+![image](https://github.com/user-attachments/assets/8800341c-7d42-40b5-aa78-3c394da975af)<br>
 _Domain join interface displaying successful integration of the test machine with our Active Directory domain._
 
 ### 2.9 Ubuntu Splunk Server Setup
-SSH to the Ubuntu VM using PowerShell with the root user credentials. If the connection fails, verify that your firewall rules are properly configured.
+SSH to the Ubuntu VM using PowerShell with the root user credentials. If the connection fails, verify that your firewall rules are correctly configured.
 
-![image](https://github.com/user-attachments/assets/a568d4bd-f485-44bb-a85d-a922b427ec21) 
+![image](https://github.com/user-attachments/assets/a568d4bd-f485-44bb-a85d-a922b427ec21)<br>
 _SSH connection establishment to the Ubuntu server for Splunk installation._
 
 Verify network configuration using the `ip a` command. Ensure the second network interface displays the VPC private IP address.
 
-![image](https://github.com/user-attachments/assets/1baa2429-e809-4460-9b6f-3b02dc73e5ef) 
+![image](https://github.com/user-attachments/assets/1baa2429-e809-4460-9b6f-3b02dc73e5ef)<br>
 _Network interface configuration showing both public and private IP assignments._
 
 Before any installation, update and upgrade the Linux system using: `apt-get update && apt-get upgrade`
 
-![image](https://github.com/user-attachments/assets/4314ecf3-72be-4464-a4ac-ba886fd32fe1) 
+![image](https://github.com/user-attachments/assets/4314ecf3-72be-4464-a4ac-ba886fd32fe1)<br>
 _System update and upgrade process, ensuring the latest security patches and software versions._
 
 ```bash
 wget -O splunk-9.4.3-237ebbd22314-linux-amd64.deb "https://download.splunk.com/products/splunk/releases/9.4.3/linux/splunk-9.4.3-237ebbd22314-linux-amd64.deb"
 ```
 
-![image](https://github.com/user-attachments/assets/a8282480-e72b-408d-b201-a87fb44827a9) 
+![image](https://github.com/user-attachments/assets/a8282480-e72b-408d-b201-a87fb44827a9)<br>
 _Splunk Enterprise download showing the installation package being retrieved from the official repository._
 
 ```bash
@@ -217,10 +217,10 @@ During installation, you'll be prompted to create administrator credentials for 
 
 Enable port 8000 on the Ubuntu firewall: `ufw allow 8000`
 
-![image](https://github.com/user-attachments/assets/0b9a589f-01dc-42cc-87be-ca07884ea6fb) 
+![image](https://github.com/user-attachments/assets/0b9a589f-01dc-42cc-87be-ca07884ea6fb)<br>
 _Splunk installation completed successfully with web interface accessible on port 8000._
 
-![image](https://github.com/user-attachments/assets/1290fe34-397c-4922-9db1-432aee1d2484)
+![image](https://github.com/user-attachments/assets/1290fe34-397c-4922-9db1-432aee1d2484)<br>
 _Splunk Login Web Interface_
 
 Just a quick note: when I tried to access the Splunk web interface remotely, my Bitdefender EDR interfered with the connection. If you run into the same problem, check your EDR settings first. 
@@ -234,36 +234,36 @@ Now we'll make essential adjustments to Splunk through the web interface. You ca
 -   **Remote access:** `http://[Ubuntu_Public_IP]:8000`
 -   **Internal access:** `http://[Ubuntu_Private_IP]:8000`
 
-![image](https://github.com/user-attachments/assets/348e0a7c-ade6-4c89-945f-21d404116afe) 
+![image](https://github.com/user-attachments/assets/348e0a7c-ade6-4c89-945f-21d404116afe)<br>
 _Splunk web interface login page showing successful remote access to our SIEM platform._
 
 ### 3.2 Creating a Custom Index
 We need to create a dedicated index where we'll collect telemetry from our Windows machines. Navigate to **Settings** → **Indexes**.
 
-![image](https://github.com/user-attachments/assets/bc14f4af-6525-4cc7-a42f-b723b2d589ed) 
+![image](https://github.com/user-attachments/assets/bc14f4af-6525-4cc7-a42f-b723b2d589ed)<br>
 _Splunk Settings interface showing the path to index management for creating our custom data collection point._
 
 Click **New Index** and create an index for our Windows event data (e.g., "WinEventLog://Security" or "WinEventLog://System"). This dedicated index will help organise and efficiently search through our Active Directory and test machine telemetry.
 
-![image](https://github.com/user-attachments/assets/c08628fa-a7d3-4564-aabb-554488f656ae) 
+![image](https://github.com/user-attachments/assets/c08628fa-a7d3-4564-aabb-554488f656ae)<br>
 _Index creation interface and confirmation showing our new Windows telemetry index is properly configured and active._
 
 ### 3.3 Configuring Time Zone Settings
 For accurate log correlation and incident timeline analysis, we need to set our Time Zone to **(GMT) Greenwich Mean Time**.
 Navigate to your **account menu** (top right) → **Preferences** → **Time Zone** → select **GMT** → click **Apply**.
 
-![image](https://github.com/user-attachments/assets/a5fe7c10-c841-48a5-bb17-e047de6fc62e) 
+![image](https://github.com/user-attachments/assets/a5fe7c10-c841-48a5-bb17-e047de6fc62e)<br>
 _Time zone configuration ensuring all timestamps are standardised to GMT for consistent log analysis across our distributed environment._
 
 ### 3.4 Installing Windows Add-on
 To correctly parse and analyse Windows event logs, we need to install the Microsoft Windows Add-on. Click on **Apps** → **Find More Apps**.
 
-![image](https://github.com/user-attachments/assets/9309bebb-7f41-485b-b73f-4dd09b947702) 
+![image](https://github.com/user-attachments/assets/9309bebb-7f41-485b-b73f-4dd09b947702)<br>
 _Splunk Apps management interface showing the path to browse and install additional applications._
 
 In the search field, type **"windows"** and locate the **"Splunk Add-on for Microsoft Windows"**. Click **Install** to add this essential component for Windows log parsing and field extraction.
 
-![image](https://github.com/user-attachments/assets/62d21621-be92-4b20-a928-0955a45a6e5b) 
+![image](https://github.com/user-attachments/assets/62d21621-be92-4b20-a928-0955a45a6e5b)<br>
 _Splunk app store showing the Microsoft Windows Add-on that will enable proper parsing of Windows Event Logs and Active Directory security events._
 
 **Why This Add-on is Important:**
@@ -279,31 +279,31 @@ After installation, the add-on will automatically begin parsing Windows event da
 Now it's time to install and configure Splunk on our Windows machines to send security telemetry to our Security Information and Event Management (SIEM) system. We need to install the **Splunk Universal Forwarder**, which serves as a lightweight agent for collecting and forwarding logs.
 You can just head to the Splunk website and download the Universal Forwarder binary. You'll need a free Splunk account for the download. Navigate to **Platform** → **Free Trials & Downloads** → under **Universal Forwarder** → click **Get My Free Download**.
 
-![image](https://github.com/user-attachments/assets/66a12f3f-a783-458b-81de-c1646e503bb5) 
+![image](https://github.com/user-attachments/assets/66a12f3f-a783-458b-81de-c1646e503bb5)<br>
 _Splunk download portal displaying the Universal Forwarder option for Windows log collection and forwarding._
 
 ### 4.2 Installing Universal Forwarder on Both Windows Machines
 **Install the forwarder on both MyLab-ADDC01 and MyLab-Test01:**
 Double-click the downloaded executable to begin installation. Check the box to **accept the License Agreement**, then click **Next**.
 
-![image](https://github.com/user-attachments/assets/a66883cb-b531-4758-bdec-1205aa319622) 
+![image](https://github.com/user-attachments/assets/a66883cb-b531-4758-bdec-1205aa319622)<br>
 _Installation wizard displaying the license agreement that must be accepted to proceed with the forwarder installation._
 
 For the username field, create a username of your choice (e.g., "splunk\_service"). For the password, leave it set to **'Generate random password'** for security.
 
-![image](https://github.com/user-attachments/assets/ea5b8e0c-4e90-4d79-b8d6-04dd5df640d9) 
+![image](https://github.com/user-attachments/assets/ea5b8e0c-4e90-4d79-b8d6-04dd5df640d9)<br>
 _Service account configuration showing username creation and automatic password generation for the Splunk service._
 
 Since we're using Splunk for lab purposes, skip the deployment server configuration window and click **Next**.
 
-![image](https://github.com/user-attachments/assets/70e50afd-21c0-46d7-b225-dc08e7d58691) 
+![image](https://github.com/user-attachments/assets/70e50afd-21c0-46d7-b225-dc08e7d58691)<br>
 _Deployment server configuration screen that can be skipped for our lab environment setup._
 
 In the receiving indexer configuration, enter the **Splunk server's public IP address** and port **9997** (the default Splunk forwarding port).
 
 **Format:** `[Splunk_Public_IP]:9997`
 
-![image](https://github.com/user-attachments/assets/cac7ede9-ba0e-49f8-ae49-756195735445) 
+![image](https://github.com/user-attachments/assets/cac7ede9-ba0e-49f8-ae49-756195735445)<br>
 _Receiving indexer configuration specifying our Splunk server's IP address and the standard forwarding port 9997._
 
 ### 4.3 Configuring Log Collection
@@ -311,12 +311,12 @@ Now we need to configure which logs the forwarder will send to Splunk manually. 
 
 **Copy** the `inputs.conf` file from the default directory.
 
-![image](https://github.com/user-attachments/assets/1f51c6f0-0571-4b58-9e37-29d508a2b446) 
+![image](https://github.com/user-attachments/assets/1f51c6f0-0571-4b58-9e37-29d508a2b446)<br>
 _File system navigation showing the location of the default inputs.conf configuration file that needs to be copied._
 
 **Paste** the `inputs.conf` file into: `C:\Program Files\SplunkUniversalForwarder\etc\system\local`
 
-![image](https://github.com/user-attachments/assets/d1720b32-3d5b-4202-8c2e-843ee6748870) 
+![image](https://github.com/user-attachments/assets/d1720b32-3d5b-4202-8c2e-843ee6748870)<br>
 _Configuration file placement in the local directory where custom settings override default configurations._
 
 ### 4.4 Customising Input Configuration
@@ -333,23 +333,23 @@ disabled=false
 -   Additional logs (System, Application) can be added with similar entries
 -   For this project, we focus on Security logs for incident detection
 
-![image](https://github.com/user-attachments/assets/200f0bc3-9cc4-4396-8c07-4bf6b100e40a) 
+![image](https://github.com/user-attachments/assets/200f0bc3-9cc4-4396-8c07-4bf6b100e40a)<br>
 _Configuration file modification showing the Windows Security Event Log collection settings pointing to our custom Splunk index._
 
 Save and close the file after adding the configuration.
 
-![image](https://github.com/user-attachments/assets/612f8990-2689-4d25-9acc-51e08dcad131) 
+![image](https://github.com/user-attachments/assets/612f8990-2689-4d25-9acc-51e08dcad131)<br>
 _File save confirmation showing the custom configuration has been properly applied._
 
 ### 4.5 Configuring Service Permissions
 Access **Windows Services** to configure the Splunk service permissions. Search for **"SplunkForwarder"** service and open its properties.
 
-![image](https://github.com/user-attachments/assets/bf692c74-fda0-41fb-a7f5-e22a847366ad) 
+![image](https://github.com/user-attachments/assets/bf692c74-fda0-41fb-a7f5-e22a847366ad)<br>
 _Windows Services management interface displaying the SplunkForwarder service that needs permission configuration._
 
 Navigate to the **Log On** tab and select **"Local System Account"** under "Log on as". This ensures the service has sufficient privileges to read Windows Security Event Logs. Click **OK** to apply.
 
-![image](https://github.com/user-attachments/assets/01769e91-3ce1-4782-8e57-1155252ade8b) 
+![image](https://github.com/user-attachments/assets/01769e91-3ce1-4782-8e57-1155252ade8b)<br>
 _Service configuration showing Local System Account selection, which provides necessary permissions for reading security event logs._
 
 ### 4.6 Starting the Forwarder Service
