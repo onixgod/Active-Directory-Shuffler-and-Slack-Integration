@@ -274,29 +274,142 @@ _Splunk app store showing the Microsoft Windows Add-on that will enable proper p
 
 After installation, the add-on will automatically begin parsing Windows event data with proper field mapping, making our security event analysis much more efficient and accurate.
 
+## Step 4: Installing and Configuring Splunk Universal Forwarder on Windows Machines
+### 4.1 Downloading Splunk Universal Forwarder
+Now it's time to install and configure Splunk on our Windows machines to send security telemetry to our Security Information and Event Management (SIEM) system. We need to install the **Splunk Universal Forwarder**, which serves as a lightweight agent for collecting and forwarding logs.
+You can just head to the Splunk website and download the Universal Forwarder binary. You'll need a free Splunk account for the download. Navigate to **Platform** → **Free Trials & Downloads** → under **Universal Forwarder** → click **Get My Free Download**.
+
+![image](https://github.com/user-attachments/assets/66a12f3f-a783-458b-81de-c1646e503bb5) 
+_Splunk download portal displaying the Universal Forwarder option for Windows log collection and forwarding._
+
+### 4.2 Installing Universal Forwarder on Both Windows Machines
+**Install the forwarder on both MyLab-ADDC01 and MyLab-Test01:**
+Double-click the downloaded executable to begin installation. Check the box to **accept the License Agreement**, then click **Next**.
+
+![image](https://github.com/user-attachments/assets/a66883cb-b531-4758-bdec-1205aa319622) 
+_Installation wizard displaying the license agreement that must be accepted to proceed with the forwarder installation._
+
+For the username field, create a username of your choice (e.g., "splunk\_service"). For the password, leave it set to **'Generate random password'** for security.
+
+![image](https://github.com/user-attachments/assets/ea5b8e0c-4e90-4d79-b8d6-04dd5df640d9) 
+_Service account configuration showing username creation and automatic password generation for the Splunk service._
+
+Since we're using Splunk for lab purposes, skip the deployment server configuration window and click **Next**.
+
+![image](https://github.com/user-attachments/assets/70e50afd-21c0-46d7-b225-dc08e7d58691) 
+_Deployment server configuration screen that can be skipped for our lab environment setup._
+
+In the receiving indexer configuration, enter the **Splunk server's public IP address** and port **9997** (the default Splunk forwarding port).
+
+**Format:** `[Splunk_Public_IP]:9997`
+
+![image](https://github.com/user-attachments/assets/cac7ede9-ba0e-49f8-ae49-756195735445) 
+_Receiving indexer configuration specifying our Splunk server's IP address and the standard forwarding port 9997._
+
+### 4.3 Configuring Log Collection
+Now we need to configure which logs the forwarder will send to Splunk manually. Navigate to: `C:\Program Files\SplunkUniversalForwarder\etc\system\default`
+
+**Copy** the `inputs.conf` file from the default directory.
+
+![image](https://github.com/user-attachments/assets/1f51c6f0-0571-4b58-9e37-29d508a2b446) 
+_File system navigation showing the location of the default inputs.conf configuration file that needs to be copied._
+
+**Paste** the `inputs.conf` file into: `C:\Program Files\SplunkUniversalForwarder\etc\system\local`
+
+![image](https://github.com/user-attachments/assets/d1720b32-3d5b-4202-8c2e-843ee6748870) 
+_Configuration file placement in the local directory where custom settings override default configurations._
+
+### 4.4 Customising Input Configuration
+Open the `inputs.conf` file with **Notepad** and scroll to the end of the file. Add the following configuration:
+```ini
+[WinEventLog://Security]
+index=mylab
+disabled=false
+```
+
+**Important Notes:**
+-   Replace `mylab` with the index name you created in Splunk
+-   This configuration collects Windows Security Event Logs
+-   Additional logs (System, Application) can be added with similar entries
+-   For this project, we focus on Security logs for incident detection
+
+![image](https://github.com/user-attachments/assets/200f0bc3-9cc4-4396-8c07-4bf6b100e40a) 
+_Configuration file modification showing the Windows Security Event Log collection settings pointing to our custom Splunk index._
+
+Save and close the file after adding the configuration.
+
+![image](https://github.com/user-attachments/assets/612f8990-2689-4d25-9acc-51e08dcad131) 
+_File save confirmation showing the custom configuration has been properly applied._
+
+### 4.5 Configuring Service Permissions
+Access **Windows Services** to configure the Splunk service permissions. Search for **"SplunkForwarder"** service and open its properties.
+
+![image](https://github.com/user-attachments/assets/bf692c74-fda0-41fb-a7f5-e22a847366ad) 
+_Windows Services management interface displaying the SplunkForwarder service that needs permission configuration._
+
+Navigate to the **Log On** tab and select **"Local System Account"** under "Log on as". This ensures the service has sufficient privileges to read Windows Security Event Logs. Click **OK** to apply.
+
+![image](https://github.com/user-attachments/assets/01769e91-3ce1-4782-8e57-1155252ade8b) 
+_Service configuration showing Local System Account selection, which provides necessary permissions for reading security event logs._
+
+### 4.6 Starting the Forwarder Service
+Right-click on the **SplunkForwarder** service and select **Restart**. If the restart fails, right-click again and choose **Start**.
+
+_\[Fig 39 - Screenshot of service restart process and confirmation of running status\]_ 
+_Service management showing the restart process and confirmation that the SplunkForwarder is running and collecting logs._
+
+**Verification Steps:**
+-   Confirm the service status shows "Running"
+-   Check that no error messages appear in the service startup
+-   Verify network connectivity to the Splunk server on port 9997
+**Repeat this entire process on both Windows machines** (MyLab-ADDC01 and MyLab-Test01) to ensure comprehensive log collection from your Active Directory environment.
 
 
 
- (setting indexes)
 
 
- (Indexes page)
+  Splunk forwarder download
+
+ Splunk 1 install
+
+ Splunk 2 install
+
+ Splunk 3 skip
+
+ Splunk 4 install
+
+ (inputs default)
+
+ (Inputs local)
+
+ (inputs.conf)
+
+ Windows services
+
+ Log on as
+
+ Restart
 
 
- (index enabled)
-
- (time zone settings)
-
- (Apps)
-
- (windows app)
 
 
 
 
 
 
-This completes the virtual machine deployment phase. All three VMs are now configured with proper networking and are ready for the next phase of the project.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
