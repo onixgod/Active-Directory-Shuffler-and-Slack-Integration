@@ -358,35 +358,15 @@ _Service management showing the restart process and confirmation that the Splunk
 **Verification Steps:**
 -   Confirm the service status shows "Running"
 -   Check that no error messages appear in the service startup
--   Verify network connectivity to the Splunk server on port 9997
+-   Verify network connectivity to the Splunk server on port 9997<br>
 **Repeat this entire process on both Windows machines** (MyLab-ADDC01 and MyLab-Test01) to ensure comprehensive log collection from your Active Directory environment.
+Once both forwarders are configured and running, they will begin sending Windows Security Event Logs to your Splunk server, providing the telemetry needed for our SOC analysis and automated response workflows.
 
 
 
 
 
-  Splunk forwarder download
-
- Splunk 1 install
-
- Splunk 2 install
-
- Splunk 3 skip
-
- Splunk 4 install
-
- (inputs default)
-
- (Inputs local)
-
- (inputs.conf)
-
- Windows services
-
- Log on as
-
- Restart
-
+  
 
 
 
