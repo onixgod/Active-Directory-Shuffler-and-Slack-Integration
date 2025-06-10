@@ -289,7 +289,7 @@ Double-click the downloaded executable to begin installation. Check the box to *
 ![image](https://github.com/user-attachments/assets/a66883cb-b531-4758-bdec-1205aa319622)<br>
 _Installation wizard displaying the license agreement that must be accepted to proceed with the forwarder installation._
 
-For the username field, create a username of your choice (e.g., "splunk\_service"). For the password, leave it set to **'Generate random password'** for security.
+For the username field, create a username of your choice (e.g., "admin"). For the password, leave it set to **'Generate random password'** for security.
 
 ![image](https://github.com/user-attachments/assets/ea5b8e0c-4e90-4d79-b8d6-04dd5df640d9)<br>
 _Service account configuration showing username creation and automatic password generation for the Splunk service._
@@ -338,24 +338,21 @@ _Configuration file modification showing the Windows Security Event Log collecti
 
 Save and close the file after adding the configuration.
 
-![image](https://github.com/user-attachments/assets/612f8990-2689-4d25-9acc-51e08dcad131)<br>
-_File save confirmation showing the custom configuration has been properly applied._
-
 ### 4.5 Configuring Service Permissions
 Access **Windows Services** to configure the Splunk service permissions. Search for **"SplunkForwarder"** service and open its properties.
 
-![image](https://github.com/user-attachments/assets/bf692c74-fda0-41fb-a7f5-e22a847366ad)<br>
+![image](https://github.com/user-attachments/assets/612f8990-2689-4d25-9acc-51e08dcad131)<br>
 _Windows Services management interface displaying the SplunkForwarder service that needs permission configuration._
 
 Navigate to the **Log On** tab and select **"Local System Account"** under "Log on as". This ensures the service has sufficient privileges to read Windows Security Event Logs. Click **OK** to apply.
 
-![image](https://github.com/user-attachments/assets/01769e91-3ce1-4782-8e57-1155252ade8b)<br>
+![image](https://github.com/user-attachments/assets/bf692c74-fda0-41fb-a7f5-e22a847366ad)<br>
 _Service configuration showing Local System Account selection, which provides necessary permissions for reading security event logs._
 
 ### 4.6 Starting the Forwarder Service
 Right-click on the **SplunkForwarder** service and select **Restart**. If the restart fails, right-click again and choose **Start**.
 
-_\[Fig 39 - Screenshot of service restart process and confirmation of running status\]_ 
+![image](https://github.com/user-attachments/assets/01769e91-3ce1-4782-8e57-1155252ade8b)<br> 
 _Service management showing the restart process and confirmation that the SplunkForwarder is running and collecting logs._
 
 **Verification Steps:**
