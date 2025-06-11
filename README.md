@@ -391,45 +391,45 @@ Once both forwarders are configured and running, they will begin sending Windows
 ## Step 5: Verifying Telemetry and Creating Security Alerts
 ### 5.1 Verifying Data Collection
 
-Now we need to verify that Splunk is receiving telemetry from our Windows machines. Login to your Splunk interface using either the **Ubuntu public IP** from your local machine or the **Ubuntu private IP** from one of the Windows VMs, then enter your credentials.
+Now we need to verify that Splunk is receiving telemetry from our Windows machines. Log in to your Splunk interface using either the **Ubuntu public IP** from your local machine or the **Ubuntu private IP** from one of the Windows VMs, then enter your credentials.
 
-_\[Fig 32 - Screenshot of Splunk login interface with credentials being entered\]_ 
+![image](https://github.com/user-attachments/assets/f399d2a9-9c81-46a9-ab9d-bcdc3c8796fc)<br> 
 _Splunk web interface login showing successful authentication to verify data collection status._
 
 Click on **Search & Reporting** to access the search interface.
 
-_\[Fig 33 - Screenshot of Splunk main dashboard with Search & Reporting option highlighted\]_ 
+![image](https://github.com/user-attachments/assets/90d37d45-729c-4c8d-8e6d-e80992111f53)<br> 
 _Splunk main dashboard displaying the Search & Reporting application needed for data analysis._
 
 In the search box, type `index="[your_index_name]"` (replace with the index you created) and press Enter or click the magnifying glass icon.
 
-_\[Fig 34 - Screenshot of search interface showing index search query\]_ 
+![image](https://github.com/user-attachments/assets/0c800814-9617-4114-9353-2d9a1d3feeb3)<br>
 _Search interface displaying the index query to verify data collection from our Windows forwarders._
 
 You should see logs from both Windows machines from the last 24 hours. **If no telemetry appears, verify:**
 -   Port 9997 is correctly configured in Splunk
--   `inputs.conf` files are properly set up on both Windows machines
--   SplunkForwarder services are running with correct IP and port
--   Index names match between forwarders and Splunk server
+-   `inputs.conf` files are correctly set up on both Windows machines
+-   SplunkForwarder services are running with the  correct IP and port
+-   Index names match between forwarders and the Splunk server
 
-_\[Fig 35 - Screenshot showing successful log collection from both Windows machines\]_ 
+![image](https://github.com/user-attachments/assets/a42cd7f3-b179-4baf-a08f-65ccf80169e5)<br> 
 _Search results displaying Windows Event Logs successfully collected from both MyLab-ADDC01 and MyLab-Test01._
 
 ### 5.2 Confirming Multi-Host Data Collection
 
-Check that you're receiving telemetry from both Windows machines. In the **Selected Fields** panel on the right, click on **host**. Both machine names should be listed, confirming data collection from your entire environment.
+Check that you're receiving telemetry from both Windows machines. In the **Selected Fields** panel on the right, click on **host**. Both machine names should be listed to confirm data collection from your entire environment.
 
-_\[Fig 36 - Screenshot of Selected Fields panel showing both Windows machine hostnames\]_ 
-_Field analysis showing successful data collection from both Active Directory server and test machine._
+![image](https://github.com/user-attachments/assets/d04d69b8-36e3-49c1-9b91-8c10f37100cb)<br> 
+_Field analysis showing successful data collection from both the Active Directory server and the test machine._
 
-### 5.3 Creating Unauthorized Login Detection Rule
-To create an alert for unauthorized successful logins, we need to identify the appropriate Windows Event IDs. For successful logins, we use:
+### 5.3 Creating Unauthorised Login Detection Rule
+To create an alert for unauthorised successful logins, we need to identify the appropriate Windows Event IDs. For successful logins, we use:
 -   **Event Code 4624** (Successful Logon)
 -   **Logon Types 7 and 10** (Remote Interactive and RemoteInteractive)
 
 First, filter by Event Code: `index="mylab" EventCode=4624`
 
-_\[Fig 37 - Screenshot showing search results filtered by EventCode 4624\]_ 
+![image](https://github.com/user-attachments/assets/7d5909d0-0b13-4b2c-bdc7-73c41461d8d6)<br> 
 _Search results displaying Windows Event ID 4624 logs representing successful authentication events._
 
 ### 5.4 Refining the Detection Logic
@@ -437,15 +437,15 @@ Add Logon Type filtering: `index="mylab" EventCode=4624 (Logon_Type=7 OR Logon_T
 
 This filters events containing logon types 7 or 10 for Event Code 4624, focusing on remote interactive sessions.
 
-_\[Fig 38 - Screenshot showing refined search with logon type filtering\]_ 
+![image](https://github.com/user-attachments/assets/62810018-27e9-4ece-b93b-5cccaf8d444b)<br> 
 _Enhanced search query targeting specific remote logon types for more precise alerting._
 
 **Note:** If you've been working on this project for several days, change the time range from "Last 24 hours" to "All time" to see all ingested data.
 
-### 5.5 Analyzing Source IP Addresses
-Examine the **Source\_Network\_Address** field to identify connection sources. This field shows all IP addresses that have connected to your Windows machines.
+### 5.5 Analysing Source IP Addresses
+Could you look over the **Source\_Network\_Address** field to identify connection sources? This field shows all IP addresses that have connected to your Windows machines.
 
-_\[Fig 39 - Screenshot displaying Source\_Network\_Address field values showing various IP connections\]_ 
+![image](https://github.com/user-attachments/assets/c471065e-f769-4ddf-8483-bbcd02e78c40)<br> 
 _Source IP analysis revealing connection patterns and potential unauthorized access attempts._
 
 **Note:** The IP values in your environment will differ from the screenshots, as this represents accumulated data from multiple days of testing and external connections.
@@ -453,63 +453,89 @@ _Source IP analysis revealing connection patterns and potential unauthorized acc
 ### 5.6 Cleaning the Data
 Remove null values by filtering out empty Source\_Network\_Address entries: `index="mylab" EventCode=4624 (Logon_Type=7 OR Logon_Type=10) Source_Network_Address!="-"`
 
-_\[Fig 40 - Screenshot showing cleaned data without null source IP values\]_ 
+![image](https://github.com/user-attachments/assets/cb83c459-6596-4a1b-9c87-95d45559f55a)<br> 
 _Data refinement removing null values for cleaner analysis and more accurate alerting._
 
-### 5.7 Excluding Authorized Connections
-Exclude your authorized public IP address to prevent false positives: `index="mylab" EventCode=4624 (Logon_Type=7 OR Logon_Type=10) Source_Network_Address!="-" Source_Network_Address!="[Your_Public_IP]"`
+### 5.7 Excluding Authorised Connections
+Exclude your authorised public IP address to prevent false positives: `index="mylab" EventCode=4624 (Logon_Type=7 OR Logon_Type=10) Source_Network_Address!="-" Source_Network_Address!="[Your_Public_IP]"`
 
 **Security Note:** In this example, only the first three octets are used for demonstration. In production, use your complete public IP address for precise filtering.
 
-_\[Fig 41 - Screenshot showing search query excluding authorized IP addresses\]_ 
+![image](https://github.com/user-attachments/assets/11b57184-65f0-4ee5-9a6f-a04cc39c56b3)<br> 
 _Alert logic excluding legitimate administrative connections to reduce false positive alerts._
 
 ### 5.8 Creating a Formatted Alert Query
 Transform the results into a clean table format:
 
+```splunk
+index="mylab" EventCode=4624 (Logon_Type=7 OR Logon_Type=10) Source_Network_Address!="-" Source_Network_Address!="203.*"
+| stats count by _time, ComputerName, Source_Network_Address, user, Logon_Type
+```
+
+![image](https://github.com/user-attachments/assets/877244a2-5ecb-428c-81c3-d1d86e934489)<br> 
+_Structured alert output showing essential fields for incident response: time, computer, source IP, user, and logon type._
+
+### 5.9 Saving the Alert
+Click **Save As** → **Alert** to create the detection rule.
+
+![image](https://github.com/user-attachments/assets/36a43555-c0de-45f6-8cf0-1d4c4dd95236)<br> 
+_Alert creation interface for converting our search query into an automated detection rule._
+
+Configure the alert settings:
+-   **Title:** "MyLab-Unauthorized-Successful-Login-RDP"
+-   **Permissions:** Private
+-   **Alert Type:** Scheduled
+-   **Schedule:** Run on Cron Schedule
+-   **Time Range:** Past 60 minutes
+-   **Cron Expression:** `* * * * *` (runs every minute)
+-   **Trigger Actions:** Add to Triggered Alerts
+-   **Severity:** Medium
+
+Click **Save** and close any warning windows.
+
+![image](https://github.com/user-attachments/assets/3fd8ef2e-2842-466d-816f-800ff629e947)<br> 
+_Alert configuration displaying the automated detection rule settings for unauthorised login monitoring._
+
+### 5.10 Configuring the Firewall for Testing
+Modify Vultr firewall rules to allow external connections for testing. Navigate to **Network** → **Firewall** and edit the existing rules. Remove the restrictive RDP rule and create a new one allowing broader access for testing purposes.
+
+![image](https://github.com/user-attachments/assets/129a5d1e-a62d-4db7-a7b6-2c123f7b18c9)<br> 
+_Firewall modification enabling external access for alert testing while maintaining security controls._
+
+### 5.11 Testing the Alert System
+Test the alert using a device with a different public IP address. Use mobile data or a VPN service to connect from an IP outside your authorised range.
+
+Connect to the test machine via RDP using:
+-   **IP:** MyLab-Test01 public IP
+-   **Username:** JSmith
+-   **Password:** \[Domain user password\]
+
+![image](https://github.com/user-attachments/assets/301e7607-5e30-4405-be97-47342f4cc0a4)<br> 
+_Mobile device RDP connection demonstrating unauthorised access simulation for alert testing._
+
+### 5.12 Verifying Alert Triggers
+After successful login, navigate to **Activity** → **Triggered Alerts** to confirm the detection rule is working.
+
+![image](https://github.com/user-attachments/assets/abc68997-38ac-40a1-b256-381749863466)<br>
+_Triggered Alerts dashboard displaying successful detection of unauthorized login attempts._
+
+You should see alerts triggered by the unauthorised connections. Just to remind you, alerts will continue triggering every minute as configured.
+
+![image](https://github.com/user-attachments/assets/efa00f90-5655-4d09-903a-782ea5399d2b)<br> 
+_Alert details displaying the mobile device's public IP address detected by our security rule._
+
+_\[Fig 49 - Screenshot showing alert details with VPN IP address\]_ 
+_Additional alert showing VPN connection detected, confirming multi-source threat detection capability._
+
+### 5.13 Validation Complete
+Now that we've confirmed our detection rule is working and alerts are being appropriately triggered, we can proceed to the final integration step with Shuffler and Slack for automated incident response.
+
+The alert system successfully detects unauthorised remote logins and will serve as the trigger for our SOAR automation workflow.
 
 
 
 
 
-
-![image](https://github.com/user-attachments/assets/f399d2a9-9c81-46a9-ab9d-bcdc3c8796fc)
-
-![image](https://github.com/user-attachments/assets/90d37d45-729c-4c8d-8e6d-e80992111f53)
-
-![image](https://github.com/user-attachments/assets/0c800814-9617-4114-9353-2d9a1d3feeb3)
-
-![image](https://github.com/user-attachments/assets/a42cd7f3-b179-4baf-a08f-65ccf80169e5)
-
-
-![image](https://github.com/user-attachments/assets/d04d69b8-36e3-49c1-9b91-8c10f37100cb)
-
-![image](https://github.com/user-attachments/assets/7d5909d0-0b13-4b2c-bdc7-73c41461d8d6)
-
-![image](https://github.com/user-attachments/assets/62810018-27e9-4ece-b93b-5cccaf8d444b)
-
-![image](https://github.com/user-attachments/assets/c471065e-f769-4ddf-8483-bbcd02e78c40)
-
-![image](https://github.com/user-attachments/assets/cb83c459-6596-4a1b-9c87-95d45559f55a)
-
-![image](https://github.com/user-attachments/assets/11b57184-65f0-4ee5-9a6f-a04cc39c56b3)
-
-![image](https://github.com/user-attachments/assets/877244a2-5ecb-428c-81c3-d1d86e934489)
-
-![image](https://github.com/user-attachments/assets/36a43555-c0de-45f6-8cf0-1d4c4dd95236)
-
-
-![image](https://github.com/user-attachments/assets/3fd8ef2e-2842-466d-816f-800ff629e947)
-
-![image](https://github.com/user-attachments/assets/129a5d1e-a62d-4db7-a7b6-2c123f7b18c9)
-  
-![image](https://github.com/user-attachments/assets/301e7607-5e30-4405-be97-47342f4cc0a4)
-
-
-![image](https://github.com/user-attachments/assets/abc68997-38ac-40a1-b256-381749863466)
-
-
-![image](https://github.com/user-attachments/assets/efa00f90-5655-4d09-903a-782ea5399d2b)
 
 
 
