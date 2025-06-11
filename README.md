@@ -498,21 +498,16 @@ Click **Save** and close any warning windows.
 ![image](https://github.com/user-attachments/assets/36a43555-c0de-45f6-8cf0-1d4c4dd95236)<br> 
 _Alert creation interface for converting our search query into an automated detection rule._
 
-
-
-
-
-
-
-
-![image](https://github.com/user-attachments/assets/3fd8ef2e-2842-466d-816f-800ff629e947)<br> 
-_Alert configuration displaying the automated detection rule settings for unauthorised login monitoring._
-
 ### 5.10 Configuring the Firewall for Testing
 Modify Vultr firewall rules to allow external connections for testing. Navigate to **Network** → **Firewall** and edit the existing rules. Remove the restrictive RDP rule and create a new one allowing broader access for testing purposes.
 
-![image](https://github.com/user-attachments/assets/129a5d1e-a62d-4db7-a7b6-2c123f7b18c9)<br> 
+![image](https://github.com/user-attachments/assets/3fd8ef2e-2842-466d-816f-800ff629e947)<br>
 _Firewall modification enabling external access for alert testing while maintaining security controls._
+
+
+
+
+
 
 ### 5.11 Testing the Alert System
 Test the alert using a device with a different public IP address. Use mobile data or a VPN service to connect from an IP outside your authorised range.
