@@ -512,7 +512,7 @@ Connect to the test machine via RDP using:
 -   **Username:** JSmith
 -   **Password:** \[Domain user password\]
    
-![IMG_1312](https://github.com/user-attachments/assets/12e5e531-d2ba-4e44-a538-981b6a281ca2)<br>
+![IMG_1312](https://github.com/user-attachments/assets/b5c2e4c6-9bfe-4e1c-b0ed-d79cbb5b5f88)<br>
 _Mobile device RDP connection demonstrating unauthorised access simulation for alert testing._
 
 ### 5.12 Verifying Alert Triggers
