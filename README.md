@@ -479,17 +479,9 @@ index="mylab" EventCode=4624 (Logon_Type=7 OR Logon_Type=10) Source_Network_Addr
 ![image](https://github.com/user-attachments/assets/11b57184-65f0-4ee5-9a6f-a04cc39c56b3)<br> 
 _Structured alert output showing essential fields for incident response: time, computer, source IP, user, and logon type._
 
-
-
-
-
-
-
-
-![image](https://github.com/user-attachments/assets/877244a2-5ecb-428c-81c3-d1d86e934489)<br> 
-
 ### 5.9 Saving the Alert
 Click **Save As** → **Alert** to create the detection rule.
+![image](https://github.com/user-attachments/assets/877244a2-5ecb-428c-81c3-d1d86e934489)<br> 
 
 ![image](https://github.com/user-attachments/assets/36a43555-c0de-45f6-8cf0-1d4c4dd95236)<br> 
 _Alert creation interface for converting our search query into an automated detection rule._
@@ -505,6 +497,15 @@ Configure the alert settings:
 -   **Severity:** Medium
 
 Click **Save** and close any warning windows.
+
+
+
+
+
+
+
+
+
 
 ![image](https://github.com/user-attachments/assets/3fd8ef2e-2842-466d-816f-800ff629e947)<br> 
 _Alert configuration displaying the automated detection rule settings for unauthorised login monitoring._
