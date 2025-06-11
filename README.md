@@ -451,16 +451,23 @@ Could you look over the **Source\_Network\_Address** field to identify connectio
 ![image](https://github.com/user-attachments/assets/62810018-27e9-4ece-b93b-5cccaf8d444b)<br> 
 _Enhanced search query targeting specific remote logon types for more precise alerting._
 
-
-
-
-![image](https://github.com/user-attachments/assets/c471065e-f769-4ddf-8483-bbcd02e78c40)<br> 
-_Source IP analysis revealing connection patterns and potential unauthorized access attempts._
-
 **Note:** The IP values in your environment will differ from the screenshots, as this represents accumulated data from multiple days of testing and external connections.
 
 ### 5.6 Cleaning the Data
 Remove null values by filtering out empty Source\_Network\_Address entries: `index="mylab" EventCode=4624 (Logon_Type=7 OR Logon_Type=10) Source_Network_Address!="-"`
+
+![image](https://github.com/user-attachments/assets/c471065e-f769-4ddf-8483-bbcd02e78c40)<br> 
+_Data refinement removing null values for cleaner analysis and more accurate alerting._
+
+
+
+
+
+_Source IP analysis reveals connection patterns and potential unauthorised access attempts._
+
+
+
+
 
 ![image](https://github.com/user-attachments/assets/cb83c459-6596-4a1b-9c87-95d45559f55a)<br> 
 _Data refinement removing null values for cleaner analysis and more accurate alerting._
