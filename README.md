@@ -483,9 +483,6 @@ _Structured alert output showing essential fields for incident response: time, c
 Click **Save As** → **Alert** to create the detection rule.
 ![image](https://github.com/user-attachments/assets/877244a2-5ecb-428c-81c3-d1d86e934489)<br> 
 
-![image](https://github.com/user-attachments/assets/36a43555-c0de-45f6-8cf0-1d4c4dd95236)<br> 
-_Alert creation interface for converting our search query into an automated detection rule._
-
 Configure the alert settings:
 -   **Title:** "MyLab-Unauthorized-Successful-Login-RDP"
 -   **Permissions:** Private
@@ -498,7 +495,8 @@ Configure the alert settings:
 
 Click **Save** and close any warning windows.
 
-
+![image](https://github.com/user-attachments/assets/36a43555-c0de-45f6-8cf0-1d4c4dd95236)<br> 
+_Alert creation interface for converting our search query into an automated detection rule._
 
 
 
