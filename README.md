@@ -388,13 +388,16 @@ _Service management showing the restart process and confirmation that the Splunk
 **Repeat this entire process on both Windows machines** (MyLab-ADDC01 and MyLab-Test01) to ensure comprehensive log collection from your Active Directory environment.<br>
 Once both forwarders are configured and running, they will begin sending Windows Security Event Logs to your Splunk server, providing the telemetry needed for our SOC analysis and automated response workflows.
 
+### 4.7 Open port 9997 on the Ubuntu Splunk Machine
+The final step is to open port 9997 on the Ubuntu machine, using the following command `ufw allow 9997`.
+
 ## Step 5: Verifying Telemetry and Creating Security Alerts
 ### 5.1 Verifying Data Collection
 
 Now we need to verify that Splunk is receiving telemetry from our Windows machines. Log in to your Splunk interface using either the **Ubuntu public IP** from your local machine or the **Ubuntu private IP** from one of the Windows VMs, then enter your credentials.
 
 ![image](https://github.com/user-attachments/assets/f399d2a9-9c81-46a9-ab9d-bcdc3c8796fc)<br> 
-_Splunk web interface login showing successful authentication to verify data collection status._
+_Splunk web interface._
 
 Click on **Search & Reporting** to access the search interface.
 
