@@ -621,7 +621,7 @@ _Shuffler main dashboard showing the workflow creation interface for building ou
 
 ### 6.2 Adding Webhook Connector
 
-You'll be directed to the workflow design area. From the left panel, grab a **Webhook** component and drop it onto the work area. The Webhook serves as the connection bridge between Shuffler and Splunk to receive filtered alert data.
+You'll be directed to the workflow design area. From the left panel, grab a **Webhook** component and drop it onto the work area. The Webhook serves as the connection bridge between Shuffler and Splunk, receiving filtered alert data.
 
 ![image](https://github.com/user-attachments/assets/b43e1d44-5cfe-4377-96a8-d6b9e81b67de) 
 _Workflow designer showing the Webhook component that will receive alert data from our Splunk detection rule._
@@ -681,57 +681,56 @@ _Alert payload analysis confirming proper data transmission, including source IP
 
 Now that we've confirmed data flow, return to Splunk and **disable** the alert temporarily to prevent continuous triggering while building the workflow.
 
-![image](https://github.com/user-attachments/assets/42746717-aee9-40cf-9373-aeb2e76d934c) 
+![image](https://github.com/user-attachments/assets/f01f4075-e061-48ac-bf68-995e04d7f494) 
 Alert management is temporarily disabled to prevent workflow interference during development._
 
 ### 6.7 Adding Slack Integration
 
 In Shuffler's search field (top left), type **"Slack"**, click on it, and drag the Slack connector to the work area.
 
-![image](https://github.com/user-attachments/assets/f01f4075-e061-48ac-bf68-995e04d7f494) 
+![image](https://github.com/user-attachments/assets/85e9d293-b892-4ef3-8295-a371fe12f4ca) 
 _Workflow expansion showing Slack integration for real-time security alert notifications._
 
 Click on the Slack component. In the properties panel, change the name to something descriptive and select **"Chat post message"** from the Actions dropdown.
 
-![image](https://github.com/user-attachments/assets/85e9d293-b892-4ef3-8295-a371fe12f4ca)
+![image](https://github.com/user-attachments/assets/7b7a9165-fbb2-4cf7-a94b-171adc7e1ae6)
 _Slack connector configuration displaying the message posting capability for alert notifications._
 
 ### 6.8 Setting Up Slack Workspace
 
 You need a Slack account for authentication. If you don't have one, go to the Slack website and click **Get Started**.
 
-![image](https://github.com/user-attachments/assets/7b7a9165-fbb2-4cf7-a94b-171adc7e1ae6) 
+![image](https://github.com/user-attachments/assets/d8b638c8-e878-4b21-8fcb-4543a93f3c66) 
 _Slack account creation showing the registration process needed for workspace integration._
 
 Enter your email and continue. Enter the verification code received in your email, then create your workspace by selecting **"Create a workspace"**.
 
-![image](https://github.com/user-attachments/assets/d8b638c8-e878-4b21-8fcb-4543a93f3c66) 
+![image](https://github.com/user-attachments/assets/6122d062-c568-45f5-848c-4a9b060d8869)  
 _Slack workspace setup for receiving security alerts from our automated response system._
 
 Pick a company name, enter your details, skip additional setup options, and choose **"Start with the Limited Free Version"**.
 
-![image](https://github.com/user-attachments/assets/6122d062-c568-45f5-848c-4a9b060d8869) 
-_Slack workspace finalisation showing the free tier setup sufficient for our security alert system._
 ![image](https://github.com/user-attachments/assets/4bf43e5c-9aa6-4029-b983-59f56edd161b)
 ![image](https://github.com/user-attachments/assets/406bdc60-d7c9-4959-857d-cbf14500e1b7)
+![image](https://github.com/user-attachments/assets/1f4b4ee3-815b-475c-90fd-b4268333d1ea) 
+_Slack workspace finalisation showing the free tier setup sufficient for our security alert system._
 
 ### 6.9 Authenticating Shuffler with Slack
 
 Return to Shuffler and click **"One-click Login"** to authenticate with Slack.
 
-![image](https://github.com/user-attachments/assets/1f4b4ee3-815b-475c-90fd-b4268333d1ea) 
+![image](https://github.com/user-attachments/assets/52b6a2bc-93a9-4402-9aab-b826817bd99b)
 _Authentication interface connecting our workflow automation with the Slack notification system._
 
 When the pop-up appears, select your workspace and click **"Allow"** in the top right corner.
 
-![image](https://github.com/user-attachments/assets/52b6a2bc-93a9-4402-9aab-b826817bd99b)
+![image](https://github.com/user-attachments/assets/cac9d40b-7d5f-4810-9fa1-d177eacb9a9b)
 _OAuth authorisation showing permission grant for Shuffler to send messages to our Slack workspace._
 
 ### 6.10 Creating Security Alert Channel
 
 In Slack, navigate to **Channels** → **Create Channel**. Select **"Blank Channel"**, choose a name (e.g., "security-alerts"), and create the channel.
 
-![image](https://github.com/user-attachments/assets/cac9d40b-7d5f-4810-9fa1-d177eacb9a9b)
 ![image](https://github.com/user-attachments/assets/e7d97cab-9846-4594-8eee-1ed7a6e2fd6a)
 _Slack channel setup for dedicated security alert notifications from our SOAR automation._
 
