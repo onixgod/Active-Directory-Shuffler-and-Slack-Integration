@@ -457,28 +457,16 @@ _Enhanced search query targeting specific remote logon types for more precise al
 Remove null values by filtering out empty Source\_Network\_Address entries: `index="mylab" EventCode=4624 (Logon_Type=7 OR Logon_Type=10) Source_Network_Address!="-"`
 
 ![image](https://github.com/user-attachments/assets/c471065e-f769-4ddf-8483-bbcd02e78c40)<br> 
-_Data refinement removing null values for cleaner analysis and more accurate alerting._
-
-
-
-
-
-_Source IP analysis reveals connection patterns and potential unauthorised access attempts._
-
-
-
-
-
-![image](https://github.com/user-attachments/assets/cb83c459-6596-4a1b-9c87-95d45559f55a)<br> 
-_Data refinement removing null values for cleaner analysis and more accurate alerting._
+_Data refinement removing null values for cleaner analysis and more accurate alerting. The Source IP analysis reveals connection patterns and potential unauthorised access attempts._
 
 ### 5.7 Excluding Authorised Connections
 Exclude your authorised public IP address to prevent false positives: `index="mylab" EventCode=4624 (Logon_Type=7 OR Logon_Type=10) Source_Network_Address!="-" Source_Network_Address!="[Your_Public_IP]"`
 
 **Security Note:** In this example, only the first three octets are used for demonstration. In production, use your complete public IP address for precise filtering.
 
-![image](https://github.com/user-attachments/assets/11b57184-65f0-4ee5-9a6f-a04cc39c56b3)<br> 
+![image](https://github.com/user-attachments/assets/cb83c459-6596-4a1b-9c87-95d45559f55a)<br> 
 _Alert logic excluding legitimate administrative connections to reduce false positive alerts._
+
 
 ### 5.8 Creating a Formatted Alert Query
 Transform the results into a clean table format:
@@ -488,8 +476,17 @@ index="mylab" EventCode=4624 (Logon_Type=7 OR Logon_Type=10) Source_Network_Addr
 | stats count by _time, ComputerName, Source_Network_Address, user, Logon_Type
 ```
 
-![image](https://github.com/user-attachments/assets/877244a2-5ecb-428c-81c3-d1d86e934489)<br> 
+![image](https://github.com/user-attachments/assets/11b57184-65f0-4ee5-9a6f-a04cc39c56b3)<br> 
 _Structured alert output showing essential fields for incident response: time, computer, source IP, user, and logon type._
+
+
+
+
+
+
+
+
+![image](https://github.com/user-attachments/assets/877244a2-5ecb-428c-81c3-d1d86e934489)<br> 
 
 ### 5.9 Saving the Alert
 Click **Save As** → **Alert** to create the detection rule.
