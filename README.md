@@ -397,7 +397,7 @@ The final step is to open port 9997 on the Ubuntu machine, using the following c
 Now we need to verify that Splunk is receiving telemetry from our Windows machines. Log in to your Splunk interface using either the **Ubuntu public IP** from your local machine or the **Ubuntu private IP** from one of the Windows VMs, then enter your credentials.
 
 ![image](https://github.com/user-attachments/assets/f399d2a9-9c81-46a9-ab9d-bcdc3c8796fc)<br> 
-_Splunk web interface._
+_Splunk web interface, login page._
 
 Click on **Search & Reporting** to access the search interface.
 
@@ -415,15 +415,26 @@ You should see logs from both Windows machines from the last 24 hours. **If no t
 -   SplunkForwarder services are running with the  correct IP and port
 -   Index names match between forwarders and the Splunk server
 
-![image](https://github.com/user-attachments/assets/a42cd7f3-b179-4baf-a08f-65ccf80169e5)<br> 
+![image](https://github.com/user-attachments/assets/b2af2626-a61b-4492-a2aa-3aaa7ed9b90d)<br> 
 _Search results displaying Windows Event Logs successfully collected from both MyLab-ADDC01 and MyLab-Test01._
 
 ### 5.2 Confirming Multi-Host Data Collection
 
 Check that you're receiving telemetry from both Windows machines. In the **Selected Fields** panel on the right, click on **host**. Both machine names should be listed to confirm data collection from your entire environment.
 
-![image](https://github.com/user-attachments/assets/d04d69b8-36e3-49c1-9b91-8c10f37100cb)<br> 
-_Field analysis showing successful data collection from both the Active Directory server and the test machine._
+![image](https://github.com/user-attachments/assets/d04d69b8-36e3-49c1-9b91-8c10f37100cb)<br>
+_Host showing MyLab-ADDC01 and MyLab-Test01_
+
+
+
+
+
+
+
+
+
+
+
 
 ### 5.3 Creating Unauthorised Login Detection Rule
 To create an alert for unauthorised successful logins, we need to identify the appropriate Windows Event IDs. For successful logins, we use:
@@ -432,13 +443,25 @@ To create an alert for unauthorised successful logins, we need to identify the a
 
 First, filter by Event Code: `index="mylab" EventCode=4624`
 
-![image](https://github.com/user-attachments/assets/7d5909d0-0b13-4b2c-bdc7-73c41461d8d6)<br> 
+![image](https://github.com/user-attachments/assets/a42cd7f3-b179-4baf-a08f-65ccf80169e5)<br> 
 _Search results displaying Windows Event ID 4624 logs representing successful authentication events._
+
+
+
+
 
 ### 5.4 Refining the Detection Logic
 Add Logon Type filtering: `index="mylab" EventCode=4624 (Logon_Type=7 OR Logon_Type=10)`
 
 This filters events containing logon types 7 or 10 for Event Code 4624, focusing on remote interactive sessions.
+
+![image](https://github.com/user-attachments/assets/7d5909d0-0b13-4b2c-bdc7-73c41461d8d6)<br> 
+_Enhanced search query targeting specific remote logon types for more precise alerting._
+
+
+
+
+
 
 ![image](https://github.com/user-attachments/assets/62810018-27e9-4ece-b93b-5cccaf8d444b)<br> 
 _Enhanced search query targeting specific remote logon types for more precise alerting._
