@@ -422,19 +422,8 @@ _Search results displaying Windows Event Logs successfully collected from both M
 
 Check that you're receiving telemetry from both Windows machines. In the **Selected Fields** panel on the right, click on **host**. Both machine names should be listed to confirm data collection from your entire environment.
 
-![image](https://github.com/user-attachments/assets/d04d69b8-36e3-49c1-9b91-8c10f37100cb)<br>
+![image](https://github.com/user-attachments/assets/6b0ec405-02f9-4231-9c82-2c588ddb7db4)<br>
 _Host showing MyLab-ADDC01 and MyLab-Test01_
-
-
-
-
-
-
-
-
-
-
-
 
 ### 5.3 Creating Unauthorised Login Detection Rule
 To create an alert for unauthorised successful logins, we need to identify the appropriate Windows Event IDs. For successful logins, we use:
@@ -443,7 +432,7 @@ To create an alert for unauthorised successful logins, we need to identify the a
 
 First, filter by Event Code: `index="mylab" EventCode=4624`
 
-![image](https://github.com/user-attachments/assets/a42cd7f3-b179-4baf-a08f-65ccf80169e5)<br> 
+![image](https://github.com/user-attachments/assets/647164f2-0431-4e55-9f33-d0545b42ec9f)<br> 
 _Search results displaying Windows Event ID 4624 logs representing successful authentication events._
 
 
