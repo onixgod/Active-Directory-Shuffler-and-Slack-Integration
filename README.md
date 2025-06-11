@@ -610,8 +610,198 @@ The alert system successfully detects unauthorised remote logins and will serve 
 
 dsdsddssdds
 
+-----------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------
+
+Here's the structured SOAR Automation with Shuffler and Slack Integration section:
+
+Step 6: SOAR Automation with Shuffler and Slack Integration
+6.1 Setting Up Shuffler Workflow
+First, create an account on Shuffler and log in to your newly created account. Click on Create Workflow, choose a descriptive name for your workflow (e.g., "MyLab-Unauthorized-Login-Response"), and save changes.
+
+[Fig 50 - Screenshot of Shuffler dashboard with Create Workflow option] Shuffler main dashboard showing the workflow creation interface for building our automated incident response process.
+
+6.2 Adding Webhook Connector
+You'll be directed to the workflow design area. From the left panel, grab a Webhook component and drop it onto the work area. The Webhook serves as the connection bridge between Shuffler and Splunk to receive filtered alert data.
+
+[Fig 51 - Screenshot of workflow area with Webhook component being added] Workflow designer showing the Webhook component that will receive alert data from our Splunk detection rule.
+
+Click on the webhook component. In the properties panel on the right, assign a descriptive name for the hook (e.g., "Splunk-Alert-Receiver").
+
+[Fig 52 - Screenshot of webhook properties panel with naming configuration] Webhook configuration interface showing the naming and basic setup for receiving Splunk alerts.
+
+6.3 Configuring Splunk Webhook Integration
+Copy the Webhook URI from Shuffler and open the Splunk web interface in another tab.
+
+[Fig 53 - Screenshot showing Webhook URI being copied from Shuffler] Webhook URI generation showing the endpoint that Splunk will use to send alert data to our SOAR platform.
+
+In Splunk, navigate to Search and Reporting → Alerts → Edit the alert you created earlier.
+
+[Fig 54 - Screenshot of Splunk alerts management with edit option] Splunk alert management interface showing the path to modify our existing unauthorized login detection rule.
+
+Scroll down to Actions and select Webhook from the available trigger actions.
+
+[Fig 55 - Screenshot of Splunk alert actions with Webhook option highlighted] Alert action configuration displaying the webhook option for external system integration.
+
+Paste the URI copied from Shuffler into the webhook URL field and verify the alert status shows Enabled.
+
+[Fig 56 - Screenshot of webhook configuration in Splunk with URI pasted] Webhook integration showing the connection between Splunk alerts and our Shuffler automation workflow.
+
+6.4 Testing Webhook Connectivity
+Return to Shuffler and click the Start button to begin listening for data from Splunk.
+
+[Fig 57 - Screenshot of Shuffler webhook start button and listening status] Shuffler workflow activation showing the webhook listener ready to receive alert data from Splunk.
+
+If no remote connections have been generated in the last 60 minutes, create new telemetry by connecting from an unauthorized IP address (the alert runs every minute for 60-minute intervals).
+
+[Fig 58 - Screenshot showing alert generation through unauthorized connection] Alert generation demonstration showing how unauthorized connections trigger our detection rule.
+
+6.5 Verifying Data Reception
+After generating new alerts, check if the Webhook is receiving data by clicking Explore Runs in Shuffler.
+
+[Fig 59 - Screenshot of Shuffler Explore Runs interface showing received alerts] Workflow execution history displaying successful alert reception from our Splunk detection system.
+
+Open one of the alerts to confirm the data structure. You should see the public IP address of your connection and the username (JSmith) in the alert payload.
+
+[Fig 60 - Screenshot of alert details showing IP address and user information] Alert payload analysis confirming proper data transmission including source IP, user, and connection details.
+
+6.6 Disabling Alert for Development
+Now that we've confirmed data flow, return to Splunk and disable the alert temporarily to prevent continuous triggering while building the workflow.
+
+[Fig 61 - Screenshot of Splunk alert being disabled during development] Alert management showing temporary disabling to prevent workflow interference during development.
+
+6.7 Adding Slack Integration
+In Shuffler's search field (top left), type "Slack", click on it, and drag the Slack connector to the work area.
+
+[Fig 62 - Screenshot of Slack connector being added to workflow] Workflow expansion showing Slack integration for real-time security alert notifications.
+
+Click on the Slack component. In the properties panel, change the name to something descriptive and select "Chat post message" from the Actions dropdown.
+
+[Fig 63 - Screenshot of Slack connector configuration with Chat post message action] Slack connector configuration displaying the message posting capability for alert notifications.
+
+6.8 Setting Up Slack Workspace
+You need a Slack account for authentication. If you don't have one, go to the Slack website and click Get Started.
+
+[Fig 64 - Screenshot of Slack registration process] Slack account creation showing the registration process needed for workspace integration.
+
+Enter your email and continue. Enter the verification code received in your email, then create your workspace by selecting "Create a workspace".
+
+[Fig 65 - Screenshot of Slack workspace creation] Slack workspace setup for receiving security alerts from our automated response system.
+
+Pick a company name, enter your details, skip additional setup options, and choose "Start with the Limited Free Version".
+
+[Fig 66 - Screenshot of Slack workspace configuration completion] Slack workspace finalization showing the free tier setup sufficient for our security alert system.
+
+6.9 Authenticating Shuffler with Slack
+Return to Shuffler and click "One-click Login" to authenticate with Slack.
+
+[Fig 67 - Screenshot of Shuffler-Slack authentication process] Authentication interface connecting our workflow automation with the Slack notification system.
+
+When the popup appears, select your workspace and click "Allow" in the top right corner.
+
+[Fig 68 - Screenshot of Slack permission grant for Shuffler] OAuth authorization showing permission grant for Shuffler to send messages to our Slack workspace.
+
+6.10 Creating Security Alert Channel
+In Slack, navigate to Channels → Create Channel. Select "Blank Channel", choose a name (e.g., "security-alerts"), and create the channel.
+
+[Fig 69 - Screenshot of Slack channel creation for security alerts] Slack channel setup for dedicated security alert notifications from our SOAR automation.
+
+Copy the Channel ID from the browser's address bar when viewing the channel.
+
+[Fig 70 - Screenshot showing channel ID extraction from Slack URL] Channel identification process for configuring Shuffler to send alerts to the correct Slack channel.
+
+6.11 Connecting Workflow Components
+Paste the Channel ID into the Channel field in Shuffler's Slack connector configuration.
+
+[Fig 71 - Screenshot of Slack connector channel configuration] Slack connector finalization showing the channel targeting for automated alert delivery.
+
+Connect the Webhook output to the Slack input by drawing a line between the components.
+
+[Fig 72 - Screenshot showing workflow connection between Webhook and Slack] Workflow connection demonstrating data flow from Splunk alerts to Slack notifications.
+
+6.12 Testing Slack Integration
+Click "Explore Runs", select one of the previous runs, and rerun it. This generates the field mappings needed for the next step.
+
+[Fig 73 - Screenshot of workflow rerun process] Workflow testing showing rerun capability for validating component integration and data flow.
+
+Click on the Slack component, find the Text field in properties, click the + button, and select "Run Argument".
+
+[Fig 74 - Screenshot of Slack message field configuration with run arguments] Dynamic message configuration showing how to include alert data in Slack notifications.
+
+Select the arguments you want to send to Slack (e.g., user, source IP, computer name, time).
+
+[Fig 75 - Screenshot of argument selection for Slack message content] Alert data selection for creating comprehensive security notifications with relevant incident details.
+
+Rerun one of the logs from Explore Runs to test the complete integration.
+
+[Fig 76 - Screenshot of successful Slack message delivery] Slack notification verification showing successful alert delivery with incident details.
+
+6.13 Adding Email Trigger for Response Decision
+Add a Trigger component from the left panel and drag it to the work area for creating interactive response options.
+
+[Fig 77 - Screenshot of Trigger component being added to workflow] Workflow enhancement showing the addition of interactive response capabilities for security analysts.
+
+Click on the Trigger component, name it appropriately, set Input options to "email", and click the arrow on "Information".
+
+[Fig 78 - Screenshot of Trigger configuration for email-based response] Interactive trigger setup enabling email-based decision making for incident response actions.
+
+6.14 Crafting Response Email Template
+Create an email notification template asking "Would you like to disable the user?" Use the following enhanced template:
 
 
+markdown
+Security Alert: $exec.search_name 
 
+Incident Information:
+- 🕒 Time: $exec.result._time
+- 👤 User: $exec.result.user
+- 💻 Computer: $exec.result.ComputerName
+- 🌐 Source IP: $exec.result.Source_Network_Address
+- 🔐 Logon Type: $exec.result.Logon_Type (Remote Interactive)
+- 📊 Count: $exec.result.count
+
+Investigation Link(s):
+📋 [View in Splunk]($exec.results_link)
+
+--- 
+
+⚠️ **ACTION REQUIRED**
+
+# Would you like to disable the user account?
+
+*Please review the details above before making a decision.*
+[Fig 79 - Screenshot of email template configuration in Shuffler] Email template design showing comprehensive incident information and response options for security analysts.
+
+Click Submit and Save at the bottom of the page to preserve your work.
+
+6.15 Connecting Email Trigger
+Connect the Slack notification output to the Trigger input to create a sequential workflow.
+
+[Fig 80 - Screenshot showing connection between Slack and email trigger] Workflow progression showing the connection from Slack notification to interactive email response.
+
+Test the integration by going to Explore Runs and rerunning one of the previous logs.
+
+[Fig 81 - Screenshot of email delivery with response options] Email notification verification showing successful delivery with incident details and response options.
+
+6.16 Adding Active Directory Integration
+Search for "Active Directory" in the connector library and drag it to the work area for user account management capabilities.
+
+[Fig 82 - Screenshot of Active Directory connector addition] Workflow completion showing Active Directory integration for automated user account management responses.
+
+Configure the AD connector by clicking the + icon for authentication. Important: Type (don't paste) the following credentials to avoid authentication issues:
+
+Label: AD-Connection
+Host: Windows AD VM public IP
+Port: 389 (LDAP)
+Domain: Your domain name
+Username: Administrator (not recommended for production)
+Password: Administrator password
+Base DN: Use Get-ADDomain PowerShell command on AD server
+Use SSL: False
+[Fig 83 - Screenshot of Active Directory authentication configuration] Active Directory connector setup showing authentication parameters for user account management automation.
+
+Select "User attributes" from Find Actions, test the connection, and configure sAMAccountName using Runtime Argument → user. Set the search base to match your base DN.
+
+[Fig 84 - Screenshot of AD user attribute configuration] Active Directory user lookup configuration enabling automated account management based on alert data.
 
 
