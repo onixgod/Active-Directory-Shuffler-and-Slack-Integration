@@ -504,11 +504,6 @@ Modify Vultr firewall rules to allow external connections for testing. Navigate 
 ![image](https://github.com/user-attachments/assets/3fd8ef2e-2842-466d-816f-800ff629e947)<br>
 _Firewall modification enabling external access for alert testing while maintaining security controls._
 
-
-
-
-
-
 ### 5.11 Testing the Alert System
 Test the alert using a device with a different public IP address. Use mobile data or a VPN service to connect from an IP outside your authorised range.
 
@@ -516,22 +511,23 @@ Connect to the test machine via RDP using:
 -   **IP:** MyLab-Test01 public IP
 -   **Username:** JSmith
 -   **Password:** \[Domain user password\]
-
-![image](https://github.com/user-attachments/assets/301e7607-5e30-4405-be97-47342f4cc0a4)<br> 
+   
+![IMG_1312](https://github.com/user-attachments/assets/12e5e531-d2ba-4e44-a538-981b6a281ca2)<br>
 _Mobile device RDP connection demonstrating unauthorised access simulation for alert testing._
 
 ### 5.12 Verifying Alert Triggers
 After successful login, navigate to **Activity** → **Triggered Alerts** to confirm the detection rule is working.
 
-![image](https://github.com/user-attachments/assets/abc68997-38ac-40a1-b256-381749863466)<br>
+![image](https://github.com/user-attachments/assets/301e7607-5e30-4405-be97-47342f4cc0a4)<br> 
 _Triggered Alerts dashboard displaying successful detection of unauthorized login attempts._
 
 You should see alerts triggered by the unauthorised connections. Just to remind you, alerts will continue triggering every minute as configured.
 
-![image](https://github.com/user-attachments/assets/efa00f90-5655-4d09-903a-782ea5399d2b)<br> 
+![image](https://github.com/user-attachments/assets/abc68997-38ac-40a1-b256-381749863466)<br>
 _Alert details displaying the mobile device's public IP address detected by our security rule._
 
-_\[Fig 49 - Screenshot showing alert details with VPN IP address\]_ 
+
+![image](https://github.com/user-attachments/assets/efa00f90-5655-4d09-903a-782ea5399d2b)<br>
 _Additional alert showing VPN connection detected, confirming multi-source threat detection capability._
 
 ### 5.13 Validation Complete
