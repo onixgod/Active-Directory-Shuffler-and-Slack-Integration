@@ -302,7 +302,7 @@ This configuration prepares Splunk to receive and properly process the security 
 ## Step 4: Installing and Configuring Splunk Universal Forwarder on Windows Machines
 ### 4.1 Downloading Splunk Universal Forwarder
 Now it's time to install and configure Splunk on our Windows machines to send security telemetry to our Security Information and Event Management (SIEM) system. We need to install the **Splunk Universal Forwarder**, which serves as a lightweight agent for collecting and forwarding logs.
-You can just head to the Splunk website and download the Universal Forwarder binary. You'll need a free Splunk account for the download. Navigate to **Platform** → **Free Trials & Downloads** → under **Universal Forwarder** → click **Get My Free Download**.
+You can head to the Splunk website and download the Universal Forwarder binary. You'll need a free Splunk account for the download. Navigate to **Platform** → **Free Trials & Downloads** → under **Universal Forwarder** → click **Get My Free Download**.
 
 ![image](https://github.com/user-attachments/assets/66a12f3f-a783-458b-81de-c1646e503bb5)<br>
 _Splunk download portal displaying the Universal Forwarder option for Windows log collection and forwarding._
@@ -521,7 +521,7 @@ After successful login, navigate to **Activity** → **Triggered Alerts** to con
 ![image](https://github.com/user-attachments/assets/301e7607-5e30-4405-be97-47342f4cc0a4)<br> 
 _Triggered Alerts dashboard displaying successful detection of unauthorized login attempts._
 
-You should see alerts triggered by the unauthorised connections. Just to remind you, alerts will continue triggering every minute as configured.
+You should see alerts triggered by the unauthorised connections. Just to remind you, alerts will continue to trigger every minute as configured.
 
 ![image](https://github.com/user-attachments/assets/abc68997-38ac-40a1-b256-381749863466)<br>
 _Alert details displaying the mobile device's public IP address detected by our security rule._
@@ -542,31 +542,55 @@ The alert system successfully detects unauthorised remote logins and will serve 
 
 
 
+![image](https://github.com/user-attachments/assets/5007944d-8044-4921-9b3f-a8c3728d112b)
+
+![image](https://github.com/user-attachments/assets/b43e1d44-5cfe-4377-96a8-d6b9e81b67de)
+
+![image](https://github.com/user-attachments/assets/9e1460f4-63ea-49be-bef3-d49e74ae0bc4)
+
+![image](https://github.com/user-attachments/assets/4f4f6c58-8044-4090-b801-91e2d8e766f2)
+
+![image](https://github.com/user-attachments/assets/60f6fe46-9ce3-4ce1-bce7-5f34548b6aae)
+
+![image](https://github.com/user-attachments/assets/e691800a-d6a5-45f8-91a7-aad3696c645e)
+
+![image](https://github.com/user-attachments/assets/3cdd95b0-9210-49b5-93e9-3baff6d29ecd)
+
+![image](https://github.com/user-attachments/assets/3f558153-e82b-442d-805e-ac3b7da82dcd)
+
+![image](https://github.com/user-attachments/assets/98db5b2b-89c5-417e-96c8-8d5608d29054)
+
+![image](https://github.com/user-attachments/assets/ef467126-8619-4b4b-b67f-2c2a18b830a8)
+
+![image](https://github.com/user-attachments/assets/f01f4075-e061-48ac-bf68-995e04d7f494)
+
+![image](https://github.com/user-attachments/assets/7b7a9165-fbb2-4cf7-a94b-171adc7e1ae6)
+
+![image](https://github.com/user-attachments/assets/d8b638c8-e878-4b21-8fcb-4543a93f3c66)
+
+![image](https://github.com/user-attachments/assets/6122d062-c568-45f5-848c-4a9b060d8869)
+
+![image](https://github.com/user-attachments/assets/4bf43e5c-9aa6-4029-b983-59f56edd161b)
+
+![image](https://github.com/user-attachments/assets/406bdc60-d7c9-4959-857d-cbf14500e1b7)
+
+![image](https://github.com/user-attachments/assets/1f4b4ee3-815b-475c-90fd-b4268333d1ea)
+
+![image](https://github.com/user-attachments/assets/52b6a2bc-93a9-4402-9aab-b826817bd99b)
+
+![image](https://github.com/user-attachments/assets/cac9d40b-7d5f-4810-9fa1-d177eacb9a9b)
+
+![image](https://github.com/user-attachments/assets/e7d97cab-9846-4594-8eee-1ed7a6e2fd6a)
+
+![image](https://github.com/user-attachments/assets/63c84d30-8ea3-4714-8aba-5529dfce501c)
+
+![image](https://github.com/user-attachments/assets/83c931e9-c067-4061-a219-0bb5eff9684e)
+
+![image](https://github.com/user-attachments/assets/2503c94f-6f3f-4030-b5b2-16d2b6bb6fb6)
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Open port for forwarder (ufw allow 9997)
 
 
 
