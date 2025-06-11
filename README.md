@@ -435,10 +435,6 @@ First, filter by Event Code: `index="mylab" EventCode=4624`
 ![image](https://github.com/user-attachments/assets/647164f2-0431-4e55-9f33-d0545b42ec9f)<br> 
 _Search results displaying Windows Event ID 4624 logs representing successful authentication events._
 
-
-
-
-
 ### 5.4 Refining the Detection Logic
 Add Logon Type filtering: `index="mylab" EventCode=4624 (Logon_Type=7 OR Logon_Type=10)`
 
@@ -447,18 +443,16 @@ This filters events containing logon types 7 or 10 for Event Code 4624, focusing
 ![image](https://github.com/user-attachments/assets/7d5909d0-0b13-4b2c-bdc7-73c41461d8d6)<br> 
 _Enhanced search query targeting specific remote logon types for more precise alerting._
 
-
-
-
-
-
-![image](https://github.com/user-attachments/assets/62810018-27e9-4ece-b93b-5cccaf8d444b)<br> 
-_Enhanced search query targeting specific remote logon types for more precise alerting._
-
 **Note:** If you've been working on this project for several days, change the time range from "Last 24 hours" to "All time" to see all ingested data.
 
 ### 5.5 Analysing Source IP Addresses
 Could you look over the **Source\_Network\_Address** field to identify connection sources? This field shows all IP addresses that have connected to your Windows machines.
+
+![image](https://github.com/user-attachments/assets/62810018-27e9-4ece-b93b-5cccaf8d444b)<br> 
+_Enhanced search query targeting specific remote logon types for more precise alerting._
+
+
+
 
 ![image](https://github.com/user-attachments/assets/c471065e-f769-4ddf-8483-bbcd02e78c40)<br> 
 _Source IP analysis revealing connection patterns and potential unauthorized access attempts._
