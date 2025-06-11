@@ -594,8 +594,11 @@ The alert system successfully detects unauthorised remote logins and will serve 
 
 ![image](https://github.com/user-attachments/assets/38a10e5f-d51f-4247-beed-cef33078655a)
 
+![image](https://github.com/user-attachments/assets/3ea1c622-fe78-4baa-aa6b-f0be86fc807f)
 
+![image](https://github.com/user-attachments/assets/58951da8-f8f6-46b0-803e-f327d894c44a)
 
+![image](https://github.com/user-attachments/assets/4551c091-6505-4179-8e57-750a90e57783)
 
 
 
