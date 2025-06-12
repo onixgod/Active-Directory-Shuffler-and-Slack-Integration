@@ -718,7 +718,8 @@ _Interactive trigger setup enabling email-based decision making for incident res
 ### 6.14 Crafting Response Email Template
 Create an email notification template asking, "Would you like to disable the user account?" Use the following enhanced template:<br>
 The code was created with the assistance of ChatGPT, utilising the Markdown language. Change the variables according to your schema.<br>
-`Security Alert: $exec.search_name `<br>
+
+`Security Alert: $exec.search_name`<br>
 
 `Incident Information:`<br>
 `- 🕒 Time: $exec.result._time`<br>
@@ -726,16 +727,16 @@ The code was created with the assistance of ChatGPT, utilising the Markdown lang
 `- 💻 Computer: $exec.result.ComputerName`<br>
 `- 🌐 Source IP: $exec.result.Source_Network_Address`<br>
 `- 🔐 Logon Type: $exec.result.Logon_Type (Remote Interactive)`<br>
-`- 📊 Count: $exec.result.count`<br><br>
+`- 📊 Count: $exec.result.count`<br><
 
 `Investigation Link(s):`<br>
-`📋 [View in Splunk]($exec.results_link)`<br><br>
+`📋 [View in Splunk]($exec.results_link)`<br>
 
-`--- `<br><br>
+`--- `<br>
 
-`⚠️ **ACTION REQUIRED**`<br><br>
+`⚠️ **ACTION REQUIRED**`<br>
 
-`# Would you like to disable the user account?`<br><br>
+`# Would you like to disable the user account?`<br>
 
 `*Please review the details above before making a decision.*`<br><br>
 ![image](https://github.com/user-attachments/assets/37c701c7-6b84-4d61-8302-6a0536a9594e)<br> 
@@ -752,14 +753,14 @@ _Workflow progression showing the connection from Slack notification to interact
 
 Test the integration by going to **Explore Runs** and rerunning one of the previous logs.
 
-_\[Fig 81 - Screenshot of email delivery with response options\]_ 
+![image](https://github.com/user-attachments/assets/8c8e5e16-55e3-4885-9fc2-aa9c50c17ea9)<br> 
 _Email notification verification showing successful delivery with incident details and response options._
 
 ### 6.16 Adding Active Directory Integration
 
 Search for **"Active Directory"** in the connector library and drag it to the work area for user account management capabilities.
 
-_\[Fig 82 - Screenshot of Active Directory connector addition\]_ 
+![image](https://github.com/user-attachments/assets/8a6aed5c-cc4b-42e5-b34c-16f49209c148)<br> 
 _Workflow completion showing Active Directory integration for automated user account management responses._
 
 Configure the AD connector by clicking the **+** icon for authentication. **Important:** Type (don't paste) the following credentials to avoid authentication issues:
@@ -773,15 +774,21 @@ Configure the AD connector by clicking the **+** icon for authentication. **Impo
 -   **Base DN:** Use `Get-ADDomain` PowerShell command on AD server
 -   **Use SSL:** False
 
-_\[Fig 83 - Screenshot of Active Directory authentication configuration\]_ 
+![image](https://github.com/user-attachments/assets/87a3bdd4-e9eb-4bbd-bb60-f94a3f503a5b)<bt> 
 _Active Directory connector setup showing authentication parameters for user account management automation._
 
 Select **"User attributes"** from Find Actions, test the connection, and configure **sAMAccountName** using **Runtime Argument** → **user**. Set the search base to match your base DN.
 
-_\[Fig 84 - Screenshot of AD user attribute configuration\]_ 
+![image](https://github.com/user-attachments/assets/c2f9b5b0-a2fc-4a24-82d1-d9ec87b049cd)<br>
 _Active Directory user lookup configuration enabling automated account management based on alert data._
 
-This completes the SOAR automation workflow, creating an end-to-end system that detects unauthorized logins, sends Slack notifications, requests analyst approval via email, and can automatically disable user accounts through Active Directory integration.
+
+
+
+
+
+
+This completes the SOAR automation workflow, creating an end-to-end system that detects unauthorised logins, sends Slack notifications, requests analyst approval via email, and can automatically disable user accounts through Active Directory integration.
 
 
 
