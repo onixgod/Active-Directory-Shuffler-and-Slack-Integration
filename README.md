@@ -946,14 +946,14 @@ _Status checking configuration showing user attribute retrieval for account stat
 
 ### 6.26 Creating Conditional Logic
 
-Rerun the flow with the account still disabled to identify the relevant user attribute. Expand the **Get User Attributes** AD connector results by clicking the **+** icon.
+Rerun the flow with the account still disabled to identify the relevant user attribute. Expand the **Get User Attributes** ![image](https://github.com/user-attachments/assets/b50c15b2-ad4a-4280-bdd8-6ad40f946386) AD connector results by clicking the **+** icon.
 
 ![image](https://github.com/user-attachments/assets/a940b2c2-a679-4265-8348-f2282ae5ced6)
 _User attribute analysis showing available fields for building conditional logic._
 
 Scroll down and expand **userAccountControl** to find the **"ACCOUNTDISABLED"** property, which helps build our condition.
 
-![image](https://github.com/user-attachments/assets/b50c15b2-ad4a-4280-bdd8-6ad40f946386)
+
 _Account control attribute identification showing the disabled status flag for conditional processing._
 
 Click on the line connecting **Get User Attributes** and **Alert Notification** to display connection properties, then click **"New condition"**.
