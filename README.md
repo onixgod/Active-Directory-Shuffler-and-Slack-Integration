@@ -987,9 +987,12 @@ _Alert prevention verification showing workflow termination for already-disabled
 To make timestamps more readable, add a Python connector to convert Unix timestamps to UTC format. Drag a Python connector between the webhook and the first AD connector.
 
 ![image](https://github.com/user-attachments/assets/82ecad2b-edff-4867-9832-4aa33bdb7581)
-_Python connector dragged to work area._
+_Python connector dragged to the work area._
 
 ![image](https://github.com/user-attachments/assets/a0a5f47c-d828-47c3-90ef-c2d5397e06b9)
+_Python connector linked to AD and Ad connectors_
+
+![image](https://github.com/user-attachments/assets/2df36de7-c5ff-429f-899c-25d38f22cb06)
 _Workflow enhancement showing Python script integration for improved timestamp readability._
 
 Make the Python connector the start node and expand the code field. Use this script:
@@ -1007,24 +1010,24 @@ dt_utc = datetime.fromtimestamp(ts, tz=timezone.utc)
 print(dt_utc.strftime("%Y-%m-%d %H:%M:%S UTC"))
 ```
 
-![image](https://github.com/user-attachments/assets/2df36de7-c5ff-429f-899c-25d38f22cb06)
+![image](https://github.com/user-attachments/assets/84ba9318-6261-41b0-a953-caf5e874da3c)
 _Time formatting script showing Unix timestamp conversion to human-readable UTC format._
 
 ### 6.29 Implementing Formatted Timestamps
 
 Replace the time references in both Slack and email notifications with the Python connector output for better readability.
 
-![image](https://github.com/user-attachments/assets/84ba9318-6261-41b0-a953-caf5e874da3c)
+![image](https://github.com/user-attachments/assets/477f181b-a4d4-49b2-94d1-6d7864afefb3)
 _Slack time argument changed to Python script output_
 
-![image](https://github.com/user-attachments/assets/477f181b-a4d4-49b2-94d1-6d7864afefb3)
+![image](https://github.com/user-attachments/assets/250bf3a6-f1f7-4064-a65f-c5b15f4dd843)
 _Trigger time argument changed to Python script output_
 
 ### 6.30 Final Workflow Testing
 
 Enable the user account on AD and rerun the complete flow to verify all enhancements:
 
-![image](https://github.com/user-attachments/assets/250bf3a6-f1f7-4064-a65f-c5b15f4dd843)
+
 _Slack notification with readable time format_ 
 
 ![image](https://github.com/user-attachments/assets/d3140062-1f13-4e13-8309-c8700ca97255)
