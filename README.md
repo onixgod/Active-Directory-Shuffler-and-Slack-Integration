@@ -1,4 +1,4 @@
-# Active Directory Shuffle and Slack Integration
+# Active Directory, Splunk, Shuffle and Slack Integration
 
 ## Objective
 The Active Directory, Shuffle and Slack Integration project aimed to create an automated incident response workflow that bridges security monitoring with real-time team communication. The primary focus was to establish seamless integration between Active Directory security events, SOAR (Security Orchestration, Automation and Response) capabilities through Shuffle, and instant notification systems via Slack. This hands-on experience was designed to simulate enterprise-level security operations workflows, automate threat detection responses, and demonstrate proficiency in orchestrating multi-platform security tools essential for SOC Tier 1 analyst responsibilities.
