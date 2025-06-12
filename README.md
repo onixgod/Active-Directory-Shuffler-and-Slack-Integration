@@ -912,14 +912,19 @@ _AD server showing account remains enabled_
 
 **Test 2 - "Yes" Response:** 
 
+![image](https://github.com/user-attachments/assets/13279165-b9ed-45c1-8bd2-f86d3114a504)
 _Flow execution with "Yes" response_ 
 
+![image](https://github.com/user-attachments/assets/44c6849d-a70d-4034-8605-c0c9a251eeab)
 _Initial Slack notification_ 
 
+![image](https://github.com/user-attachments/assets/b20426fc-3c21-4827-830f-e1ca67d7a955)
 _Email notification with response options_ 
 
+![image](https://github.com/user-attachments/assets/525d6792-7b10-4563-a9b2-d27ca3e91d79)
 _"Yes" response browser confirmation_ 
 
+![image](https://github.com/user-attachments/assets/9971e180-d5bb-4824-b268-26895ebe07dd)
 _AD server showing account disabled_ 
 
 _Slack confirmation of account disabled_
@@ -1128,9 +1133,9 @@ This completes the comprehensive SOAR automation workflow, providing an end-to-e
 
 
 
-![image](https://github.com/user-attachments/assets/9971e180-d5bb-4824-b268-26895ebe07dd)
 
-![image](https://github.com/user-attachments/assets/13279165-b9ed-45c1-8bd2-f86d3114a504)
+
+
 
 ![image](https://github.com/user-attachments/assets/a0ac79af-38cf-4a41-b17b-bd3f72d90b7f)
 
