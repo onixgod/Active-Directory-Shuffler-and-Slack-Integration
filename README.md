@@ -297,7 +297,7 @@ _Splunk app store showing the Microsoft Windows Add-on that will enable proper p
 
 After installation, the add-on will automatically begin parsing Windows event data with proper field mapping, making our security event analysis much more efficient and accurate.
 **Important:** The port 9997 configuration is essential - without this step, the Universal Forwarders won't be able to send data to Splunk, and you'll see connection errors in the forwarder logs.
-This configuration prepares Splunk to receive and properly process the security telemetry we'll be generating from our Active Directory environment and test machine in the subsequent steps.
+This configuration prepares Splunk to receive and properly process the security telemetry generated from our Active Directory environment and test machine in the subsequent steps.
 
 ## Step 4: Installing and Configuring Splunk Universal Forwarder on Windows Machines
 ### 4.1 Downloading Splunk Universal Forwarder
