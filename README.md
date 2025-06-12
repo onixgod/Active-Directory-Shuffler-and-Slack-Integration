@@ -535,79 +535,6 @@ Now that we've confirmed our detection rule is working and alerts are being appr
 
 The alert system successfully detects unauthorised remote logins and will serve as the trigger for our SOAR automation workflow.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-![image](https://github.com/user-attachments/assets/37c701c7-6b84-4d61-8302-6a0536a9594e)
-
-![image](https://github.com/user-attachments/assets/98d5b8d6-ecfa-4a68-b22c-95fe3b9b4291)
-
-
-
-dsdsddssdds
-
------------------------------------------------------------------------------------------------------------
--------------------------------------------------------------------------------------------------------------
-
 ## Step 6: SOAR Automation with Shuffler and Slack Integration
 
 ### 6.1 Setting Up Shuffler Workflow
@@ -790,7 +717,7 @@ _Interactive trigger setup enabling email-based decision making for incident res
 
 ### 6.14 Crafting Response Email Template
 Create an email notification template asking, "Would you like to disable the user account?" Use the following enhanced template:<br>
-`markdown`<br>
+The code was created with the assistance of ChatGPT, utilising the Markdown language. Change the variables according to your schema.<br>
 `Security Alert: $exec.search_name `<br><br>
 
 `Incident Information:`<br>
@@ -811,6 +738,50 @@ Create an email notification template asking, "Would you like to disable the use
 `# Would you like to disable the user account?`<br><br>
 
 `*Please review the details above before making a decision.*`<br><br>
+![image](https://github.com/user-attachments/assets/37c701c7-6b84-4d61-8302-6a0536a9594e)<br> 
+_Email template design showing comprehensive incident information and response options for security analysts._
+
+Click **Submit** and **Save** at the bottom of the page to preserve your work.
+
+### 6.15 Connecting Email Trigger
+
+Connect the Slack notification output to the Trigger input to create a sequential workflow.
+
+![image](https://github.com/user-attachments/assets/98d5b8d6-ecfa-4a68-b22c-95fe3b9b4291)<br>
+_Workflow progression showing the connection from Slack notification to interactive email response._
+
+Test the integration by going to **Explore Runs** and rerunning one of the previous logs.
+
+_\[Fig 81 - Screenshot of email delivery with response options\]_ 
+_Email notification verification showing successful delivery with incident details and response options._
+
+### 6.16 Adding Active Directory Integration
+
+Search for **"Active Directory"** in the connector library and drag it to the work area for user account management capabilities.
+
+_\[Fig 82 - Screenshot of Active Directory connector addition\]_ 
+_Workflow completion showing Active Directory integration for automated user account management responses._
+
+Configure the AD connector by clicking the **+** icon for authentication. **Important:** Type (don't paste) the following credentials to avoid authentication issues:
+
+-   **Label:** AD-Connection
+-   **Host:** Windows AD VM public IP
+-   **Port:** 389 (LDAP)
+-   **Domain:** Your domain name
+-   **Username:** Administrator (not recommended for production)
+-   **Password:** Administrator password
+-   **Base DN:** Use `Get-ADDomain` PowerShell command on AD server
+-   **Use SSL:** False
+
+_\[Fig 83 - Screenshot of Active Directory authentication configuration\]_ 
+_Active Directory connector setup showing authentication parameters for user account management automation._
+
+Select **"User attributes"** from Find Actions, test the connection, and configure **sAMAccountName** using **Runtime Argument** → **user**. Set the search base to match your base DN.
+
+_\[Fig 84 - Screenshot of AD user attribute configuration\]_ 
+_Active Directory user lookup configuration enabling automated account management based on alert data._
+
+This completes the SOAR automation workflow, creating an end-to-end system that detects unauthorized logins, sends Slack notifications, requests analyst approval via email, and can automatically disable user accounts through Active Directory integration.
 
 
 
