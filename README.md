@@ -789,28 +789,28 @@ Click on the Trigger component, name it appropriately, set **Input options** to 
 _Interactive trigger setup enabling email-based decision making for incident response actions._
 
 ### 6.14 Crafting Response Email Template
-Create an email notification template asking, "Would you like to disable the user account?" Use the following enhanced template:
-`markdown`
-`Security Alert: $exec.search_name `
+Create an email notification template asking, "Would you like to disable the user account?" Use the following enhanced template:<br>
+`markdown`<br>
+`Security Alert: $exec.search_name `<br><br>
 
-`Incident Information:`
-`- 🕒 Time: $exec.result._time`
-`- 👤 User: $exec.result.user`
-`- 💻 Computer: $exec.result.ComputerName`
-`- 🌐 Source IP: $exec.result.Source_Network_Address`
-`- 🔐 Logon Type: $exec.result.Logon_Type (Remote Interactive)`
-`- 📊 Count: $exec.result.count`
+`Incident Information:`<br>
+`- 🕒 Time: $exec.result._time`<br>
+`- 👤 User: $exec.result.user`<br>
+`- 💻 Computer: $exec.result.ComputerName`<br>
+`- 🌐 Source IP: $exec.result.Source_Network_Address`<br>
+`- 🔐 Logon Type: $exec.result.Logon_Type (Remote Interactive)`<br>
+`- 📊 Count: $exec.result.count`<br><br>
 
-`Investigation Link(s):`
-`📋 [View in Splunk]($exec.results_link)`
+`Investigation Link(s):`<br>
+`📋 [View in Splunk]($exec.results_link)`<br><br>
 
-`--- `
+`--- `<br><br>
 
-`⚠️ **ACTION REQUIRED**`
+`⚠️ **ACTION REQUIRED**`<br><br>
 
-`# Would you like to disable the user account?`
+`# Would you like to disable the user account?`<br><br>
 
-`*Please review the details above before making a decision.*`
+`*Please review the details above before making a decision.*`<br><br>
 
 
 
