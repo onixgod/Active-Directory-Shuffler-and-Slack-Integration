@@ -857,20 +857,37 @@ _Email response mechanism showing "Yes" link activation for automated user accou
 
 Check Active Directory to confirm the user has been disabled (you may need to refresh the window). The account should now show as **Disabled**, confirming our workflow is functioning correctly.
 
-_\[Fig 95 - Screenshot of AD showing JSmith account disabled\]_ 
+![image](https://github.com/user-attachments/assets/a8022d55-6231-43e2-a2c1-d07414fbd29a)
 _Active Directory confirmation showing successful user account disabling through automated workflow._
 
 ### 6.23 Adding Confirmation Notifications
 
 Add a second Slack connector to notify analysts when user accounts are successfully disabled. Connect this new Slack component to the AD connector output.
 
-_\[Fig 96 - Screenshot of second Slack connector for confirmation notifications\]_ 
-_Workflow enhancement showing confirmation notification capability for completed actions._
+![image](https://github.com/user-attachments/assets/992be373-09c0-44ee-9f3b-65a17cf302ee)
+_Adding the Slack Connector._
 
 Configure the properties: Name, Channel, Find Actions, and Text. Use this message template: `Account $exec.result.user has been disabled.`
 
-_\[Fig 97 - Screenshot of confirmation Slack connector configuration\]_ 
-_Confirmation notification setup showing account disable success messaging configuration._
+![image](https://github.com/user-attachments/assets/f4033aff-b5d7-4413-ba43-2881eb951eff)
+_Configuring the Slack Connector._
+
+![image](https://github.com/user-attachments/assets/0e9193d0-037e-482e-945b-76de08b69f8b)
+
+![image](https://github.com/user-attachments/assets/556b13eb-e332-4008-a262-302d67c94291)
+_Slack notification._
+
+![image](https://github.com/user-attachments/assets/b4284ab4-6e8f-4507-8909-4a4d95a2c241)
+_Email notification._
+
+![image](https://github.com/user-attachments/assets/52d9ea30-59b1-4cfe-b5e7-ad7d82955a3b)
+_Browser sending the response_
+
+![image](https://github.com/user-attachments/assets/2cc24db8-3390-4d38-ad11-a1752541764c)
+_AD showing account disabled._
+
+![image](https://github.com/user-attachments/assets/6d601c53-3396-4d52-94f5-610184033c4f)
+_Rerun showing the flow is on hold till a decision is made._
 
 ### 6.24 Testing Complete Response Workflow
 
@@ -878,14 +895,19 @@ Test the complete flow by first re-enabling the disabled account on your AD serv
 
 **Test 1 - "No" Response:** 
 
+![image](https://github.com/user-attachments/assets/df476961-2a9b-4a16-8063-d827b6e8b29a)
 _Flow execution with "No" response_ 
 
+![image](https://github.com/user-attachments/assets/314a0dd3-9180-4023-ba24-b4684007cf07)
 _Initial Slack notification_ 
 
+![image](https://github.com/user-attachments/assets/ada4904e-b730-4fc4-ace7-e0fe9934ee4a)
 _Email notification with response options_ 
 
+![image](https://github.com/user-attachments/assets/f31458b5-5720-4da8-ac39-3c9e4589d908)
 _"No" response browser confirmation_ 
 
+![image](https://github.com/user-attachments/assets/f16d5937-60ab-4a6a-8b5a-8907e7dce92b)
 _AD server showing account remains enabled_
 
 **Test 2 - "Yes" Response:** 
@@ -1105,35 +1127,6 @@ This completes the comprehensive SOAR automation workflow, providing an end-to-e
 
 
 
-
-
-![image](https://github.com/user-attachments/assets/d29b17fe-e7b1-4f74-a500-083cbba3f2fa)
-
-![image](https://github.com/user-attachments/assets/c35cb2de-45da-4f18-8409-ac8a76f2aed0)
-
-![image](https://github.com/user-attachments/assets/992be373-09c0-44ee-9f3b-65a17cf302ee)
-
-![image](https://github.com/user-attachments/assets/f4033aff-b5d7-4413-ba43-2881eb951eff)
-
-![image](https://github.com/user-attachments/assets/0e9193d0-037e-482e-945b-76de08b69f8b)
-
-![image](https://github.com/user-attachments/assets/556b13eb-e332-4008-a262-302d67c94291)
-
-![image](https://github.com/user-attachments/assets/b4284ab4-6e8f-4507-8909-4a4d95a2c241)
-
-![image](https://github.com/user-attachments/assets/52d9ea30-59b1-4cfe-b5e7-ad7d82955a3b)
-
-![image](https://github.com/user-attachments/assets/2cc24db8-3390-4d38-ad11-a1752541764c)
-
-![image](https://github.com/user-attachments/assets/6d601c53-3396-4d52-94f5-610184033c4f)
-
-![image](https://github.com/user-attachments/assets/df476961-2a9b-4a16-8063-d827b6e8b29a)
-
-![image](https://github.com/user-attachments/assets/314a0dd3-9180-4023-ba24-b4684007cf07)
-
-![image](https://github.com/user-attachments/assets/ada4904e-b730-4fc4-ace7-e0fe9934ee4a)
-
-![image](https://github.com/user-attachments/assets/f31458b5-5720-4da8-ac39-3c9e4589d908)
 
 ![image](https://github.com/user-attachments/assets/9971e180-d5bb-4824-b268-26895ebe07dd)
 
