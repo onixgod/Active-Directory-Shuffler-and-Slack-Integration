@@ -779,13 +779,433 @@ _Active Directory connector setup showing authentication parameters for user acc
 
 Select **"User attributes"** from Find Actions, test the connection, and configure **sAMAccountName** using **Runtime Argument** → **user**. Set the search base to match your base DN.
 
-![image](https://github.com/user-attachments/assets/c2f9b5b0-a2fc-4a24-82d1-d9ec87b049cd)<br>
+![image](https://github.com/user-attachments/assets/f559e47b-4fc3-4c88-b051-242502ca2e85)<br>
 _Active Directory user lookup configuration enabling automated account management based on alert data._
 
 
 
 
 
+
+### 6.17 Configuring the Firewall for LDAP Access
+
+Now that the AD connector is configured, we need to open port 389 on the Vultr firewall to allow LDAP connections. Navigate to **Network** → **Firewall** and add a rule accepting incoming connections on port 389 from anywhere for testing purposes.
+
+_\[Fig 85 - Screenshot of Vultr firewall configuration adding port 389 rule\]_ 
+_Firewall configuration showing LDAP port 389 access, enabling Active Directory integration for user management._
+
+### 6.18 Testing Active Directory Connectivity
+
+Temporarily disconnect the Slack and Trigger connectors from the webhook and connect the AD connector directly. This allows us to verify the AD connector functionality without triggering the complete alert workflow.
+
+_\[Fig 86 - Screenshot showing direct webhook to AD connector connection for testing\]_ 
+_Workflow modification for isolated Active Directory connector testing without triggering notifications._
+
+**Note:** If Shuffler becomes glitchy during connection deletion, save your work and refresh the page. If issues persist, delete the connection, then the connector, and click the **Undo** button to restore functionality.
+
+Rerun one of the previous alerts to test the AD connection.
+
+_\[Fig 87 - Screenshot showing AD connector execution error\]_ 
+_Initial AD connector test showing expected error due to incorrect workflow start node configuration._
+
+### 6.19 Fixing Start Node Configuration
+
+The error "Skipped because it's not under the start node (1)" occurs because the AD connector isn't set as the start node. Notice that the AD connector displays as a square, while Slack shows as a circle, indicating that the webhook is still pointing to the original connector.
+
+_\[Fig 88 - Screenshot comparing square AD connector vs circular Slack connector\]_ 
+_Visual indicator showing start node configuration differences between workflow components._
+
+Click on the AD connector and select the **flag icon** in the top right corner to change it to the start node.
+
+_\[Fig 89 - Screenshot of start node flag configuration on AD connector\]_ 
+_Start node configuration showing how to designate the Active Directory connector as the workflow entry point._
+
+Rerun the test again. If you encounter issues, save the workflow and refresh the page.
+
+_\[Fig 90 - Screenshot showing successful AD connector execution\]_ 
+_Successful Active Directory connection test confirming proper authentication and connectivity._
+
+### 6.20 Rebuilding Complete Workflow
+
+Reconnect all components properly: **Webhook** → **Slack** → **Trigger** → **AD Connector**. Change the AD connector's **Find Actions** to **"Disable User"** as this is our primary objective. Remember to change the start node back to the Webhook.
+
+_\[Fig 91 - Screenshot of complete workflow with proper connections\]_ 
+_Complete workflow showing proper component connections for end-to-end incident response automation._
+
+### 6.21 Testing Full Workflow
+
+Rerun the flow and verify you receive both the Slack notification and email. The AD connector won't trigger until you make a decision via email.
+
+_\[Fig 92 - Screenshot showing Slack notification and email delivery\]_ 
+_Full workflow test showing successful notification delivery, awaiting analyst decision._
+
+
+Before proceeding, you can  connect to the AD server and verify that the target user (JSmith) status shows as **Enabled**
+
+_\[Fig 93 - Screenshot of AD Users and Computers showing JSmith enabled\]_ 
+_Active Directory verification showing target user account in enabled state before testing._
+
+### 6.22 Testing User Disable Functionality
+
+To trigger the response action, copy the **"Yes"** link from the email and open it in a new browser window. This triggers the disable action without requiring additional confirmation.
+
+_\[Fig 94 - Screenshot of email response link activation\]_ 
+_Email response mechanism showing "Yes" link activation for automated user account disabling._
+
+Check Active Directory to confirm the user has been disabled (you may need to refresh the window). The account should now show as **Disabled**, confirming our workflow is functioning correctly.
+
+_\[Fig 95 - Screenshot of AD showing JSmith account disabled\]_ 
+_Active Directory confirmation showing successful user account disabling through automated workflow._
+
+### 6.23 Adding Confirmation Notifications
+
+Add a second Slack connector to notify analysts when user accounts are successfully disabled. Connect this new Slack component to the AD connector output.
+
+_\[Fig 96 - Screenshot of second Slack connector for confirmation notifications\]_ 
+_Workflow enhancement showing confirmation notification capability for completed actions._
+
+Configure the properties: Name, Channel, Find Actions, and Text. Use this message template: `Account $exec.result.user has been disabled.`
+
+_\[Fig 97 - Screenshot of confirmation Slack connector configuration\]_ 
+_Confirmation notification setup showing account disable success messaging configuration._
+
+### 6.24 Testing Complete Response Workflow
+
+Test the complete flow by first re-enabling the disabled account on your AD server, then rerunning the workflow. First, test with **"No"** response to verify the flow doesn't disable the account.
+
+**Test 1 - "No" Response:** 
+
+_Flow execution with "No" response_ 
+
+_Initial Slack notification_ 
+
+_Email notification with response options_ 
+
+_"No" response browser confirmation_ 
+
+_AD server showing account remains enabled_
+
+**Test 2 - "Yes" Response:** 
+
+_Flow execution with "Yes" response_ 
+
+_Initial Slack notification_ 
+
+_Email notification with response options_ 
+
+_"Yes" response browser confirmation_ 
+
+_AD server showing account disabled_ 
+
+_Slack confirmation of account disabled_
+
+### 6.25 Preventing Duplicate Alerts
+
+The current workflow continues generating alerts even after accounts are disabled. To address this, add another AD connector between the webhook and Slack to check the account status before sending notifications.
+
+_\[Fig 109 - Screenshot of additional AD connector for status checking\]_ 
+_Workflow optimisation showing pre-check AD connector to prevent redundant alerts for disabled accounts._
+
+**Note:** Remember to change the Start Node to the new AD connector.
+
+Configure this connector's **Find Actions** to **"User Attributes"** to check the account status before proceeding.
+
+_\[Fig 110 - Screenshot of AD connector configured for user attributes\]_ 
+_Status checking configuration showing user attribute retrieval for account state verification._
+
+### 6.26 Creating Conditional Logic
+
+Rerun the flow with the account still disabled to identify the relevant user attribute. Expand the **Get User Attributes** AD connector results by clicking the **+** icon.
+
+_\[Fig 111 - Screenshot of expanded AD connector results showing user attributes\]_ 
+_User attribute analysis showing available fields for building conditional logic._
+
+Scroll down and expand **userAccountControl** to find the **"ACCOUNTDISABLED"** property, which helps build our condition.
+
+_\[Fig 112 - Screenshot showing userAccountControl ACCOUNTDISABLED property\]_ 
+_Account control attribute identification showing the disabled status flag for conditional processing._
+
+Click on the line connecting **Get User Attributes** and **Alert Notification** to display connection properties, then click **"New condition"**.
+
+_\[Fig 113 - Screenshot of connection condition creation interface\]_ 
+_Conditional logic setup showing the interface for creating account status-based workflow routing._
+
+Configure the condition:
+
+-   **Source:** Autocomplete → Get\_User\_Attributes → userAccountControl
+-   **Condition:** Contains
+-   **Destination:** "ACCOUNTDISABLED"
+-   **Negation:** Click the **!** (exclamation) to create "Does NOT contain"
+
+_\[Fig 114 - Screenshot of completed condition configuration\]_ 
+_Conditional logic configuration showing the "does not contain ACCOUNTDISABLED" rule for filtering alerts._
+
+### 6.27 Testing Alert Prevention
+
+Test with the account still disabled. If working correctly, you should not receive any Slack notifications. The flow should stop at the AD connector, successfully preventing duplicate alerts.
+
+_\[Fig 115 - Screenshot showing flow stopped at AD connector for disabled account\]_ 
+_Alert prevention verification showing workflow termination for already-disabled accounts._
+
+### 6.28 Improving Time Format Display
+
+To make timestamps more readable, add a Python connector to convert Unix timestamps to UTC format. Drag a Python connector between the webhook and the first AD connector.
+
+_\[Fig 116 - Screenshot of Python connector addition for time formatting\]_ 
+_Workflow enhancement showing Python script integration for improved timestamp readability._
+
+Make the Python connector the start node and expand the code field. Use this script:
+
+```python
+from datetime import datetime, timezone
+# Unix timestamp (seconds since 1970-01-01 00:00:00 UTC)
+ts = $exec.result._time
+# Convert to an aware datetime object in UTC
+dt_utc = datetime.fromtimestamp(ts, tz=timezone.utc)
+# Or, if you prefer the classic "YYYY-MM-DD HH:MM:SS UTC" format:
+print(dt_utc.strftime("%Y-%m-%d %H:%M:%S UTC"))
+```
+
+_\[Fig 117 - Screenshot of Python script configuration for time conversion\]_ _Time formatting script showing Unix timestamp conversion to human-readable UTC format._
+
+### 6.29 Implementing Formatted Timestamps
+
+Could you replace the time references in both Slack and email notifications with the Python connector output for better readability?
+
+_\[Fig 118 - Screenshot of Slack notification with formatted timestamp\]_ 
+_\[Fig 119 - Screenshot of email notification with formatted timestamp\]_
+
+### 6.30 Final Workflow Testing
+
+Enable the user account on AD and rerun the complete flow to verify all enhancements:
+
+_\[Fig 120 - Slack notification with readable time format\]_ _\[Fig 121 - Email notification with readable time format\]_ _\[Fig 122 - Disable confirmation link activation\]_ _\[Fig 123 - AD showing account disabled\]_ _\[Fig 124 - Slack notification confirming account disabled\]_
+
+You can test the duplicate prevention by rerunning the flow - it should not send any notifications.
+
+_\[Fig 125 - Screenshot showing no notifications for already-disabled account\]_ 
+_Final verification showing successful duplicate alert prevention for disabled accounts._
+
+* * *
+
+## Recommendations and Troubleshooting Guide
+
+### Security Recommendations
+
+**Production Environment Hardening:**
+
+-   Replace the Administrator account with a dedicated service account with minimal required privileges
+-   Implement certificate-based authentication for LDAP connections (enable SSL/TLS)
+-   Use specific IP ranges instead of "anywhere" for firewall rules
+-   Implement approval workflows for critical actions
+-   Add logging and audit trails for all automated actions
+-   Configure backup notification channels in case of Slack/email failures
+**Monitoring and Alerting:**
+
+-   Set up health checks for all workflow components
+-   Implement timeout mechanisms for stalled workflows
+-   Add error notification paths for failed automated actions
+-   Monitor AD connector authentication failures
+-   Track response times and workflow performance metrics
+
+### Common Troubleshooting Scenarios
+
+**Shuffler Workflow Issues:**
+
+_Problem: Workflow becomes unresponsive or glitchy_
+
+-   **Solution:** Save work immediately, refresh the page, and reload the workflow
+-   **If persistent:** Delete problematic connections, remove affected connectors, use Undo button to restore
+
+_Problem: "Skipped because it's not under the start node" error_
+
+-   **Solution:** Verify the correct connector is set as the start node (circular vs square icons)
+-   **Check:** Ensure workflow connections follow logical sequence
+
+_Problem: AD connector authentication failures_
+
+-   **Solution:** Type credentials manually instead of copy-paste
+-   **Verify:** Firewall allows port 389 traffic
+-   **Check:** Network connectivity between Shuffler and AD server
+-   **Validate:** LDAP service is running on the domain controller
+**Splunk Integration Issues:**
+
+_Problem: Webhook not receiving data_
+
+-   **Solution:** Verify Splunk alert is enabled and triggering
+-   **Check:** Webhook URI is correctly configured in Splunk
+-   **Validate:** Alert search query returns expected results
+-   **Test:** Manually trigger alert to verify webhook delivery
+
+_Problem: Missing alert data in Shuffler_
+
+-   **Solution:** Review Splunk alert configuration and webhook format
+-   **Check:** Time range settings in alert (past 60 minutes)
+-   **Verify:** Index permissions and data availability
+**Slack Integration Problems:**
+
+_Problem: Authentication failures_
+
+-   **Solution:** Re-authenticate using one-click login
+-   **Check:** Workspace permissions and app authorizations
+-   **Verify:** Channel ID is correctly copied from Slack URL
+
+_Problem: Messages not appearing in channel_
+
+-   **Solution:** Verify channel ID accuracy and bot permissions
+-   **Check:** Slack app has necessary scopes for posting messages
+-   **Test:** Try posting to different channel to isolate issue
+**Active Directory Connection Issues:**
+
+_Problem: LDAP connection timeouts_
+
+-   **Solution:** Verify AD server is accessible on port 389
+-   **Check:** Windows Firewall allows LDAP traffic
+-   **Validate:** Domain controller DNS resolution
+
+_Problem: User account operations fail_
+
+-   **Solution:** Verify service account has appropriate AD permissions
+-   **Check:** User exists in specified organizational unit
+-   **Validate:** Base DN configuration matches AD structure
+**Email Trigger Problems:**
+
+_Problem: Email notifications not received_
+
+-   **Solution:** Check spam/junk folders
+-   **Verify:** Email template formatting and SMTP configuration
+-   **Test:** Send test email from Shuffler
+
+_Problem: Response links not working_
+
+-   **Solution:** Verify trigger URL accessibility
+-   **Check:** Network connectivity to Shuffler platform
+-   **Validate:** Trigger component configuration
+
+### Performance Optimization
+
+**Workflow Efficiency:**
+
+-   Implement caching for frequently accessed AD user data
+-   Use batch operations for multiple user account changes
+-   Optimize search queries to reduce Splunk processing time
+-   Implement workflow timeouts to prevent hanging executions
+**Monitoring Recommendations:**
+
+-   Set up dashboards showing workflow execution statistics
+-   Monitor false positive rates and adjust detection rules accordingly
+-   Track mean time to response for security incidents
+-   Implement metrics for automation effectiveness
+
+This completes the comprehensive SOAR automation workflow, providing an end-to-end system for detecting, analyzing, and responding to unauthorized login attempts with minimal human intervention while maintaining appropriate security controls and oversight.
+
+
+
+
+
+![image](https://github.com/user-attachments/assets/d069c220-af0b-4799-8ee5-a03d4787673d)
+
+![image](https://github.com/user-attachments/assets/4bf519ee-427c-4480-8981-a0746c913c9c)
+
+![image](https://github.com/user-attachments/assets/294c9dda-f4c4-4b86-8af2-bf72e8ebbc98)
+
+![image](https://github.com/user-attachments/assets/113896a2-aa78-4018-b7be-913d56416410)
+
+![image](https://github.com/user-attachments/assets/f01fcda0-74b9-4064-af44-5590a232063f)
+
+![image](https://github.com/user-attachments/assets/d1014e31-58c8-49f4-a63e-00a99e12c97f)
+
+![image](https://github.com/user-attachments/assets/ed5efbb5-b95a-4c61-bd08-8153322823c7)
+
+![image](https://github.com/user-attachments/assets/38e83ec7-5fb6-40f0-b32e-8c4ba819c176)
+
+![image](https://github.com/user-attachments/assets/86218393-90f7-4ab8-b0e8-edbd70bb0a1e)
+
+![image](https://github.com/user-attachments/assets/5784d2de-71e2-461f-9646-c838c2f495ca)
+
+![image](https://github.com/user-attachments/assets/d29b17fe-e7b1-4f74-a500-083cbba3f2fa)
+
+![image](https://github.com/user-attachments/assets/c35cb2de-45da-4f18-8409-ac8a76f2aed0)
+
+![image](https://github.com/user-attachments/assets/992be373-09c0-44ee-9f3b-65a17cf302ee)
+
+![image](https://github.com/user-attachments/assets/f4033aff-b5d7-4413-ba43-2881eb951eff)
+
+![image](https://github.com/user-attachments/assets/0e9193d0-037e-482e-945b-76de08b69f8b)
+
+![image](https://github.com/user-attachments/assets/556b13eb-e332-4008-a262-302d67c94291)
+
+![image](https://github.com/user-attachments/assets/b4284ab4-6e8f-4507-8909-4a4d95a2c241)
+
+![image](https://github.com/user-attachments/assets/52d9ea30-59b1-4cfe-b5e7-ad7d82955a3b)
+
+![image](https://github.com/user-attachments/assets/2cc24db8-3390-4d38-ad11-a1752541764c)
+
+![image](https://github.com/user-attachments/assets/6d601c53-3396-4d52-94f5-610184033c4f)
+
+![image](https://github.com/user-attachments/assets/df476961-2a9b-4a16-8063-d827b6e8b29a)
+
+![image](https://github.com/user-attachments/assets/314a0dd3-9180-4023-ba24-b4684007cf07)
+
+![image](https://github.com/user-attachments/assets/ada4904e-b730-4fc4-ace7-e0fe9934ee4a)
+
+![image](https://github.com/user-attachments/assets/f31458b5-5720-4da8-ac39-3c9e4589d908)
+
+![image](https://github.com/user-attachments/assets/9971e180-d5bb-4824-b268-26895ebe07dd)
+
+![image](https://github.com/user-attachments/assets/13279165-b9ed-45c1-8bd2-f86d3114a504)
+
+![image](https://github.com/user-attachments/assets/a0ac79af-38cf-4a41-b17b-bd3f72d90b7f)
+
+![image](https://github.com/user-attachments/assets/a2eed5c3-9919-4b52-b29b-606c5b8ccbde)
+
+![image](https://github.com/user-attachments/assets/68a1193b-2b28-49b2-b9c4-95adc7cd0979)
+
+![image](https://github.com/user-attachments/assets/2014c881-ffe7-4c8c-b679-76b7db5de743)
+
+![image](https://github.com/user-attachments/assets/a940b2c2-a679-4265-8348-f2282ae5ced6)
+
+![image](https://github.com/user-attachments/assets/b50c15b2-ad4a-4280-bdd8-6ad40f946386)
+
+![image](https://github.com/user-attachments/assets/086092f8-f87d-417b-8db0-181f234b8528)
+
+![image](https://github.com/user-attachments/assets/55df65dd-8602-43d5-9e68-166c78d3639a)
+
+![image](https://github.com/user-attachments/assets/10147418-998e-4793-b2ee-a4c9ed7d31b9)
+
+![image](https://github.com/user-attachments/assets/0b45bba0-2d42-4cfd-a115-459d821e5ded)
+
+![image](https://github.com/user-attachments/assets/d37e3d3e-e580-479c-b658-73d78a27aef7)
+
+![image](https://github.com/user-attachments/assets/2137a042-6d92-4c76-b265-b0426ccef12b)
+
+![image](https://github.com/user-attachments/assets/9eb9137c-0d2a-4671-8f7b-a9edf83ec2c8)
+
+![image](https://github.com/user-attachments/assets/82ecad2b-edff-4867-9832-4aa33bdb7581)
+
+![image](https://github.com/user-attachments/assets/a0a5f47c-d828-47c3-90ef-c2d5397e06b9)
+
+![image](https://github.com/user-attachments/assets/2df36de7-c5ff-429f-899c-25d38f22cb06)
+
+![image](https://github.com/user-attachments/assets/84ba9318-6261-41b0-a953-caf5e874da3c)
+
+![image](https://github.com/user-attachments/assets/477f181b-a4d4-49b2-94d1-6d7864afefb3)
+
+![image](https://github.com/user-attachments/assets/250bf3a6-f1f7-4064-a65f-c5b15f4dd843)
+
+![image](https://github.com/user-attachments/assets/d3140062-1f13-4e13-8309-c8700ca97255)
+
+![image](https://github.com/user-attachments/assets/3925917e-674a-44b6-a8f6-ed96baa9ef25)
+
+![image](https://github.com/user-attachments/assets/5696bbf1-dcc3-44ab-ade6-fe984e678d4f)
+
+![image](https://github.com/user-attachments/assets/83ac29c7-2b93-4a11-bf91-b05d7205765e)
+
+![image](https://github.com/user-attachments/assets/f4f00166-2306-42f4-bba9-d19ceaed1f2a)
+
+![image](https://github.com/user-attachments/assets/199cebbe-17b9-412d-9478-4b9dac7373c1)
+
+![image](https://github.com/user-attachments/assets/fca38234-4275-4e84-ac7e-2f9976282190)
 
 
 This completes the SOAR automation workflow, creating an end-to-end system that detects unauthorised logins, sends Slack notifications, requests analyst approval via email, and can automatically disable user accounts through Active Directory integration.
