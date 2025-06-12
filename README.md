@@ -73,7 +73,7 @@ The final part of this planning phase involves creating a detailed playbook that
 |Successful Unauthorised Login Playbook|
 | ------ |
 |Send an alert notification and email to the SOC Analyst asking if they want to disable the user|
-|If YES - Disable Domain Account and send notification of account disabled|
+|If YES - Disable the Domain Account and send a notification that the account has been disabled|
 |If NO - Do nothing|
 
 ![image](https://github.com/user-attachments/assets/aa511060-d23d-49db-b1cf-c557b173fefb)<br>
