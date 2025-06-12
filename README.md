@@ -737,7 +737,8 @@ Investigation Link(s):
 
 ⚠️ **ACTION REQUIRED**
 
-# Would you like to disable the user account?```
+# Would you like to disable the user account?
+```
 
 `*Please review the details above before making a decision.*`<br><br>
 ![image](https://github.com/user-attachments/assets/37c701c7-6b84-4d61-8302-6a0536a9594e)<br> 
