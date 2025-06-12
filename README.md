@@ -60,7 +60,7 @@ I will be using Draw.io (a free diagramming platform) to sketch the project arch
 *This diagram illustrates the complete lab architecture, with data flow arrows showing how telemetry travels from the Windows machines to Splunk, and then triggers automated responses through Shuffler to send Slack notifications.*
 
 ### 1.2 Cloud Platform Setup
-We will be using Vultr cloud services for our virtual machine deployment. Vultr offers a $300 voucher for new users, which is perfect for this lab environment. As mentioned by @MyDFIR, you can access the promotional link through his YouTube channel or visit (hxxps://www.vultr.com/?ref=9632889-9J).
+We will be using Vultr cloud services for our virtual machine deployment. Vultr offers a $300 voucher for new users, which is perfect for this lab environment. As mentioned by @MyDFIR, you can access the promotional link through his YouTube channel or visit (hxxps://www[.]vultr[.]com/?ref=9632889-9J).
 **Note:** If you don't have a Shuffler or Slack account, please create one before you start, because it will be essential for automation and  receiving automated notifications from our SOAR platform.
 ### 1.3 Playbook Development
 The final part of this planning phase involves creating a detailed playbook that defines how Shuffler will automatically respond to security events detected by Splunk. This playbook will establish:
@@ -454,13 +454,19 @@ _Enhanced search query targeting specific remote logon types for more precise al
 **Note:** The IP values in your environment will differ from the screenshots, as this represents accumulated data from multiple days of testing and external connections.
 
 ### 5.6 Cleaning the Data
-Remove null values by filtering out empty Source\_Network\_Address entries: `index="mylab" EventCode=4624 (Logon_Type=7 OR Logon_Type=10) Source_Network_Address!="-"`
+Remove null values by filtering out empty Source\_Network\_Address entries: 
+```splunk
+index="mylab" EventCode=4624 (Logon_Type=7 OR Logon_Type=10) Source_Network_Address!="-"
+```
 
 ![image](https://github.com/user-attachments/assets/c471065e-f769-4ddf-8483-bbcd02e78c40)<br> 
 _Data refinement removing null values for cleaner analysis and more accurate alerting. The Source IP analysis reveals connection patterns and potential unauthorised access attempts._
 
 ### 5.7 Excluding Authorised Connections
-Exclude your authorised public IP address to prevent false positives: `index="mylab" EventCode=4624 (Logon_Type=7 OR Logon_Type=10) Source_Network_Address!="-" Source_Network_Address!="[Your_Public_IP]"`
+Exclude your authorised public IP address to prevent false positives: 
+```splunk
+index="mylab" EventCode=4624 (Logon_Type=7 OR Logon_Type=10) Source_Network_Address!="-" Source_Network_Address!="[Your_Public_IP]"
+```
 
 **Security Note:** In this example, only the first three octets are used for demonstration. In production, use your complete public IP address for precise filtering.
 
