@@ -718,7 +718,7 @@ _Interactive trigger setup enabling email-based decision making for incident res
 ### 6.14 Crafting Response Email Template
 Create an email notification template asking, "Would you like to disable the user account?" Use the following enhanced template:<br>
 The code was created with the assistance of ChatGPT, utilising the Markdown language. Change the variables according to your schema.<br>
-`Security Alert: $exec.search_name `<br><br>
+`Security Alert: $exec.search_name `<br>
 
 `Incident Information:`<br>
 `- 🕒 Time: $exec.result._time`<br>
