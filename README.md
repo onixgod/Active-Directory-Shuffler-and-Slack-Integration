@@ -787,42 +787,44 @@ _Active Directory user lookup configuration enabling automated account managemen
 
 
 
+
+
 ### 6.17 Configuring the Firewall for LDAP Access
 
 Now that the AD connector is configured, we need to open port 389 on the Vultr firewall to allow LDAP connections. Navigate to **Network** → **Firewall** and add a rule accepting incoming connections on port 389 from anywhere for testing purposes.
 
-_\[Fig 85 - Screenshot of Vultr firewall configuration adding port 389 rule\]_ 
+![image](https://github.com/user-attachments/assets/d069c220-af0b-4799-8ee5-a03d4787673d) 
 _Firewall configuration showing LDAP port 389 access, enabling Active Directory integration for user management._
 
 ### 6.18 Testing Active Directory Connectivity
 
-Temporarily disconnect the Slack and Trigger connectors from the webhook and connect the AD connector directly. This allows us to verify the AD connector functionality without triggering the complete alert workflow.
+You can temporarily disconnect the Slack and Trigger connectors from the webhook and connect the AD connector directly. This allows us to verify the AD connector functionality without triggering the complete alert workflow.
 
-_\[Fig 86 - Screenshot showing direct webhook to AD connector connection for testing\]_ 
+![image](https://github.com/user-attachments/assets/4bf519ee-427c-4480-8981-a0746c913c9c) 
 _Workflow modification for isolated Active Directory connector testing without triggering notifications._
 
 **Note:** If Shuffler becomes glitchy during connection deletion, save your work and refresh the page. If issues persist, delete the connection, then the connector, and click the **Undo** button to restore functionality.
 
 Rerun one of the previous alerts to test the AD connection.
 
-_\[Fig 87 - Screenshot showing AD connector execution error\]_ 
+![image](https://github.com/user-attachments/assets/294c9dda-f4c4-4b86-8af2-bf72e8ebbc98)
 _Initial AD connector test showing expected error due to incorrect workflow start node configuration._
 
 ### 6.19 Fixing Start Node Configuration
 
 The error "Skipped because it's not under the start node (1)" occurs because the AD connector isn't set as the start node. Notice that the AD connector displays as a square, while Slack shows as a circle, indicating that the webhook is still pointing to the original connector.
 
-_\[Fig 88 - Screenshot comparing square AD connector vs circular Slack connector\]_ 
+![image](https://github.com/user-attachments/assets/113896a2-aa78-4018-b7be-913d56416410)
 _Visual indicator showing start node configuration differences between workflow components._
 
 Click on the AD connector and select the **flag icon** in the top right corner to change it to the start node.
 
-_\[Fig 89 - Screenshot of start node flag configuration on AD connector\]_ 
+![image](https://github.com/user-attachments/assets/f01fcda0-74b9-4064-af44-5590a232063f)
 _Start node configuration showing how to designate the Active Directory connector as the workflow entry point._
 
 Rerun the test again. If you encounter issues, save the workflow and refresh the page.
 
-_\[Fig 90 - Screenshot showing successful AD connector execution\]_ 
+![image](https://github.com/user-attachments/assets/d1014e31-58c8-49f4-a63e-00a99e12c97f) 
 _Successful Active Directory connection test confirming proper authentication and connectivity._
 
 ### 6.20 Rebuilding Complete Workflow
@@ -1103,17 +1105,16 @@ This completes the comprehensive SOAR automation workflow, providing an end-to-e
 
 
 
-![image](https://github.com/user-attachments/assets/d069c220-af0b-4799-8ee5-a03d4787673d)
 
-![image](https://github.com/user-attachments/assets/4bf519ee-427c-4480-8981-a0746c913c9c)
 
-![image](https://github.com/user-attachments/assets/294c9dda-f4c4-4b86-8af2-bf72e8ebbc98)
 
-![image](https://github.com/user-attachments/assets/113896a2-aa78-4018-b7be-913d56416410)
 
-![image](https://github.com/user-attachments/assets/f01fcda0-74b9-4064-af44-5590a232063f)
 
-![image](https://github.com/user-attachments/assets/d1014e31-58c8-49f4-a63e-00a99e12c97f)
+
+
+
+
+
 
 ![image](https://github.com/user-attachments/assets/ed5efbb5-b95a-4c61-bd08-8153322823c7)
 
