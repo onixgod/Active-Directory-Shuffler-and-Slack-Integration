@@ -927,37 +927,38 @@ _"Yes" response browser confirmation_
 ![image](https://github.com/user-attachments/assets/9971e180-d5bb-4824-b268-26895ebe07dd)
 _AD server showing account disabled_ 
 
+![image](https://github.com/user-attachments/assets/a0ac79af-38cf-4a41-b17b-bd3f72d90b7f)
 _Slack confirmation of account disabled_
 
 ### 6.25 Preventing Duplicate Alerts
 
 The current workflow continues generating alerts even after accounts are disabled. To address this, add another AD connector between the webhook and Slack to check the account status before sending notifications.
 
-_\[Fig 109 - Screenshot of additional AD connector for status checking\]_ 
+![image](https://github.com/user-attachments/assets/a2eed5c3-9919-4b52-b29b-606c5b8ccbde)
 _Workflow optimisation showing pre-check AD connector to prevent redundant alerts for disabled accounts._
 
 **Note:** Remember to change the Start Node to the new AD connector.
 
 Configure this connector's **Find Actions** to **"User Attributes"** to check the account status before proceeding.
 
-_\[Fig 110 - Screenshot of AD connector configured for user attributes\]_ 
+![image](https://github.com/user-attachments/assets/68a1193b-2b28-49b2-b9c4-95adc7cd0979)
 _Status checking configuration showing user attribute retrieval for account state verification._
 
 ### 6.26 Creating Conditional Logic
 
 Rerun the flow with the account still disabled to identify the relevant user attribute. Expand the **Get User Attributes** AD connector results by clicking the **+** icon.
 
-_\[Fig 111 - Screenshot of expanded AD connector results showing user attributes\]_ 
+![image](https://github.com/user-attachments/assets/a940b2c2-a679-4265-8348-f2282ae5ced6)
 _User attribute analysis showing available fields for building conditional logic._
 
 Scroll down and expand **userAccountControl** to find the **"ACCOUNTDISABLED"** property, which helps build our condition.
 
-_\[Fig 112 - Screenshot showing userAccountControl ACCOUNTDISABLED property\]_ 
+![image](https://github.com/user-attachments/assets/b50c15b2-ad4a-4280-bdd8-6ad40f946386)
 _Account control attribute identification showing the disabled status flag for conditional processing._
 
 Click on the line connecting **Get User Attributes** and **Alert Notification** to display connection properties, then click **"New condition"**.
 
-_\[Fig 113 - Screenshot of connection condition creation interface\]_ 
+![image](https://github.com/user-attachments/assets/086092f8-f87d-417b-8db0-181f234b8528)
 _Conditional logic setup showing the interface for creating account status-based workflow routing._
 
 Configure the condition:
@@ -1137,19 +1138,9 @@ This completes the comprehensive SOAR automation workflow, providing an end-to-e
 
 
 
-![image](https://github.com/user-attachments/assets/a0ac79af-38cf-4a41-b17b-bd3f72d90b7f)
 
-![image](https://github.com/user-attachments/assets/a2eed5c3-9919-4b52-b29b-606c5b8ccbde)
 
-![image](https://github.com/user-attachments/assets/68a1193b-2b28-49b2-b9c4-95adc7cd0979)
 
-![image](https://github.com/user-attachments/assets/2014c881-ffe7-4c8c-b679-76b7db5de743)
-
-![image](https://github.com/user-attachments/assets/a940b2c2-a679-4265-8348-f2282ae5ced6)
-
-![image](https://github.com/user-attachments/assets/b50c15b2-ad4a-4280-bdd8-6ad40f946386)
-
-![image](https://github.com/user-attachments/assets/086092f8-f87d-417b-8db0-181f234b8528)
 
 ![image](https://github.com/user-attachments/assets/55df65dd-8602-43d5-9e68-166c78d3639a)
 
