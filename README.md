@@ -719,24 +719,25 @@ _Interactive trigger setup enabling email-based decision making for incident res
 Create an email notification template asking, "Would you like to disable the user account?" Use the following enhanced template:<br>
 The code was created with the assistance of ChatGPT, utilising the Markdown language. Change the variables according to your schema.<br>
 
-`Security Alert: $exec.search_name`<br>
+```Markdown
+Security Alert: $exec.search_name>
 
-`Incident Information:`<br>
-`- 🕒 Time: $exec.result._time`<br>
-`- 👤 User: $exec.result.user`<br>
-`- 💻 Computer: $exec.result.ComputerName`<br>
-`- 🌐 Source IP: $exec.result.Source_Network_Address`<br>
-`- 🔐 Logon Type: $exec.result.Logon_Type (Remote Interactive)`<br>
-`- 📊 Count: $exec.result.count`<br><
+Incident Information:
+- 🕒 Time: $exec.result._time
+- 👤 User: $exec.result.user
+- 💻 Computer: $exec.result.ComputerName
+- 🌐 Source IP: $exec.result.Source_Network_Address
+- 🔐 Logon Type: $exec.result.Logon_Type (Remote Interactive)
+- 📊 Count: $exec.result.count
 
-`Investigation Link(s):`<br>
-`📋 [View in Splunk]($exec.results_link)`<br>
+Investigation Link(s):
+📋 [View in Splunk]($exec.results_link)
 
-`--- `<br>
+--- 
 
-`⚠️ **ACTION REQUIRED**`<br>
+⚠️ **ACTION REQUIRED**
 
-`# Would you like to disable the user account?`<br>
+# Would you like to disable the user account?```
 
 `*Please review the details above before making a decision.*`<br><br>
 ![image](https://github.com/user-attachments/assets/37c701c7-6b84-4d61-8302-6a0536a9594e)<br> 
@@ -1161,34 +1162,3 @@ _Problem: Response links not working_
 -   Implement metrics for automation effectiveness
 
 This completes the comprehensive SOAR automation workflow, providing an end-to-end system for detecting, analysing, and responding to unauthorised login attempts with minimal human intervention while maintaining appropriate security controls and oversight.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-This completes the SOAR automation workflow, creating an end-to-end system that detects unauthorised logins, sends Slack notifications, requests analyst approval via email, and can automatically disable user accounts through Active Directory integration.
-
-
-
