@@ -1,7 +1,7 @@
-# Active Directory Shuffler and Slack Integration
+# Active Directory Shuffle and Slack Integration
 
 ## Objective
-The Active Directory, Shuffler and Slack Integration project aimed to create an automated incident response workflow that bridges security monitoring with real-time team communication. The primary focus was to establish seamless integration between Active Directory security events, SOAR (Security Orchestration, Automation and Response) capabilities through Shuffler, and instant notification systems via Slack. This hands-on experience was designed to simulate enterprise-level security operations workflows, automate threat detection responses, and demonstrate proficiency in orchestrating multi-platform security tools essential for SOC Tier 1 analyst responsibilities.
+The Active Directory, Shuffle and Slack Integration project aimed to create an automated incident response workflow that bridges security monitoring with real-time team communication. The primary focus was to establish seamless integration between Active Directory security events, SOAR (Security Orchestration, Automation and Response) capabilities through Shuffle, and instant notification systems via Slack. This hands-on experience was designed to simulate enterprise-level security operations workflows, automate threat detection responses, and demonstrate proficiency in orchestrating multi-platform security tools essential for SOC Tier 1 analyst responsibilities.
 
 ## Acknowledgment:
 A big thanks to Steven from the @MyDFIR for the walkthrough and guidance on YouTube. The invaluable insights greatly aided me in completing this project.
@@ -15,7 +15,7 @@ This shows proper attribution to the content creator who helped guide your learn
 - Creation and management of Splunk alert rules for automated threat detection.
 - Vultr cloud environment setup and configuration for security lab deployments.
 - Implementation and management of firewall rules for network segmentation and security.
-- Ability to design and implement automated incident response workflows using Shuffler.
+- Ability to design and implement automated incident response workflows using Shuffle.
 - Enhanced knowledge of API integrations between security tools and communication platforms.
 - Development of skills in creating custom playbooks for threat detection and automated alerting.
 - Experience with real-time notification systems and escalation procedures in SOC environments.
@@ -27,7 +27,7 @@ This shows proper attribution to the content creator who helped guide your learn
 - Linux Ubuntu - Operating system platform for Splunk deployment
 - Active Directory - Directory service for user authentication and security event generation
 - Windows Server 2022 - Two separate servers: one dedicated to AD deployment and one as a test machine
-- Shuffler - SOAR platform for security orchestration and automated response workflows
+- Shuffle - SOAR platform for security orchestration and automated response workflows
 - Slack - Team communication platform for real-time incident notifications
 - Vultr - Cloud infrastructure provider for hosting the lab environment (3 VMs total)
 - Vultr Network Firewall - Cloud-based firewall rules for secure access control
@@ -48,7 +48,7 @@ I will be using Draw.io (a free diagramming platform) to sketch the project arch
     - **MyLab-Splunk** - SIEM platform for log collection and analysis (Ubuntu Linux)
 
 - ### Cloud Services Integration:
-    - **Shuffler** - SOAR platform for automation and orchestration
+    - **Shuffle** - SOAR platform for automation and orchestration
     - **Slack** - Communication platform for real-time notifications
 
 - ### Network Infrastructure:
@@ -57,16 +57,16 @@ I will be using Draw.io (a free diagramming platform) to sketch the project arch
     - **Attacker Machine** - External laptop representing the threat actor
 
 ![image](https://github.com/user-attachments/assets/2bb4cc57-cfe6-48ee-a406-5f01b2443825)<br>
-*This diagram illustrates the complete lab architecture, with data flow arrows showing how telemetry travels from the Windows machines to Splunk, and then triggers automated responses through Shuffler to send Slack notifications.*
+*This diagram illustrates the complete lab architecture, with data flow arrows showing how telemetry travels from the Windows machines to Splunk, and then triggers automated responses through Shuffle to send Slack notifications.*
 
 ### 1.2 Cloud Platform Setup
 We will be using Vultr cloud services for our virtual machine deployment. Vultr offers a $300 voucher for new users, which is perfect for this lab environment. As mentioned by @MyDFIR, you can access the promotional link through his YouTube channel or visit (hxxps://www[.]vultr[.]com/?ref=9632889-9J).
-**Note:** If you don't have a Shuffler or Slack account, please create one before you start, because it will be essential for automation and  receiving automated notifications from our SOAR platform.
+**Note:** If you don't have a Shuffle or Slack account, please create one before you start, because it will be essential for automation and  receiving automated notifications from our SOAR platform.
 ### 1.3 Playbook Development
-The final part of this planning phase involves creating a detailed playbook that defines how Shuffler will automatically respond to security events detected by Splunk. This playbook will establish:
+The final part of this planning phase involves creating a detailed playbook that defines how Shuffle will automatically respond to security events detected by Splunk. This playbook will establish:
 
 - **Trigger conditions** - What events will initiate automated responses
-- **Response actions** - What steps Shuffler will take when events are detected
+- **Response actions** - What steps Shuffle will take when events are detected
 - **Notification procedures** - How and when alerts will be sent to Slack
 - **Escalation paths** - When and how incidents should be elevated
 
@@ -537,22 +537,22 @@ _Alert details displaying the mobile device's public IP address detected by our 
 _Additional alert showing VPN connection detected, confirming multi-source threat detection capability._
 
 ### 5.13 Validation Complete
-Now that we've confirmed our detection rule is working and alerts are being appropriately triggered, we can proceed to the final integration step with Shuffler and Slack for automated incident response.
+Now that we've confirmed our detection rule is working and alerts are being appropriately triggered, we can proceed to the final integration step with Shuffle and Slack for automated incident response.
 
 The alert system successfully detects unauthorised remote logins and will serve as the trigger for our SOAR automation workflow.
 
-## Step 6: SOAR Automation with Shuffler and Slack Integration
+## Step 6: SOAR Automation with Shuffle and Slack Integration
 
-### 6.1 Setting Up Shuffler Workflow
+### 6.1 Setting Up Shuffle Workflow
 
-First, create an account on Shuffler and log in to your newly created account. Click on **Create Workflow**, choose a descriptive name for your workflow (e.g., "MyLab-Unauthorized-Login-Response"), and save changes.
+First, create an account on Shuffle and log in to your newly created account. Click on **Create Workflow**, choose a descriptive name for your workflow (e.g., "MyLab-Unauthorized-Login-Response"), and save changes.
 
 ![image](https://github.com/user-attachments/assets/5007944d-8044-4921-9b3f-a8c3728d112b)<br> 
-_Shuffler main dashboard showing the workflow creation interface for building our automated incident response process._
+_Shuffle main dashboard showing the workflow creation interface for building our automated incident response process._
 
 ### 6.2 Adding Webhook Connector
 
-You'll be directed to the workflow design area. From the left panel, grab a **Webhook** component and drop it onto the work area. The Webhook serves as the connection bridge between Shuffler and Splunk, receiving filtered alert data.
+You'll be directed to the workflow design area. From the left panel, grab a **Webhook** component and drop it onto the work area. The Webhook serves as the connection bridge between Shuffle and Splunk, receiving filtered alert data.
 
 ![image](https://github.com/user-attachments/assets/b43e1d44-5cfe-4377-96a8-d6b9e81b67de)<br> 
 _Workflow designer showing the Webhook component that will receive alert data from our Splunk detection rule._
@@ -564,7 +564,7 @@ _Webhook configuration interface showing the naming and basic setup for receivin
 
 ### 6.3 Configuring Splunk Webhook Integration
 
-Copy the **Webhook URI** from Shuffler and open the Splunk web interface in another tab.
+Copy the **Webhook URI** from Shuffle and open the Splunk web interface in another tab.
 
 ![image](https://github.com/user-attachments/assets/4f4f6c58-8044-4090-b801-91e2d8e766f2)<br> 
 _Webhook URI generation showing the endpoint that Splunk will use to send alert data to our SOAR platform._
@@ -579,17 +579,17 @@ Scroll down to **Actions** and select **Webhook** from the available trigger act
 ![image](https://github.com/user-attachments/assets/e691800a-d6a5-45f8-91a7-aad3696c645e)<br>
 _Alert action configuration displaying the webhook option for external system integration._
 
-Paste the URI copied from Shuffler into the webhook URL field and verify the alert status shows **Enabled**.
+Paste the URI copied from Shuffle into the webhook URL field and verify the alert status shows **Enabled**.
 
 ![image](https://github.com/user-attachments/assets/3cdd95b0-9210-49b5-93e9-3baff6d29ecd)<br> 
-_Webhook integration showing the connection between Splunk alerts and our Shuffler automation workflow._
+_Webhook integration showing the connection between Splunk alerts and our Shuffle automation workflow._
 
 ### 6.4 Testing Webhook Connectivity
 
-Return to Shuffler and click the **Start** button to begin listening for data from Splunk.
+Return to Shuffle and click the **Start** button to begin listening for data from Splunk.
 
 ![image](https://github.com/user-attachments/assets/0cf948b3-8e11-4365-bf54-9875295d0774)<br> 
-_Shuffler workflow activation showing the webhook listener ready to receive alert data from Splunk._
+_Shuffle workflow activation showing the webhook listener ready to receive alert data from Splunk._
 
 If no remote connections have been generated in the last 60 minutes, create new telemetry by connecting from an unauthorised IP address (the alert runs every minute for 60-minute intervals).
 
@@ -598,7 +598,7 @@ _Alert generation demonstration showing how unauthorised connections trigger our
 
 ### 6.5 Verifying Data Reception
 
-After generating new alerts, check if the Webhook is receiving data by clicking **Explore Runs** in Shuffler.
+After generating new alerts, check if the Webhook is receiving data by clicking **Explore Runs** in Shuffle.
 
 ![image](https://github.com/user-attachments/assets/98db5b2b-89c5-417e-96c8-8d5608d29054)<br> 
 _Workflow execution history displaying successful alert reception from our Splunk detection system._
@@ -617,7 +617,7 @@ Alert management is temporarily disabled to prevent workflow interference during
 
 ### 6.7 Adding Slack Integration
 
-In Shuffler's search field (top left), type **"Slack"**, click on it, and drag the Slack connector to the work area.
+In Shuffle's search field (top left), type **"Slack"**, click on it, and drag the Slack connector to the work area.
 
 ![image](https://github.com/user-attachments/assets/7b7a9165-fbb2-4cf7-a94b-171adc7e1ae6)<br> 
 _Workflow expansion showing Slack integration for real-time security alert notifications._
@@ -646,9 +646,9 @@ Pick a company name, enter your details, skip additional setup options, and choo
 ![image](https://github.com/user-attachments/assets/1f4b4ee3-815b-475c-90fd-b4268333d1ea)<br>
 _Slack workspace finalisation showing the free tier setup sufficient for our security alert system._
 
-### 6.9 Authenticating Shuffler with Slack
+### 6.9 Authenticating Shuffle with Slack
 
-Return to Shuffler and click **"One-click Login"** to authenticate with Slack.
+Return to Shuffle and click **"One-click Login"** to authenticate with Slack.
 
 ![image](https://github.com/user-attachments/assets/52b6a2bc-93a9-4402-9aab-b826817bd99b)<br>
 _Authentication interface connecting our workflow automation with the Slack notification system._
@@ -656,7 +656,7 @@ _Authentication interface connecting our workflow automation with the Slack noti
 When the pop-up appears, select your workspace and click **"Allow"** in the top right corner.
 
 ![image](https://github.com/user-attachments/assets/cac9d40b-7d5f-4810-9fa1-d177eacb9a9b)<br>
-_OAuth authorisation showing permission grant for Shuffler to send messages to our Slack workspace._
+_OAuth authorisation showing permission grant for Shuffle to send messages to our Slack workspace._
 
 ### 6.10 Creating Security Alert Channel
 
@@ -670,11 +670,11 @@ _Labelling the channel._
 Copy the **Channel ID** from the browser's address bar when viewing the channel.
 
 ![image](https://github.com/user-attachments/assets/83c931e9-c067-4061-a219-0bb5eff9684e)<br>
-_Channel identification process for configuring Shuffler to send alerts to the correct Slack channel._
+_Channel identification process for configuring Shuffle to send alerts to the correct Slack channel._
 
 ### 6.11 Connecting Workflow Components
 
-Paste the Channel ID into the **Channel** field in Shuffler's Slack connector configuration.
+Paste the Channel ID into the **Channel** field in Shuffle's Slack connector configuration.
 
 ![image](https://github.com/user-attachments/assets/aa10c152-638f-434c-be3f-5bdc344b3b0a)<br> 
 _Slack connector finalisation showing the channel targeting for automated alert delivery._
@@ -705,7 +705,7 @@ _Alert data selection for creating comprehensive security notifications with rel
 Rerun one of the logs from **Explore Runs** to test the complete integration.
 
 ![image](https://github.com/user-attachments/assets/3ea1c622-fe78-4baa-aa6b-f0be86fc807f)<br>
-_Shuffler rerun details_
+_Shuffle rerun details_
 ![image](https://github.com/user-attachments/assets/58951da8-f8f6-46b0-803e-f327d894c44a)<br>
 _Slack notification verification showing successful alert delivery with incident details._
 
@@ -804,7 +804,7 @@ You can temporarily disconnect the Slack and Trigger connectors from the webhook
 ![image](https://github.com/user-attachments/assets/4bf519ee-427c-4480-8981-a0746c913c9c) <br>
 _Workflow modification for isolated Active Directory connector testing without triggering notifications._
 
-**Note:** If Shuffler becomes glitchy during connection deletion, save your work and refresh the page. If issues persist, delete the connection, then the connector, and click the **Undo** button to restore functionality.
+**Note:** If Shuffle becomes glitchy during connection deletion, save your work and refresh the page. If issues persist, delete the connection, then the connector, and click the **Undo** button to restore functionality.
 
 Rerun one of the previous alerts to test the AD connection.
 
@@ -1076,7 +1076,7 @@ _No new alert was sent to Slack._
 
 ### Common Troubleshooting Scenarios
 
-**Shuffler Workflow Issues:**
+**Shuffle Workflow Issues:**
 
 _Problem: Workflow becomes unresponsive or glitchy_
 
@@ -1092,7 +1092,7 @@ _Problem: AD connector authentication failures_
 
 -   **Solution:** Type credentials manually instead of copy-paste
 -   **Verify:** Firewall allows port 389 traffic
--   **Check:** Network connectivity between Shuffler and AD server
+-   **Check:** Network connectivity between Shuffle and AD server
 -   **Validate:** LDAP service is running on the domain controller
 
 **Splunk Integration Issues:**
@@ -1104,7 +1104,7 @@ _Problem: Webhook not receiving data_
 -   **Validate:** Alert search query returns expected results
 -   **Test:** Manually trigger alert to verify webhook delivery
 
-_Problem: Missing alert data in Shuffler_
+_Problem: Missing alert data in Shuffle_
 
 -   **Solution:** Review Splunk alert configuration and webhook format
 -   **Check:** Time range settings in alert (past 60 minutes)
@@ -1144,12 +1144,12 @@ _Problem: Email notifications not received_
 
 -   **Solution:** Check spam/junk folders
 -   **Verify:** Email template formatting and SMTP configuration
--   **Test:** Send test email from Shuffler
+-   **Test:** Send test email from Shuffle
 
 _Problem: Response links not working_
 
 -   **Solution:** Verify trigger URL accessibility
--   **Check:** Network connectivity to the Shuffler platform
+-   **Check:** Network connectivity to the Shuffle platform
 -   **Validate:** Trigger component configuration
 
 ### Performance Optimisation
