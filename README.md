@@ -824,34 +824,35 @@ _Start node configuration showing how to designate the Active Directory connecto
 
 Rerun the test again. If you encounter issues, save the workflow and refresh the page.
 
-
+![image](https://github.com/user-attachments/assets/ed5efbb5-b95a-4c61-bd08-8153322823c7)
 _Successful Active Directory connection test confirming proper authentication and connectivity._
 
 ### 6.20 Rebuilding Complete Workflow
 
 Reconnect all components properly: **Webhook** → **Slack** → **Trigger** → **AD Connector**. Change the AD connector's **Find Actions** to **"Disable User"** as this is our primary objective. Remember to change the start node back to the Webhook.
 
-_\[Fig 91 - Screenshot of complete workflow with proper connections\]_ 
+![image](https://github.com/user-attachments/assets/38e83ec7-5fb6-40f0-b32e-8c4ba819c176)
 _Complete workflow showing proper component connections for end-to-end incident response automation._
 
 ### 6.21 Testing Full Workflow
 
 Rerun the flow and verify you receive both the Slack notification and email. The AD connector won't trigger until you make a decision via email.
 
-_\[Fig 92 - Screenshot showing Slack notification and email delivery\]_ 
+![image](https://github.com/user-attachments/assets/86218393-90f7-4ab8-b0e8-edbd70bb0a1e)
 _Full workflow test showing successful notification delivery, awaiting analyst decision._
-
 
 Before proceeding, you can  connect to the AD server and verify that the target user (JSmith) status shows as **Enabled**
 
-_\[Fig 93 - Screenshot of AD Users and Computers showing JSmith enabled\]_ 
+![image](https://github.com/user-attachments/assets/5784d2de-71e2-461f-9646-c838c2f495ca)
 _Active Directory verification showing target user account in enabled state before testing._
 
 ### 6.22 Testing User Disable Functionality
 
 To trigger the response action, copy the **"Yes"** link from the email and open it in a new browser window. This triggers the disable action without requiring additional confirmation.
 
-_\[Fig 94 - Screenshot of email response link activation\]_ 
+![image](https://github.com/user-attachments/assets/d29b17fe-e7b1-4f74-a500-083cbba3f2fa)
+
+![image](https://github.com/user-attachments/assets/c35cb2de-45da-4f18-8409-ac8a76f2aed0)
 _Email response mechanism showing "Yes" link activation for automated user account disabling._
 
 Check Active Directory to confirm the user has been disabled (you may need to refresh the window). The account should now show as **Disabled**, confirming our workflow is functioning correctly.
@@ -1105,24 +1106,6 @@ This completes the comprehensive SOAR automation workflow, providing an end-to-e
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-![image](https://github.com/user-attachments/assets/ed5efbb5-b95a-4c61-bd08-8153322823c7)
-
-![image](https://github.com/user-attachments/assets/38e83ec7-5fb6-40f0-b32e-8c4ba819c176)
-
-![image](https://github.com/user-attachments/assets/86218393-90f7-4ab8-b0e8-edbd70bb0a1e)
-
-![image](https://github.com/user-attachments/assets/5784d2de-71e2-461f-9646-c838c2f495ca)
 
 ![image](https://github.com/user-attachments/assets/d29b17fe-e7b1-4f74-a500-083cbba3f2fa)
 
