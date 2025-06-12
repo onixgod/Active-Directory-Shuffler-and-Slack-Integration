@@ -720,7 +720,7 @@ Create an email notification template asking, "Would you like to disable the use
 The code was created with the assistance of ChatGPT, utilising the Markdown language. Change the variables according to your schema.<br>
 
 ```Markdown
-Security Alert: $exec.search_name>
+Security Alert: $exec.search_name
 
 Incident Information:
 - 🕒 Time: $exec.result._time
