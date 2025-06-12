@@ -942,23 +942,24 @@ _Workflow optimisation showing pre-check AD connector to prevent redundant alert
 Configure this connector's **Find Actions** to **"User Attributes"** to check the account status before proceeding.
 
 ![image](https://github.com/user-attachments/assets/68a1193b-2b28-49b2-b9c4-95adc7cd0979)
+![image](https://github.com/user-attachments/assets/a940b2c2-a679-4265-8348-f2282ae5ced6)
 _Status checking configuration showing user attribute retrieval for account state verification._
 
 ### 6.26 Creating Conditional Logic
 
 Rerun the flow with the account still disabled to identify the relevant user attribute. Expand the **Get User Attributes** ![image](https://github.com/user-attachments/assets/b50c15b2-ad4a-4280-bdd8-6ad40f946386) AD connector results by clicking the **+** icon.
 
-![image](https://github.com/user-attachments/assets/a940b2c2-a679-4265-8348-f2282ae5ced6)
+![image](https://github.com/user-attachments/assets/c0b8d3fd-d564-4c71-8768-4b7192e97db4)
 _User attribute analysis showing available fields for building conditional logic._
 
 Scroll down and expand **userAccountControl** to find the **"ACCOUNTDISABLED"** property, which helps build our condition.
 
-
+![image](https://github.com/user-attachments/assets/086092f8-f87d-417b-8db0-181f234b8528)
 _Account control attribute identification showing the disabled status flag for conditional processing._
 
 Click on the line connecting **Get User Attributes** and **Alert Notification** to display connection properties, then click **"New condition"**.
 
-![image](https://github.com/user-attachments/assets/086092f8-f87d-417b-8db0-181f234b8528)
+![image](https://github.com/user-attachments/assets/55df65dd-8602-43d5-9e68-166c78d3639a)
 _Conditional logic setup showing the interface for creating account status-based workflow routing._
 
 Configure the condition:
@@ -968,49 +969,75 @@ Configure the condition:
 -   **Destination:** "ACCOUNTDISABLED"
 -   **Negation:** Click the **!** (exclamation) to create "Does NOT contain"
 
-_\[Fig 114 - Screenshot of completed condition configuration\]_ 
+![image](https://github.com/user-attachments/assets/10147418-998e-4793-b2ee-a4c9ed7d31b9)
+![image](https://github.com/user-attachments/assets/0b45bba0-2d42-4cfd-a115-459d821e5ded)
+![image](https://github.com/user-attachments/assets/d37e3d3e-e580-479c-b658-73d78a27aef7)
+![image](https://github.com/user-attachments/assets/2137a042-6d92-4c76-b265-b0426ccef12b)
 _Conditional logic configuration showing the "does not contain ACCOUNTDISABLED" rule for filtering alerts._
 
 ### 6.27 Testing Alert Prevention
 
 Test with the account still disabled. If working correctly, you should not receive any Slack notifications. The flow should stop at the AD connector, successfully preventing duplicate alerts.
 
-_\[Fig 115 - Screenshot showing flow stopped at AD connector for disabled account\]_ 
+![image](https://github.com/user-attachments/assets/9eb9137c-0d2a-4671-8f7b-a9edf83ec2c8)
 _Alert prevention verification showing workflow termination for already-disabled accounts._
 
 ### 6.28 Improving Time Format Display
 
 To make timestamps more readable, add a Python connector to convert Unix timestamps to UTC format. Drag a Python connector between the webhook and the first AD connector.
 
-_\[Fig 116 - Screenshot of Python connector addition for time formatting\]_ 
+![image](https://github.com/user-attachments/assets/82ecad2b-edff-4867-9832-4aa33bdb7581)
+_Python connector dragged to work area._
+
+![image](https://github.com/user-attachments/assets/a0a5f47c-d828-47c3-90ef-c2d5397e06b9)
 _Workflow enhancement showing Python script integration for improved timestamp readability._
 
 Make the Python connector the start node and expand the code field. Use this script:
 
 ```python
 from datetime import datetime, timezone
+
 # Unix timestamp (seconds since 1970-01-01 00:00:00 UTC)
 ts = $exec.result._time
+
 # Convert to an aware datetime object in UTC
 dt_utc = datetime.fromtimestamp(ts, tz=timezone.utc)
+
 # Or, if you prefer the classic "YYYY-MM-DD HH:MM:SS UTC" format:
 print(dt_utc.strftime("%Y-%m-%d %H:%M:%S UTC"))
 ```
 
-_\[Fig 117 - Screenshot of Python script configuration for time conversion\]_ _Time formatting script showing Unix timestamp conversion to human-readable UTC format._
+![image](https://github.com/user-attachments/assets/2df36de7-c5ff-429f-899c-25d38f22cb06)
+_Time formatting script showing Unix timestamp conversion to human-readable UTC format._
 
 ### 6.29 Implementing Formatted Timestamps
 
-Could you replace the time references in both Slack and email notifications with the Python connector output for better readability?
+Replace the time references in both Slack and email notifications with the Python connector output for better readability.
 
-_\[Fig 118 - Screenshot of Slack notification with formatted timestamp\]_ 
-_\[Fig 119 - Screenshot of email notification with formatted timestamp\]_
+![image](https://github.com/user-attachments/assets/84ba9318-6261-41b0-a953-caf5e874da3c)
+_Slack time argument changed to Python script output_
+
+![image](https://github.com/user-attachments/assets/477f181b-a4d4-49b2-94d1-6d7864afefb3)
+_Trigger time argument changed to Python script output_
 
 ### 6.30 Final Workflow Testing
 
 Enable the user account on AD and rerun the complete flow to verify all enhancements:
 
-_\[Fig 120 - Slack notification with readable time format\]_ _\[Fig 121 - Email notification with readable time format\]_ _\[Fig 122 - Disable confirmation link activation\]_ _\[Fig 123 - AD showing account disabled\]_ _\[Fig 124 - Slack notification confirming account disabled\]_
+![image](https://github.com/user-attachments/assets/250bf3a6-f1f7-4064-a65f-c5b15f4dd843)
+_Slack notification with readable time format_ 
+
+![image](https://github.com/user-attachments/assets/d3140062-1f13-4e13-8309-c8700ca97255)
+_Email notification with readable time format_ 
+
+![image](https://github.com/user-attachments/assets/3925917e-674a-44b6-a8f6-ed96baa9ef25)
+_Disable confirmation link activation_ 
+
+![image](https://github.com/user-attachments/assets/5696bbf1-dcc3-44ab-ade6-fe984e678d4f)
+_AD showing account disabled_ 
+
+![image](https://github.com/user-attachments/assets/83ac29c7-2b93-4a11-bf91-b05d7205765e)
+_Slack notification confirming account disabled_
 
 You can test the duplicate prevention by rerunning the flow - it should not send any notifications.
 
@@ -1018,6 +1045,22 @@ _\[Fig 125 - Screenshot showing no notifications for already-disabled account\]_
 _Final verification showing successful duplicate alert prevention for disabled accounts._
 
 * * *
+
+
+
+
+
+
+
+
+
+![image](https://github.com/user-attachments/assets/f4f00166-2306-42f4-bba9-d19ceaed1f2a)
+
+![image](https://github.com/user-attachments/assets/199cebbe-17b9-412d-9478-4b9dac7373c1)
+
+![image](https://github.com/user-attachments/assets/fca38234-4275-4e84-ac7e-2f9976282190)
+
+
 
 ## Recommendations and Troubleshooting Guide
 
@@ -1142,43 +1185,18 @@ This completes the comprehensive SOAR automation workflow, providing an end-to-e
 
 
 
-![image](https://github.com/user-attachments/assets/55df65dd-8602-43d5-9e68-166c78d3639a)
 
-![image](https://github.com/user-attachments/assets/10147418-998e-4793-b2ee-a4c9ed7d31b9)
 
-![image](https://github.com/user-attachments/assets/0b45bba0-2d42-4cfd-a115-459d821e5ded)
 
-![image](https://github.com/user-attachments/assets/d37e3d3e-e580-479c-b658-73d78a27aef7)
 
-![image](https://github.com/user-attachments/assets/2137a042-6d92-4c76-b265-b0426ccef12b)
 
-![image](https://github.com/user-attachments/assets/9eb9137c-0d2a-4671-8f7b-a9edf83ec2c8)
 
-![image](https://github.com/user-attachments/assets/82ecad2b-edff-4867-9832-4aa33bdb7581)
 
-![image](https://github.com/user-attachments/assets/a0a5f47c-d828-47c3-90ef-c2d5397e06b9)
 
-![image](https://github.com/user-attachments/assets/2df36de7-c5ff-429f-899c-25d38f22cb06)
 
-![image](https://github.com/user-attachments/assets/84ba9318-6261-41b0-a953-caf5e874da3c)
 
-![image](https://github.com/user-attachments/assets/477f181b-a4d4-49b2-94d1-6d7864afefb3)
 
-![image](https://github.com/user-attachments/assets/250bf3a6-f1f7-4064-a65f-c5b15f4dd843)
 
-![image](https://github.com/user-attachments/assets/d3140062-1f13-4e13-8309-c8700ca97255)
-
-![image](https://github.com/user-attachments/assets/3925917e-674a-44b6-a8f6-ed96baa9ef25)
-
-![image](https://github.com/user-attachments/assets/5696bbf1-dcc3-44ab-ade6-fe984e678d4f)
-
-![image](https://github.com/user-attachments/assets/83ac29c7-2b93-4a11-bf91-b05d7205765e)
-
-![image](https://github.com/user-attachments/assets/f4f00166-2306-42f4-bba9-d19ceaed1f2a)
-
-![image](https://github.com/user-attachments/assets/199cebbe-17b9-412d-9478-4b9dac7373c1)
-
-![image](https://github.com/user-attachments/assets/fca38234-4275-4e84-ac7e-2f9976282190)
 
 
 This completes the SOAR automation workflow, creating an end-to-end system that detects unauthorised logins, sends Slack notifications, requests analyst approval via email, and can automatically disable user accounts through Active Directory integration.
