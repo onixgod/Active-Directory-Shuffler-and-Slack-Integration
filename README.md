@@ -733,22 +733,24 @@ In Slack, navigate to **Channels** → **Create Channel**. Select **"Blank Chann
 
 ![image](https://github.com/user-attachments/assets/e7d97cab-9846-4594-8eee-1ed7a6e2fd6a)
 _Slack channel setup for dedicated security alert notifications from our SOAR automation._
+![image](https://github.com/user-attachments/assets/63c84d30-8ea3-4714-8aba-5529dfce501c) 
+_Labelling the channel._
 
 Copy the **Channel ID** from the browser's address bar when viewing the channel.
 
-![image](https://github.com/user-attachments/assets/63c84d30-8ea3-4714-8aba-5529dfce501c) 
+![image](https://github.com/user-attachments/assets/83c931e9-c067-4061-a219-0bb5eff9684e)
 _Channel identification process for configuring Shuffler to send alerts to the correct Slack channel._
 
 ### 6.11 Connecting Workflow Components
 
 Paste the Channel ID into the **Channel** field in Shuffler's Slack connector configuration.
 
-![image](https://github.com/user-attachments/assets/83c931e9-c067-4061-a219-0bb5eff9684e)
+![image](https://github.com/user-attachments/assets/772e847b-53f3-4576-b2f0-927323e5117d) 
 _Slack connector finalisation showing the channel targeting for automated alert delivery._
 
 Connect the Webhook output to the Slack input by drawing a line between the components.
 
-![image](https://github.com/user-attachments/assets/772e847b-53f3-4576-b2f0-927323e5117d) 
+
 _Workflow connection demonstrating data flow from Splunk alerts to Slack notifications._
 
 ### 6.12 Testing Slack Integration
