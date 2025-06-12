@@ -585,11 +585,11 @@ The alert system successfully detects unauthorised remote logins and will serve 
 
 
 
-![image](https://github.com/user-attachments/assets/7d969d9f-381e-41bb-8f7f-fedf7ed469e5)
 
-![image](https://github.com/user-attachments/assets/ec44f6d9-db41-4747-862d-b7604cd2283e)
 
-![image](https://github.com/user-attachments/assets/38a10e5f-d51f-4247-beed-cef33078655a)
+
+
+
 
 ![image](https://github.com/user-attachments/assets/3ea1c622-fe78-4baa-aa6b-f0be86fc807f)
 
@@ -745,29 +745,30 @@ _Channel identification process for configuring Shuffler to send alerts to the c
 
 Paste the Channel ID into the **Channel** field in Shuffler's Slack connector configuration.
 
-![image](https://github.com/user-attachments/assets/772e847b-53f3-4576-b2f0-927323e5117d) 
+![image](https://github.com/user-attachments/assets/aa10c152-638f-434c-be3f-5bdc344b3b0a) 
 _Slack connector finalisation showing the channel targeting for automated alert delivery._
 
 Connect the Webhook output to the Slack input by drawing a line between the components.
 
-
+![image](https://github.com/user-attachments/assets/772e847b-53f3-4576-b2f0-927323e5117d) 
 _Workflow connection demonstrating data flow from Splunk alerts to Slack notifications._
 
 ### 6.12 Testing Slack Integration
 
 Click **"Explore Runs"**, select one of the previous runs, and **rerun** it. This generates the field mappings needed for the next step.
 
-![image](https://github.com/user-attachments/assets/aa10c152-638f-434c-be3f-5bdc344b3b0a) 
+![image](https://github.com/user-attachments/assets/7d969d9f-381e-41bb-8f7f-fedf7ed469e5)
 _Workflow testing showing rerun capability for validating component integration and data flow._
 
 Click on the Slack component, find the **Text** field in properties, click the **+** button, and select **"Run Argument"**.
 
-_\[Fig 74 - Screenshot of Slack message field configuration with run arguments\]_ 
+![image](https://github.com/user-attachments/assets/ec44f6d9-db41-4747-862d-b7604cd2283e) 
 _Dynamic message configuration showing how to include alert data in Slack notifications._
 
-You can select the arguments you want to send to Slack (e.g., user, source IP, computer name, time).
+You can select the arguments you want to send to Slack (e.g., user, source IP, computer name, time). You can copy the code below and modify it as needed.
+`Alert: $exec.search_name \nTime: $exec.result._time \nUser: $exec.result.user \nSource IP: $exec.result.Source_Network_Address`
 
-_\[Fig 75 - Screenshot of argument selection for Slack message content\]_ 
+![image](https://github.com/user-attachments/assets/38a10e5f-d51f-4247-beed-cef33078655a) 
 _Alert data selection for creating comprehensive security notifications with relevant incident details._
 
 Rerun one of the logs from **Explore Runs** to test the complete integration.
