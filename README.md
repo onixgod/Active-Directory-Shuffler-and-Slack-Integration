@@ -824,7 +824,7 @@ _Start node configuration showing how to designate the Active Directory connecto
 
 Rerun the test again. If you encounter issues, save the workflow and refresh the page.
 
-![image](https://github.com/user-attachments/assets/d1014e31-58c8-49f4-a63e-00a99e12c97f) 
+
 _Successful Active Directory connection test confirming proper authentication and connectivity._
 
 ### 6.20 Rebuilding Complete Workflow
